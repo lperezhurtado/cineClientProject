@@ -13,6 +13,16 @@ import { LoginComponent } from './component/shared/login/login.component';
 import { MenuComponent } from './component/shared/menu/menu.component';
 import { LogoutComponent } from './component/shared/logout/logout.component';
 import { PlistUsuarioComponent } from './component/application/admin/usuario/plist-usuario/plist-usuario.component';
+import { CreateUsuarioComponent } from './component/application/admin/usuario/create-usuario/create-usuario.component';
+import { GetUsuarioComponent } from './component/application/admin/usuario/get-usuario/get-usuario.component';
+import { DeleteUsuarioComponent } from './component/application/admin/usuario/delete-usuario/delete-usuario.component';
+import { UpdateUsuarioComponent } from './component/application/admin/usuario/update-usuario/update-usuario.component';
+import { PaginationComponent } from './component/shared/unrouted/pagination/pagination.component';
+import { SearchUnroutedComponent } from './component/shared/unrouted/search-unrouted/search-unrouted.component';
+import { PaginationUnroutedComponent } from './component/shared/unrouted/pagination-unrouted/pagination-unrouted.component';
+import { DropdownRegisterPageComponent } from './component/shared/unrouted/dropdown-register-page/dropdown-register-page.component';
+import { DataTableUsuarioComponent } from './component/application/admin/usuario/auxiliar/data-table-usuario/data-table-usuario.component';
+import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +31,17 @@ import { PlistUsuarioComponent } from './component/application/admin/usuario/pli
     LoginComponent,
     MenuComponent,
     LogoutComponent,
-    PlistUsuarioComponent
+    PlistUsuarioComponent,
+    CreateUsuarioComponent,
+    GetUsuarioComponent,
+    DeleteUsuarioComponent,
+    UpdateUsuarioComponent,
+    PaginationComponent,
+    SearchUnroutedComponent,
+    PaginationUnroutedComponent,
+    DropdownRegisterPageComponent,
+    DataTableUsuarioComponent,
+    PlistTipousuarioComponent
   ],
   imports: [
     BrowserModule,

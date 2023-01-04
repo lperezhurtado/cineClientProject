@@ -1,0 +1,33 @@
+<table class="table table-bordered table-striped" *ngIf="usuario">
+  <tbody>
+      <tr>
+          <th>Id</th>
+          <td>{{usuario.id}}</td>
+      </tr>
+      <tr>
+          <td>Nombre</td>
+          <td>{{usuario.nombre}}</td>
+      </tr>
+      <tr>
+          <td>1º Apellido</td>
+          <td>{{usuario.apellido1}}</td>
+      </tr>
+      <tr>
+          <td>2º Apellido</td>
+          <td>{{usuario.apellido2}}</td>
+      </tr>
+      <tr>
+          <td>Email</td>
+          <td>{{usuario.email}}</td>
+      </tr>
+      <tr>
+          <td>Usuario</td>
+          <td>{{usuario.login}}</td>
+      </tr>
+      <tr>
+          <td>Tipo de usuario</td>
+          <td>{{usuario.tipousuario.id}}-{{usuario.tipousuario.nombre}}</td>
+      </tr>
+  </tbody>
+</table>
+

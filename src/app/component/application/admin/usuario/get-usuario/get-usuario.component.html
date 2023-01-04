@@ -1,0 +1,43 @@
+<app-menu></app-menu>
+
+<div class="container mt-5" *ngIf="usuario">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-5">Datos de {{usuario.nombre}}</h1>
+      <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{usuario.id}}</td>
+            </tr>
+            <tr>
+                <td>Nombre</td>
+                <td>{{usuario.nombre}}</td>
+            </tr>
+            <tr>
+                <td>1º Apellido</td>
+                <td>{{usuario.apellido1}}</td>
+            </tr>
+            <tr>
+                <td>2º Apellido</td>
+                <td>{{usuario.apellido2}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{usuario.email}}</td>
+            </tr>
+            <tr>
+                <td>Login</td>
+                <td>{{usuario.login}}</td>
+            </tr>
+            <tr>
+                <td>Tipo de Usuario</td>
+                <td>{{usuario.tipousuario.id}} ({{usuario.tipousuario.nombre}})</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
