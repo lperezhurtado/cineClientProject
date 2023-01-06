@@ -19,13 +19,14 @@ export class UpdateUsuarioComponent implements OnInit {
   usuario2Form!: IUsuarior2Form;
   usuario2Update!: IUsuario2Update;
   form!: FormGroup<IUsuarior2Form>;
+  error = ""; //guarda el error de validacion del servidor
 
   mimodal: string = "miModal";
   myModal: any;
   modalTitle: string = "";
   modalContent: string = "";
   // foreigns
-  tipousuarioDescription: string = "";
+  tipousuarioDescription: string = "Descripción de la ajena";
 
   constructor(
     private router: Router,
@@ -49,7 +50,7 @@ export class UpdateUsuarioComponent implements OnInit {
         this.form = <FormGroup>this.formBuilder.group({
           id: [data.id, [Validators.required]],
           dni:[data.dni,[Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
-          nombre: [data.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+          nombre: [data.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           apellido1: [data.apellido1, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           apellido2: [data.apellido2, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           email: [data.email, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -64,7 +65,7 @@ export class UpdateUsuarioComponent implements OnInit {
 
   onSubmit() {
     console.log("onSubmit");
-    console.log(this.form);
+
     this.usuario2Update = {
       id: this.form.value.id!,
       dni: this.form.value.dni!,
@@ -73,40 +74,41 @@ export class UpdateUsuarioComponent implements OnInit {
       apellido2: this.form.value.apellido2!,
       email: this.form.value.email!,
       login: this.form.value.login!,
-      tipousuario: { id: this.form.value.tipousuario }
+      tipousuario: { id: this.form.value.tipousuario! }
     }
     if (this.form.valid) {
-      console.log("entra al valid de onsubmit");
       this.usuarioService.updateUsuario(this.usuario2Update).subscribe({
         next: (data: number) => {
-          console.log(data);
           //open bootstrap modal here
           this.modalTitle = "Cine MatriX";
           this.modalContent = "Usuario " + this.id + " actualizado";
-          //this.showModal();
+          this.showModal();
+        },
+        error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
+          this.error = error.error.message;
+          //console.log(error.error.message);
         }
       })
     }
   }
 
   showModal = () => {
-    this.myModal = new bootstrap.Modal(document.getElementById("findUserType"), { //pasar el myModal como parametro
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
       keyboard: false
-    })
+    });
     var myModalEl = document.getElementById(this.mimodal);
     if (myModalEl) {
       myModalEl.addEventListener('hidden.bs.modal', (event): void => {
-      this.router.navigate(['/admin/usuario/view', this.id])
+      this.router.navigate(['/admin/usuario/view', this.usuario2Update.id])
       })
     }
-
     this.myModal.show()
   }
 
   openModalFindUsertype(): void {
     this.myModal = new bootstrap.Modal(document.getElementById("findUsertype"), { //pasar el myModal como parametro
       keyboard: false
-    })
+    });
     this.myModal.show()
   }
 
@@ -120,12 +122,13 @@ export class UpdateUsuarioComponent implements OnInit {
     this.tipoUsuarioService.getOne(id_team).subscribe({
       next: (data: TipoUsuarioInterface) => {
         this.tipousuarioDescription = data.nombre;
+        return this.tipousuarioDescription;
       },
       error: (error: any) => {
         this.tipousuarioDescription = "No se ha encontrado";
         this.form.controls['tipousuario'].setErrors({'incorrect': true});
       }
-    })
+    });
   }
 
 }

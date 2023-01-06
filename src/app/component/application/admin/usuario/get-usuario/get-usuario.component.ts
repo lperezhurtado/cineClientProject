@@ -1,5 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioInterface } from 'src/app/model/Usuario-interface';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
@@ -15,7 +16,8 @@ export class GetUsuarioComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.id = activatedRoute.snapshot.params['id'];
   }
@@ -32,6 +34,10 @@ export class GetUsuarioComponent implements OnInit {
         console.log(this.usuario);
       }
     });
+  }
+
+  goBack(): void {
+    this.router.navigate(['admin/usuario/plist']);
   }
 
 }

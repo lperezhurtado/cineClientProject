@@ -39,6 +39,7 @@ export interface IUsuarior2Form {
   email:          FormControl<string>;
   login:          FormControl<string>;
   password:       FormControl<string>,
+  passwordC:       FormControl<string>,
   tipousuario:    FormControl<number>;
 }
 

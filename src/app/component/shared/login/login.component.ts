@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     console.log(this.formLogin.get('login')?.value);
     console.log(this.formLogin.get('password')?.value);
 
-    //const salt = bcrypt.genSaltSync(10);
+    //const salt = bcrypt.genSaltSync(10);                                                  PRUEBAS CON BCRYPT
     //const encryptedPass = bcrypt.hashSync(this.formLogin.get('password')!.value, salt);
 
     console.log("despues de encriptado");

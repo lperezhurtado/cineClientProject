@@ -117,10 +117,11 @@
           <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-4 has-validation">
             <input type="text" class="form-control" [ngClass]="{'is-valid' : form.controls.email.dirty && !form.controls.email.errors?.['required'] &&
-            form.controls.email.dirty && !form.controls.email.errors?.['pattern'],
+              form.controls.email.dirty && !form.controls.email.errors?.['pattern'],
               'is-invalid' :  form.controls.email.dirty &&  form.controls.email.errors?.['pattern'] ||
               form.controls.email.dirty &&  form.controls.email.errors?.['required']}" id="inputEmail"
               formControlName="email">
+
             <div id="inputEmailFeedback" class="invalid-feedback"
               *ngIf="form.controls.email.dirty &&  form.controls.email.errors?.['pattern']">
               El formato no es adecuado
@@ -136,12 +137,13 @@
           <label for="inputUsername" class="col-sm-2 col-form-label">Login</label>
           <div class="col-sm-4 has-validation">
             <input type="text" class="form-control" id="inputUsername" formControlName="login" [ngClass]="{'is-valid' :
-            form.controls.login.dirty && !form.controls.login.errors?.['required'] &&
-            form.controls.login.dirty && !form.controls.login.errors?.['minlength']
-              && form.controls.login.dirty && !form.controls.login.errors?.['maxlength'],
-              'is-invalid' :  form.controls.login.dirty &&  form.controls.login.errors?.['minlength']
-              ||  form.controls.login.dirty &&  form.controls.login.errors?.['maxlength'] ||
-              form.controls.login.dirty &&  form.controls.login.errors?.['required']}">
+              form.controls.login.dirty && !form.controls.login.errors?.['required'] &&
+              !form.controls.login.errors?.['minlength'] && !form.controls.login.errors?.['maxlength'],
+
+              'is-invalid' :  form.controls.login.dirty &&
+              (form.controls.login.errors?.['minlength'] || form.controls.login.errors?.['maxlength'] || form.controls.login.errors?.['required']) }"
+            >
+
             <div class="invalid-feedback"
               *ngIf="form.controls.login.dirty &&  form.controls.login.errors?.['minlength']">
               La longitud mínima es de 5 caracteres.
@@ -156,58 +158,89 @@
             </div>
           </div>
         </div>
-
+        <!--PASSWORD-->
         <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+          <label for="inputPassword" class="col-sm-2 col-form-label">Contraseña</label>
           <div class="col-sm-4 has-validation">
-            <input type="text" class="form-control" id="inputPassword" formControlName="password" [ngClass]="{'is-valid' :
-            form.controls.password.dirty && !form.controls.login.errors?.['required'] &&
-            form.controls.password.dirty && !form.controls.login.errors?.['minlength']
-              && form.controls.password.dirty && !form.controls.login.errors?.['maxlength'],
-              'is-invalid' :  form.controls.password.dirty &&  form.controls.login.errors?.['minlength']
-              ||  form.controls.login.dirty &&  form.controls.password.errors?.['maxlength'] ||
-              form.controls.login.dirty &&  form.controls.password.errors?.['required']}">
+
+            <input type="password" class="form-control" id="inputPassword" formControlName="password"
+              [ngClass]="{ 'is-valid' : form.controls.password.dirty && !form.controls.password.errors?.['required'] &&
+              !form.controls.password.errors?.['minlength'] && !form.controls.password.errors?.['maxlength'],
+
+              'is-invalid' : form.controls.password.dirty &&
+              (form.controls.password.errors?.['required'] || form.controls.password.errors?.['minlength'] || form.controls.password.errors?.['maxlength']) }"
+            >
+
             <div class="invalid-feedback"
-              *ngIf="form.controls.password.dirty &&  form.controls.password.errors?.['minlength']">
+              *ngIf="form.controls.password.dirty && form.controls.password.errors?.['minlength']">
               La longitud mínima es de 3 caracteres.
             </div>
             <div class="invalid-feedback"
-              *ngIf="form.controls.password.dirty &&  form.controls.password.errors?.['maxlength']">
+              *ngIf="form.controls.password.dirty && form.controls.password.errors?.['maxlength']">
               La longitud máxima es de 10 caracteres.
             </div>
             <div class="invalid-feedback"
-              *ngIf="form.controls.password.dirty &&  form.controls.password.errors?.['required']">
+              *ngIf="form.controls.password.dirty && form.controls.password.errors?.['required']">
               El campo es obligatorio.
             </div>
+          </div>
+        </div>
+
+        <!--CONFIRM PASSWORD-->
+        <div class="mb-3 row">
+          <label for="inputPasswordC" class="col-sm-2 col-form-label">Confirma tu contraseña</label>
+          <div class="col-sm-4 has-validation">
+
+            <input type="password" class="form-control" id="inputPasswordC" formControlName="passwordC"
+              [ngClass]="{ 'is-valid' : form.controls.passwordC.dirty && !form.controls.passwordC.errors?.['required'],
+
+              'is-invalid' : form.controls.passwordC.dirty &&
+               (!sonIguales() || form.controls.passwordC.errors?.['required']) }"
+            >
+
+            <div class="invalid-feedback"
+              *ngIf="!sonIguales()">
+              La contraseña no coincide
+            </div>
+            <div class="invalid-feedback"
+              *ngIf="form.controls.passwordC.dirty && form.controls.passwordC.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+
           </div>
         </div>
 
         <div class="mb-3 row">
           <label for="inputUsertype" class="col-sm-2 col-form-label">Tipo de Usuario</label>
           <div class="col-sm-6 has-validation">
+
             <div class="input-group">
               <span class="input-group-text">Descripcion de la ajena</span>
-              <input type="number" class="form-control" formControlName="tipousuario" [ngClass]="{'is-valid' :
-              form.controls.tipousuario.dirty && !form.controls.tipousuario.errors?.['required'] &&
-               !form.controls.tipousuario.errors?.['pattern'],
-                'is-invalid' :  (form.controls.tipousuario.dirty &&  form.controls.tipousuario.errors?.['required'] )
-                || ( form.controls.tipousuario.dirty &&  form.controls.tipousuario.errors?.['pattern'])}">
+
+              <input type="number" class="form-control" formControlName="tipousuario"
+                [ngClass]="{'is-valid' : form.controls.tipousuario.dirty && !form.controls.tipousuario.errors?.['required'] &&
+                !form.controls.tipousuario.errors?.['pattern'],
+                'is-invalid' :  (form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['required'] )
+                || ( form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['pattern'] )}"
+              >
+
               <button type="button" class="btn btn-outline-primary" (click)="openModalFindUsertype()">Buscar</button>
+
             </div>
+            <!--DIALOGOS DE ERROR-->
             <div class="text-danger"
-              *ngIf="form.controls.tipousuario.dirty &&  form.controls.tipousuario.errors?.['required']">
+              *ngIf="form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['required']">
               El campo es obligatorio.
             </div>
             <div class="text-danger"
-              *ngIf="form.controls.tipousuario.dirty &&  form.controls.tipousuario.errors?.['pattern']">
+              *ngIf="form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['pattern']">
               El campo ha de ser un entrero de máximo 6 dígitos.
             </div>
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary"
-        [disabled]="!form.dirty || (form.invalid && form.dirty)">Guardar</button>
-
+        <button type="submit" class="btn btn-primary" [disabled]="!form.dirty && form.invalid">Guardar</button>
+        <p class="text-danger">{{error}}</p>
       </form>
 
     </div>
@@ -233,7 +266,23 @@
   </div>
 </div>
 
+<div class="modal fade" id="findUsertype" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
 
+        <app-tipousuario-plist (closeEvent)="closeTeamModal($event)"></app-tipousuario-plist>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--<div class="modal fade" id="findTeam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

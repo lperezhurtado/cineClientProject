@@ -1,3 +1,4 @@
+import { CryptoService } from './../../../../../service/crypto.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,6 +16,7 @@ export class CreateUsuarioComponent implements OnInit {
   usuario2Form!: IUsuarior2Form;
   usuario2Send!: IUsuario2Send;
   form!: FormGroup<IUsuarior2Form>;
+  error = "";
 
   //modals
   mimodal: string = "miModal";
@@ -29,6 +31,7 @@ export class CreateUsuarioComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
+    private cryptoService: CryptoService
   ) { }
 
   ngOnInit(): void {
@@ -39,12 +42,23 @@ export class CreateUsuarioComponent implements OnInit {
       apellido1: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       apellido2: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      login: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
+      login: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
       password: ["", [Validators.required, Validators.minLength(3)]],
+      passwordC: ["", [Validators.required]],
       tipousuario: ["", [Validators.required, Validators.pattern(/^\d{1,6}$/)]]
     });
   }
 
+  sonIguales() {
+    if (this.form.value.password == this.form.value.passwordC) {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  id: number = 0; //guarda el id del usuario creado para mostrarlo en el modal
   onSubmit() {
     console.log("onSubmit");
     this.usuario2Send = {
@@ -55,30 +69,36 @@ export class CreateUsuarioComponent implements OnInit {
       apellido2: this.form.value.apellido2,
       email: this.form.value.email,
       login: this.form.value.login,
-      password: this.form.value.password,
+      password: this.cryptoService.getSHA256(this.form.value.password!),
       tipousuario: { id: this.form.value.tipousuario }
     }
     if (this.form.valid) {
       this.usuarioService.createUsuario(this.usuario2Send).subscribe({
         next: (data: number) => {
+          this.id = data;
           //open bootstrap modal here
           this.modalTitle = "Cine MatriX";
           this.modalContent = "Usuario " + data + " creado";
           this.showModal();
+        },
+        error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
+          this.error = error.error.message;
+          //console.log(error.error.message);
         }
-      })
+      });
     }
   }
 
   showModal = () => {
     this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
       keyboard: false
-    })
+    });
     var myModalEl = document.getElementById(this.mimodal);
     if (myModalEl) {
        myModalEl.addEventListener('hidden.bs.modal', (event): void => {
-      this.router.navigate(['/admin/usuario/view/', this.usuario2Send?.id])
-      })
+
+      this.router.navigate(['/admin/usuario/view/', this.id])
+      });
     }
     this.myModal.show()
   }
@@ -91,7 +111,16 @@ export class CreateUsuarioComponent implements OnInit {
   }
 
   openModalFindUsertype(): void {
+    this.myModal = new bootstrap.Modal(document.getElementById("findUsertype"), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    this.myModal.show()
+  }
 
+  closeTeamModal(id_usertype: number) {
+    this.form.controls['tipousuario'].setValue(id_usertype);
+    //this.updateUserTypeDescription(id_usertype);
+    this.myModal.hide();
   }
 
 }

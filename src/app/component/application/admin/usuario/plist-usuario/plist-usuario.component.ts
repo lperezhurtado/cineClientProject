@@ -33,7 +33,7 @@ export class PlistUsuarioComponent implements OnInit {
 
   getPage() {
 
-    console.log("localstorage: ",localStorage.getItem("usuario"));
+    //console.log("localstorage: ",localStorage.getItem("usuario"));
 
     this.usuarioService.getUsuarioPlist(this.page, this.numberOfElements,
       this.strTermFilter, this.id_usertypeFilter, this.sortField, this.sortDirection)

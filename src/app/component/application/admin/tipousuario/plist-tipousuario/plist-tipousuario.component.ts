@@ -38,7 +38,7 @@ export class PlistTipousuarioComponent implements OnInit {
       error: (err: HttpErrorResponse) =>{
         console.log(err);
       }
-    })
+    });
   }
 
   getPlistContent(): TipoUsuarioInterface[]{

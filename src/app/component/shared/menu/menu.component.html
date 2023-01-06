@@ -27,7 +27,7 @@
       </ul>
 
       <span class="navbar-text" *ngIf="usuario">
-        <a class="nav-link" [class.active]="strUrl=='/logout'" aria-current="page" routerLinkActive="" routerLink='/logout'>Cerrar Sesión</a>
+        <a class="nav-link" [class.active]="strUrl=='/logout'" aria-current="page" routerLinkActive="" routerLink='/logout'>Está conectado {{usuario.login}} ({{usuario.tipousuario.nombre}})</a>
       </span>
     </div>
   </div>

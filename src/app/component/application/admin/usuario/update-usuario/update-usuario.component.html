@@ -42,7 +42,7 @@
         </div>
 
         <div class="mb-3 row">
-          <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+          <label for="inputName" class="col-sm-2 col-form-label">Nombre</label>
           <div class="col-sm-4 has-validation">
 
             <input type="text" id="inputName" formControlName="nombre" class="form-control"
@@ -69,7 +69,7 @@
         </div>
 
         <div class="mb-3 row">
-          <label for="inputSurname" class="col-sm-2 col-form-label">Surname</label>
+          <label for="inputSurname" class="col-sm-2 col-form-label">Primer Apellido</label>
           <div class="col-sm-4 has-validation">
 
             <input type="text" class="form-control" id="inputSurname" formControlName="apellido1"
@@ -79,7 +79,7 @@
               'is-invalid' :  form.controls.apellido1.dirty &&
               (form.controls.apellido1.errors?.['minlength'] || form.controls.apellido1.errors?.['maxlength'] || form.controls.apellido1.errors?.['required'])}"
             >
-
+            <!--MODALES DE ERROR-->
             <div id="inputSurnameFeedback" class="invalid-feedback"
               *ngIf="form.controls.apellido1?.dirty &&  form.controls.apellido1?.errors?.['minlength']">
               La longitud mínima es de 5 caracteres.
@@ -96,17 +96,17 @@
         </div>
 
         <div class="mb-3 row">
-          <label for="inputLastname" class="col-sm-2 col-form-label">Lastname</label>
+          <label for="inputLastname" class="col-sm-2 col-form-label">Segundo Apellido</label>
           <div class="col-sm-4 has-validation">
 
             <input type="text" class="form-control" id="inputLastName" formControlName="apellido2"
-              [ngClass]="{'is-valid' : form.controls.apellido1.dirty &&
+              [ngClass]="{'is-valid' : form.controls.apellido2.dirty &&
               (!form.controls.apellido2.errors?.['required'] || !form.controls.apellido2.errors?.['minlength'] || !form.controls.apellido2.errors?.['maxlength']),
 
               'is-invalid' :  form.controls.apellido2.dirty &&
               (form.controls.apellido2.errors?.['minlength'] || form.controls.apellido2.errors?.['maxlength'] || form.controls.apellido2.errors?.['required'])}"
             >
-
+            <!--MODALES DE ERROR-->
             <div id="inputLastnameFeedback" class="invalid-feedback"
               *ngIf="form.controls.apellido2?.dirty &&  form.controls.apellido2?.errors?.['minlength']">
               La longitud mínima es de 5 caracteres.
@@ -133,7 +133,7 @@
               'is-invalid' :  form.controls.email.dirty &&
               (form.controls.email.errors?.['minlength'] || form.controls.email.errors?.['maxlength'] || form.controls.email.errors?.['required'])}"
             >
-
+            <!--MODALES DE ERROR-->
             <div id="inputEmailFeedback" class="invalid-feedback"
               *ngIf="form.controls.email.dirty &&  form.controls.email.errors?.['pattern']">
               El formato no es adecuado
@@ -177,11 +177,11 @@
           <div class="col-sm-6 has-validation">
 
             <div class="input-group">
-              <span class="input-group-text">Descripcion de la ajena</span>
+              <span class="input-group-text">{{tipousuarioDescription}}</span>
 
               <input type="number" class="form-control" formControlName="tipousuario" (keyup)="updateUserTypeDescription(form.controls.tipousuario.value)"
-                [ngClass]="{'is-valid' : form.controls.tipousuario.dirty &&
-                !form.controls.tipousuario.errors?.['required'] && !form.controls.tipousuario.errors?.['pattern'],
+                [ngClass]="{'is-valid' :  form.controls.tipousuario.dirty &&
+                (!form.controls.tipousuario.errors?.['required'] || !form.controls.tipousuario.errors?.['pattern']),
 
                 'is-invalid' : (form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['required'] ) ||
                 ( form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['pattern'])}"
@@ -201,15 +201,34 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary"
-        [disabled]="form.pristine || (form.invalid && form.dirty)">Guardar</button>
-
+        <button type="submit" class="btn btn-success" [disabled]="!(form.dirty || form.invalid)">Guardar Cambios</button>
+        <p class="text-danger">{{error}}</p>
       </form>
 
     </div>
   </div>
 </div>
+<!--MODAL DE NOTIFICACION-->
+<div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
 
+        {{modalContent}}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL DE USERTYPES-->
 <div class="modal fade" id="findUsertype" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
