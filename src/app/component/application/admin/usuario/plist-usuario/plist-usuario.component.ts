@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioPageInterface } from 'src/app/model/Usuario-interface';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
+declare let bootstrap: any;
 @Component({
   selector: 'app-admin-plist-usuario',
   templateUrl: './plist-usuario.component.html',
@@ -13,6 +14,10 @@ export class PlistUsuarioComponent implements OnInit {
 
   respFromServer!: UsuarioPageInterface;
   usuarioSession!: string; //Por si acaso
+
+  generated!: number;
+  generados: boolean = false;
+  msg: string = "";
 
   strTermFilter: string = "";
   id_usertypeFilter: number = 0;
@@ -81,4 +86,19 @@ export class PlistUsuarioComponent implements OnInit {
     this.getPage();
   }
 
+
+  generar(cantidad: number) {
+    this.usuarioService.generateUsuario(cantidad).subscribe({
+      next: (resp: number) => {
+        this.generated = resp;
+
+        this.msg = "Se han generado "+(cantidad)+" usuarios ("+resp+" usuarios en total)" ;
+
+        const myModal = new bootstrap.Modal('#generateInfo', {
+          keyboard: false
+        })
+        myModal.show();
+      }
+    })
+  }
 }

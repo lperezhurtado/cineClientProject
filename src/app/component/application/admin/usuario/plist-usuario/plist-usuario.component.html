@@ -6,6 +6,8 @@
       <h1 class="text-center mb-5">Lista de usuarios</h1>
 
       <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
+        <app-generate-usuario (enviar)="generar($event)"></app-generate-usuario>
+
         <a [routerLink]="['/admin/usuario/create']" class="btn btn-primary mx-3">Alta de usuario</a>
         <app-search-unrouted [placeHolder]="'Buscar usuario'" (onSearch)="setFilter( $event )"></app-search-unrouted>
         <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.numberOfElements"
@@ -72,6 +74,23 @@
         </tbody>
       </table>
     </div>
+  </div>
+</div>
+
+<div class="modal fade" id="generateInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Cine MatriX</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              {{msg}}
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="getPage()">Close</button>
+          </div>
+      </div>
   </div>
 </div>
 

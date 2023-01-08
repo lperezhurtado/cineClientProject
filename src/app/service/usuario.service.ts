@@ -64,4 +64,8 @@ export class UsuarioService {
     return this.httpClient.put<number>(this.url, usuario2Update, {withCredentials:true});
    }
 
+   generateUsuario(cantidad: number): Observable<number> {
+    return this.httpClient.post<number>(this.url+'/generate/'+cantidad, {withCredentials:true});
+   }
+
 }

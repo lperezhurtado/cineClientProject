@@ -54,7 +54,7 @@ export class UpdateUsuarioComponent implements OnInit {
           apellido1: [data.apellido1, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           apellido2: [data.apellido2, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           email: [data.email, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-          login: [data.login, [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
+          login: [data.login, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
           tipousuario: [data.tipousuario.id, [Validators.required, Validators.pattern(/^\d{1,6}$/)]],
         });
         //this.updateUserTypeDescription(this.usuario.tipousuario.id);
@@ -76,10 +76,14 @@ export class UpdateUsuarioComponent implements OnInit {
       login: this.form.value.login!,
       tipousuario: { id: this.form.value.tipousuario! }
     }
+    console.log(this.usuario2Update);
+    console.log(this.form.valid);
     if (this.form.valid) {
+      console.log("entra al form valid");
       this.usuarioService.updateUsuario(this.usuario2Update).subscribe({
         next: (data: number) => {
           //open bootstrap modal here
+          console.log("recibe datos dentro del next");
           this.modalTitle = "Cine MatriX";
           this.modalContent = "Usuario " + this.id + " actualizado";
           this.showModal();
@@ -90,6 +94,7 @@ export class UpdateUsuarioComponent implements OnInit {
         }
       })
     }
+    console.log("se salta el if");
   }
 
   showModal = () => {

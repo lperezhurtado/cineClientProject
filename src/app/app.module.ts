@@ -23,6 +23,7 @@ import { PaginationUnroutedComponent } from './component/shared/unrouted/paginat
 import { DropdownRegisterPageComponent } from './component/shared/unrouted/dropdown-register-page/dropdown-register-page.component';
 import { DataTableUsuarioComponent } from './component/application/admin/usuario/auxiliar/data-table-usuario/data-table-usuario.component';
 import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
+import { GenerateUsuarioComponent } from './component/application/admin/usuario/auxiliar/generate-usuario/generate-usuario.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PlistTipousuarioComponent } from './component/application/admin/tipousu
     PaginationUnroutedComponent,
     DropdownRegisterPageComponent,
     DataTableUsuarioComponent,
-    PlistTipousuarioComponent
+    PlistTipousuarioComponent,
+    GenerateUsuarioComponent
   ],
   imports: [
     BrowserModule,
