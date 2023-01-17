@@ -1,9 +1,14 @@
+import { Location } from '@angular/common';
+import { TipoUsuarioService } from 'src/app/service/tipo-usuario.service';
 import { CryptoService } from './../../../../../service/crypto.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioInterface, IUsuarior2Form, IUsuario2Send } from 'src/app/model/Usuario-interface';
 import { UsuarioService } from 'src/app/service/usuario.service';
+import Swal from 'sweetalert2'
+import { TipoUsuarioInterface } from 'src/app/model/TipoUsuario-interface';
+
 declare let bootstrap: any;
 
 @Component({
@@ -24,29 +29,35 @@ export class CreateUsuarioComponent implements OnInit {
   modalTitle: string = "";
   modalContent: string = "";
 
-  tipousuarioDescription: string = "";
+  tipousuarioDescription: string = "Tipo de usuario";
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
-    private cryptoService: CryptoService
+    private cryptoService: CryptoService,
+    private tipoUsuarioService: TipoUsuarioService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
     this.form = <FormGroup>this.formBuilder.group({
       id: [""],
       dni: ["", [Validators.required, Validators.minLength(5)]],
-      nombre: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+      nombre: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       apellido1: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       apellido2: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      login: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+      login: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       password: ["", [Validators.required, Validators.minLength(3)]],
       passwordC: ["", [Validators.required]],
       tipousuario: ["", [Validators.required, Validators.pattern(/^\d{1,6}$/)]]
     });
+  }
+
+  back() {
+    this.location.back();
   }
 
   sonIguales() {
@@ -83,10 +94,15 @@ export class CreateUsuarioComponent implements OnInit {
         },
         error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
           this.error = error.error.message;
-          //console.log(error.error.message);
+          this.popup(error.error.message,"error");
+          console.log(error);
         }
       });
     }
+    else{
+      this.popup("Por favor, rellena todos los campos","warning");
+    }
+
   }
 
   showModal = () => {
@@ -119,8 +135,43 @@ export class CreateUsuarioComponent implements OnInit {
 
   closeTeamModal(id_usertype: number) {
     this.form.controls['tipousuario'].setValue(id_usertype);
-    //this.updateUserTypeDescription(id_usertype);
+    this.updateUserTypeDescription(id_usertype);
     this.myModal.hide();
   }
+
+  updateUserTypeDescription(id_team: number) {
+    this.tipoUsuarioService.getOne(id_team).subscribe({
+      next: (data: TipoUsuarioInterface) => {
+        this.tipousuarioDescription = data.nombre;
+        return this.tipousuarioDescription;
+      },
+      error: (error: any) => {
+        this.tipousuarioDescription = "No se ha encontrado";
+        this.form.controls['tipousuario'].setErrors({'incorrect': true});
+      }
+    });
+  }
+
+  popup(message: string, status: string) {
+    Swal.fire({
+        customClass : {
+          title: 'swal2-title',
+          cancelButton: 'swal2-cancel',
+          confirmButton: 'swal2-confirm',
+          input: 'swal2-input'
+        },
+        icon:<any>status,
+        title: message,
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+}
 
 }

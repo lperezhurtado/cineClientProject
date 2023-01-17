@@ -151,23 +151,27 @@
 
             <input type="text" class="form-control" id="inputLogin" formControlName="login"
               [ngClass]="{'is-valid' : form.controls.login.dirty &&
-              (!form.controls.login.errors?.['required'] || !form.controls.login.errors?.['minlength'] || !form.controls.login.errors?.['maxlength']),
+              (!form.controls.login.errors?.['required'] || !form.controls.login.errors?.['minlength'] || !form.controls.login.errors?.['maxlength'] || !form.controls.login.errors?.['pattern']),
 
-              'is-invalid' :  form.controls.login.dirty &&
-              (form.controls.login.errors?.['minlength'] || form.controls.login.errors?.['maxlength'] || form.controls.login.errors?.['required'])}"
+              'is-invalid' : form.controls.login.dirty &&
+              (form.controls.login.errors?.['minlength'] || form.controls.login.errors?.['maxlength'] || form.controls.login.errors?.['required'] || form.controls.login.errors?.['pattern'])}"
             >
             <!--MODALES DE ERROR-->
             <div class="invalid-feedback"
               *ngIf="form.controls.login?.dirty && form.controls.login?.errors?.['minlength']">
-              La longitud mínima es de 5 caracteres.
+              La longitud mínima es de 4 caracteres.
             </div>
             <div class="invalid-feedback"
               *ngIf="form.controls.login?.dirty && form.controls.login?.errors?.['maxlength']">
-              La longitud máxima es de 10 caracteres.
+              La longitud máxima es de 20 caracteres.
             </div>
             <div class="invalid-feedback"
               *ngIf="form.controls.login?.dirty && form.controls.login?.errors?.['required']">
               El campo es obligatorio.
+            </div>
+            <div class="invalid-feedback"
+              *ngIf="form.controls.login?.dirty && form.controls.login?.errors?.['pattern']">
+              Formato no válido
             </div>
           </div>
         </div>
@@ -183,14 +187,14 @@
                 [ngClass]="{'is-valid' :  form.controls.tipousuario.dirty &&
                 (!form.controls.tipousuario.errors?.['required'] || !form.controls.tipousuario.errors?.['pattern']),
 
-                'is-invalid' : (form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['required'] ) ||
-                ( form.controls.tipousuario.dirty && form.controls.tipousuario.errors?.['pattern'])}"
+                'is-invalid' : form.controls.tipousuario.dirty &&
+                (form.controls.tipousuario.errors?.['required'] || form.controls.tipousuario.errors?.['pattern']) }"
               >
 
               <button type="button" class="btn btn-primary" (click)="openModalFindUsertype()">Buscar</button>
             </div>
 
-            <div class="text-danger"
+            <div class="invalid-feedback"
               *ngIf="form.controls.tipousuario?.dirty &&  form.controls.tipousuario?.errors?.['required']">
               El campo es obligatorio.
             </div>
@@ -201,8 +205,9 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!(form.dirty || form.invalid)">Guardar Cambios</button>
-        <p class="text-danger">{{error}}</p>
+        <button type="submit" class="btn btn-outline-success" [disabled]="(form.pristine || form.invalid)">Guardar Cambios</button>
+        <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Cancelar</button>
+
       </form>
 
     </div>
@@ -241,7 +246,7 @@
         <app-tipousuario-plist (closeEvent)="closeTeamModal($event)"></app-tipousuario-plist>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

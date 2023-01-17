@@ -215,7 +215,7 @@
           <div class="col-sm-6 has-validation">
 
             <div class="input-group">
-              <span class="input-group-text">Descripcion de la ajena</span>
+              <span class="input-group-text">{{tipousuarioDescription}}</span>
 
               <input type="number" class="form-control" formControlName="tipousuario"
                 [ngClass]="{'is-valid' : form.controls.tipousuario.dirty && !form.controls.tipousuario.errors?.['required'] &&
@@ -239,8 +239,8 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!form.dirty && form.invalid">Guardar</button>
-        <p class="text-danger">{{error}}</p>
+        <button type="submit" class="btn btn-outline-primary" [disabled]="!form.dirty && form.invalid">Guardar</button>
+        <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Volver</button>
       </form>
 
     </div>

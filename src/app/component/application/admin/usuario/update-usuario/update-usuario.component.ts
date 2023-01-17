@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { TipoUsuarioService } from './../../../../../service/tipo-usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -5,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioInterface, IUsuarior2Form, IUsuario2Update } from 'src/app/model/Usuario-interface';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { TipoUsuarioInterface } from 'src/app/model/TipoUsuario-interface';
+import Swal from 'sweetalert2';
 
 declare let bootstrap: any;
 
@@ -21,6 +23,8 @@ export class UpdateUsuarioComponent implements OnInit {
   form!: FormGroup<IUsuarior2Form>;
   error = ""; //guarda el error de validacion del servidor
 
+  actualTipoUsuario!: number; //indicará si se ha cambiado el tipoUsuario
+
   mimodal: string = "miModal";
   myModal: any;
   modalTitle: string = "";
@@ -34,12 +38,17 @@ export class UpdateUsuarioComponent implements OnInit {
     private usuarioService: UsuarioService,
     private tipoUsuarioService: TipoUsuarioService,
     private formBuilder: FormBuilder,
+    private location: Location
   ) {
     this.id = activatedRoute.snapshot.params['id'];
    }
 
   ngOnInit(): void {
     this.getOne();
+  }
+
+  back() {
+    this.location.back();
   }
 
   getOne() {
@@ -54,10 +63,11 @@ export class UpdateUsuarioComponent implements OnInit {
           apellido1: [data.apellido1, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           apellido2: [data.apellido2, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           email: [data.email, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-          login: [data.login, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
-          tipousuario: [data.tipousuario.id, [Validators.required, Validators.pattern(/^\d{1,6}$/)]],
+          login: [data.login, [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$')]],
+          tipousuario: [data.tipousuario.id, [Validators.required, Validators.pattern(/^\d{1,2}$/)]],
         });
-        //this.updateUserTypeDescription(this.usuario.tipousuario.id);
+        this.actualTipoUsuario = data.tipousuario.id;
+        this.updateUserTypeDescription(this.usuario.tipousuario.id);
         //this.updateTeamDescription(this.oDeveloper.team.id);
       }
     })
@@ -76,25 +86,27 @@ export class UpdateUsuarioComponent implements OnInit {
       login: this.form.value.login!,
       tipousuario: { id: this.form.value.tipousuario! }
     }
-    console.log(this.usuario2Update);
-    console.log(this.form.valid);
+
     if (this.form.valid) {
-      console.log("entra al form valid");
+
       this.usuarioService.updateUsuario(this.usuario2Update).subscribe({
         next: (data: number) => {
           //open bootstrap modal here
-          console.log("recibe datos dentro del next");
           this.modalTitle = "Cine MatriX";
           this.modalContent = "Usuario " + this.id + " actualizado";
           this.showModal();
         },
         error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
           this.error = error.error.message;
-          //console.log(error.error.message);
+          this.popup(error.error.message,"error");
+          console.log(error.error.message);
         }
       })
     }
-    console.log("se salta el if");
+    else{
+      this.popup("Todos los campos deben estar rellenados","warning");
+    }
+
   }
 
   showModal = () => {
@@ -119,6 +131,7 @@ export class UpdateUsuarioComponent implements OnInit {
 
   closeTeamModal(id_usertype: number) {
     this.form.controls['tipousuario'].setValue(id_usertype);
+
     this.updateUserTypeDescription(id_usertype);
     this.myModal.hide();
   }
@@ -135,5 +148,27 @@ export class UpdateUsuarioComponent implements OnInit {
       }
     });
   }
+
+  popup(message: string, status: string) {
+    Swal.fire({
+        customClass : {
+          title: 'swal2-title',
+          cancelButton: 'swal2-cancel',
+          confirmButton: 'swal2-confirm',
+          input: 'swal2-input'
+        },
+        icon:<any>status,
+        title: message,
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+}
 
 }

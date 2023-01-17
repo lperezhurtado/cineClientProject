@@ -63,6 +63,7 @@ export class PlistUsuarioComponent implements OnInit {
 
   setRpp(rpp: number) {
     this.numberOfElements = rpp;
+    this.page = 0;
     this.getPage();
   }
 
@@ -72,7 +73,15 @@ export class PlistUsuarioComponent implements OnInit {
   }
 
   setFilterByUsertype(id: number): void {
-    this.id_usertypeFilter = id;
+    if (this.id_usertypeFilter != id) {
+      this.id_usertypeFilter = id;
+      this.page = 0;
+    }
+    else if(this.id_usertypeFilter == id){
+      this.id_usertypeFilter = 0;
+      this.page = 0;
+    }
+
     this.getPage();
   }
 
