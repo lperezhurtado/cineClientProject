@@ -24,6 +24,7 @@ import { DropdownRegisterPageComponent } from './component/shared/unrouted/dropd
 import { DataTableUsuarioComponent } from './component/application/admin/usuario/auxiliar/data-table-usuario/data-table-usuario.component';
 import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
 import { GenerateUsuarioComponent } from './component/application/admin/usuario/auxiliar/generate-usuario/generate-usuario.component';
+import { PlistPeliculaComponent } from './component/application/admin/pelicula/plist-pelicula/plist-pelicula.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { GenerateUsuarioComponent } from './component/application/admin/usuario/
     DropdownRegisterPageComponent,
     DataTableUsuarioComponent,
     PlistTipousuarioComponent,
-    GenerateUsuarioComponent
+    GenerateUsuarioComponent,
+    PlistPeliculaComponent
   ],
   imports: [
     BrowserModule,

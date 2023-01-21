@@ -10,7 +10,7 @@
 
         <a [routerLink]="['/admin/usuario/create']" class="btn btn-primary mx-3">Alta de usuario</a>
         <app-search-unrouted [placeHolder]="'Buscar usuario'" (onSearch)="setFilter( $event )"></app-search-unrouted>
-        <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.numberOfElements"
+        <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
           (eeRpp)="this.setRpp($event)">
         </app-dropdown-register-page>
       </div>

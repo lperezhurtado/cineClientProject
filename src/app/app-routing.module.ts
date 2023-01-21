@@ -1,3 +1,4 @@
+import { PlistPeliculaComponent } from './component/application/admin/pelicula/plist-pelicula/plist-pelicula.component';
 import { DeleteUsuarioComponent } from './component/application/admin/usuario/delete-usuario/delete-usuario.component';
 import { UpdateUsuarioComponent } from './component/application/admin/usuario/update-usuario/update-usuario.component';
 import { CreateUsuarioComponent } from './component/application/admin/usuario/create-usuario/create-usuario.component';
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path:'admin/usuario/view/:id', component: GetUsuarioComponent},
   {path:'admin/usuario/create', component: CreateUsuarioComponent},
   {path:'admin/usuario/update/:id', component: UpdateUsuarioComponent},
-  {path:'admin/usuario/delete/:id', component:DeleteUsuarioComponent}
+  {path:'admin/usuario/delete/:id', component:DeleteUsuarioComponent},
+  {path:'admin/pelicula/plist', component: PlistPeliculaComponent}
 ];
 
 @NgModule({
