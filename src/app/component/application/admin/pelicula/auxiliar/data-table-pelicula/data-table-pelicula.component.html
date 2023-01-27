@@ -1,0 +1,36 @@
+<table class="table table-bordered table-striped" *ngIf="pelicula">
+  <tbody>
+    <tr>
+        <th>Id</th>
+        <td>{{pelicula.id}}</td>
+    </tr>
+    <tr>
+        <td>Titulo</td>
+        <td>{{pelicula.titulo}}</td>
+    </tr>
+    <tr>
+        <td>Director</td>
+        <td>{{pelicula.director}}</td>
+    </tr>
+    <tr>
+        <td>Año de estreno</td>
+        <td>{{pelicula.year}}</td>
+    </tr>
+    <tr>
+        <td>Duracion</td>
+        <td>{{pelicula.duracion}}</td>
+    </tr>
+    <tr>
+        <td>Fecha de alta</td>
+        <td>{{pelicula.fechaAlta}}</td>
+    </tr>
+    <tr>
+      <td>Fecha de baja</td>
+      <td>{{pelicula.fechaBaja}}</td>
+    </tr>
+    <tr>
+        <td>Genero</td>
+        <td>{{pelicula.genero.id}} ({{pelicula.genero.nombre}})</td>
+    </tr>
+</tbody>
+</table>

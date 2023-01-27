@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-5">Generos</h1>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let genero of respFromServer?.content">
+            <td>{{genero.id}}</td>
+            <td>{{genero.nombre}}</td>
+            <td>
+              <div class="btn-group" role="group" aria-label="Herramientas">
+                <button class="btn btn-sm btn-outline-primary" (click)="selectGenero(genero.id)">
+                  Seleccionar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

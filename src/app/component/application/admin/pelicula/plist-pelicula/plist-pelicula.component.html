@@ -1,1 +1,90 @@
-<p>plist-pelicula works!</p>
+<app-menu></app-menu>
+
+<div class="contenedor mt-3 mx-3" style="background-color: blue; height:10vw;" *ngIf="resp">
+
+  <div class="cabecera bg-success mb-3 pb-2">
+    <h1>Gestión de Peliculas</h1>
+    <app-search-unrouted [placeHolder]="'Busqueda global'" (onSearch)="setFilter($event)"></app-search-unrouted>
+  </div>
+
+  <div class="cuerpo">
+    <div class="botonera">
+      <a [routerLink]="['/admin/pelicula/create']" class="btn btn-primary mx-3 btn-sm">Nueva Pelicula</a>
+
+      <div class="paginacion">
+        <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
+          (eePage)="setPage($event)">
+        </app-pagination-unrouted>
+
+        <app-dropdown-register-page class="mx-2" [PageSize]="resp.size"
+            (eeRpp)="this.setRpp($event)">
+        </app-dropdown-register-page>
+      </div>
+
+      <h5 class="text-muted">Total {{resp.totalElements}}</h5>
+    </div>
+
+    <div class="tabla table table-responsive table-hover">
+      <table class="table" style="background-color: bisque;">
+
+        <thead>
+          <tr>
+            <th (click)="setOrder('id')">ID</th>
+            <th >Portada</th><!--OPCIONAL, MIRAR SI SE PUEDE-->
+            <th (click)="setOrder('titulo')">Titulo</th>
+            <th >Género</th>
+            <th (click)="setOrder('year')">Año</th>
+            <th (click)="setOrder('duracion')">Duración</th>
+            <th (click)="setOrder('director')">Director</th>
+            <th (click)="setOrder('')">Versión normal</th>
+            <th (click)="setOrder('')">Versión Especial</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let pelicula of resp?.content">
+            <td>{{pelicula.id}}</td>
+            <td>{{pelicula.imagen}}</td>
+            <td>{{pelicula.titulo}}</td>
+            <td (click)="setIDGenero(pelicula.genero.id)">
+              {{pelicula.genero.id}}-{{pelicula.genero.nombre}}
+            </td>
+            <td>{{pelicula.year}}</td><!--AÑO-->
+            <td>{{pelicula.duracion}}</td>
+            <td>{{pelicula.director}}</td>
+            <td>{{pelicula.versionNormal}}</td>
+            <td>{{pelicula.versionEspecial}}</td>
+            <td>
+
+              <div class="btn-group" role="group" aria-label="Herramientas">
+                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/pelicula/view',pelicula.id]">
+                  Ver
+                </button>
+                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/pelicula/update',pelicula.id]">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-danger" [routerLink]="['/admin','pelicula','delete',pelicula.id]">
+                  Eliminar
+                </button>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+        <caption>Total {{resp.totalElements}}</caption>
+      </table>
+    </div>
+
+    <div class="paginaPie" style="background-color: aqua;">
+      <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
+          (eePage)="setPage($event)">
+      </app-pagination-unrouted>
+
+      <app-dropdown-register-page class="mx-2" [PageSize]="resp.size"
+          (eeRpp)="this.setRpp($event)">
+      </app-dropdown-register-page>
+    </div>
+
+  </div>
+</div>

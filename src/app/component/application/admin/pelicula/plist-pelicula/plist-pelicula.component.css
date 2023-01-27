@@ -1,0 +1,22 @@
+*{
+  box-sizing: border-box;
+}
+
+.botonera{
+  background-color: brown;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 1vh;
+  align-items: center;
+}
+
+.paginacion, .paginaPie{
+  display: flex;
+  justify-content: center;
+}
+
+.cabecera{
+  display: flex;
+  justify-content: space-between;
+}

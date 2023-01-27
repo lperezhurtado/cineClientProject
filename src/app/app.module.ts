@@ -25,6 +25,11 @@ import { DataTableUsuarioComponent } from './component/application/admin/usuario
 import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
 import { GenerateUsuarioComponent } from './component/application/admin/usuario/auxiliar/generate-usuario/generate-usuario.component';
 import { PlistPeliculaComponent } from './component/application/admin/pelicula/plist-pelicula/plist-pelicula.component';
+import { PlisGeneroComponent } from './component/application/admin/genero/plis-genero/plis-genero.component';
+import { GetPeliculaComponent } from './component/application/admin/pelicula/get-pelicula/get-pelicula.component';
+import { DeletePeliculaComponent } from './component/application/admin/pelicula/delete-pelicula/delete-pelicula.component';
+import { DataTablePeliculaComponent } from './component/application/admin/pelicula/auxiliar/data-table-pelicula/data-table-pelicula.component';
+import { CreatePeliculaComponent } from './component/application/admin/pelicula/create-pelicula/create-pelicula.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,12 @@ import { PlistPeliculaComponent } from './component/application/admin/pelicula/p
     DataTableUsuarioComponent,
     PlistTipousuarioComponent,
     GenerateUsuarioComponent,
-    PlistPeliculaComponent
+    PlistPeliculaComponent,
+    PlisGeneroComponent,
+    GetPeliculaComponent,
+    DeletePeliculaComponent,
+    DataTablePeliculaComponent,
+    CreatePeliculaComponent
   ],
   imports: [
     BrowserModule,
