@@ -52,6 +52,12 @@ export class PeliculaService {
    getPelicula(id: number): Observable<PeliculaInterface> {
     return this.httpClient.get<PeliculaInterface>(this.url+'/'+id, {withCredentials:true});
    }
+
+   //CREATE
+   createPelicula(formData: FormData): Observable<number> {
+    return this.httpClient.post<number>(this.url+'/', formData, {withCredentials:true});
+   }
+
    //DELETE
    deletePelicula(id: number): Observable<number> {
     return this.httpClient.delete<number>(this.url+'/'+id, {withCredentials:true});

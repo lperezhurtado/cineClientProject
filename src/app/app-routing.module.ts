@@ -1,3 +1,4 @@
+import { CreatePeliculaComponent } from './component/application/admin/pelicula/create-pelicula/create-pelicula.component';
 import { DeletePeliculaComponent } from './component/application/admin/pelicula/delete-pelicula/delete-pelicula.component';
 import { GetPeliculaComponent } from './component/application/admin/pelicula/get-pelicula/get-pelicula.component';
 import { PlisGeneroComponent } from './component/application/admin/genero/plis-genero/plis-genero.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   //PELICULA
   {path:'admin/pelicula/plist', component: PlistPeliculaComponent},
   {path:'admin/pelicula/view:id', component: GetPeliculaComponent},
+  {path:'admin/pelicula/create', component: CreatePeliculaComponent},
   {path:'admin/pelicula/delete/:id', component:DeletePeliculaComponent},
   {path:'admin/genero/plist', component: PlisGeneroComponent}
 ];

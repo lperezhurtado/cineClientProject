@@ -1,1 +1,35 @@
 <p>create-pelicula works!</p>
+
+
+id = new FormControl('');
+  titulo = new FormControl('');
+  director = new FormControl('');
+  year = new FormControl('');
+  duracion = new FormControl('');
+  fAlta = new FormControl('');
+  fBaja = new FormControl('');
+  formData = new FormData();
+
+<form action="">
+  <label for="">Titula</label>
+  <input type="text" [formControl]="this.titulo">
+
+  <label for="">Director</label>
+  <input type="text" [formControl]="this.director">
+
+  <label for="">Año</label>
+  <input type="number" [formControl]="this.year">
+
+  <label for="">duracion</label>
+  <input type="number" [formControl]="this.duracion">
+
+  <label for="">Imagen</label>
+  <input type="file" (change)="fileSelected($event)">
+
+  <label for="">Fecha alta</label>
+  <input type="datetime-local" [formControl]="this.fAlta">
+
+
+  <button type="submit" class="btn btn-outline-primary" (click)="createPelicula()">Guardar</button>
+
+</form>
