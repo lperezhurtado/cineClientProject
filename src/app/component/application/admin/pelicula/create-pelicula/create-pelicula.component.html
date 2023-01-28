@@ -26,8 +26,13 @@ id = new FormControl('');
   <label for="">Imagen</label>
   <input type="file" (change)="fileSelected($event)">
 
-  <label for="">Fecha alta</label>
-  <input type="datetime-local" [formControl]="this.fAlta">
+  <!--<label for="">Fecha alta</label>
+  <input type="datetime-local" [formControl]="this.fAlta">-->
+
+  <div class="field col-12 md:col-4">
+    <label for="time">Time / 24h</label>
+    <p-calendar [formControl]="this.fAlta" dateFormat="dd-mm-yy" [showTime]="true" [showIcon]="true" [showSeconds]="false" [stepMinute]="5" [showButtonBar]="true" inputId="time"></p-calendar>
+</div>
 
 
   <button type="submit" class="btn btn-outline-primary" (click)="createPelicula()">Guardar</button>
