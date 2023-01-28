@@ -14,7 +14,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash"
+              "lodash",
+              "sweetalert2"
            ],
             "outputPath": "dist/cine-client-project",
             "index": "src/index.html",
