@@ -38,6 +38,22 @@ import { UpdatePeliculaComponent } from './component/application/admin/pelicula/
 import { CreateGeneroComponent } from './component/application/admin/genero/create-genero/create-genero.component';
 import { UpdateGeneroComponent } from './component/application/admin/genero/update-genero/update-genero.component';
 import { DeleteGeneroComponent } from './component/application/admin/genero/delete-genero/delete-genero.component';
+import { PlistTiposalaComponent } from './component/application/admin/tiposala/plist-tiposala/plist-tiposala.component';
+import { CreateTiposalaComponent } from './component/application/admin/tiposala/create-tiposala/create-tiposala.component';
+import { UpdateTiposalaComponent } from './component/application/admin/tiposala/update-tiposala/update-tiposala.component';
+import { DeleteTiposalaComponent } from './component/application/admin/tiposala/delete-tiposala/delete-tiposala.component';
+import { PlistSalaComponent } from './component/application/admin/sala/plist-sala/plist-sala.component';
+import { GetSalaComponent } from './component/application/admin/sala/get-sala/get-sala.component';
+import { CreateSalaComponent } from './component/application/admin/sala/create-sala/create-sala.component';
+import { DeleteSalaComponent } from './component/application/admin/sala/delete-sala/delete-sala.component';
+import { DataTableSalaComponent } from './component/application/admin/sala/auxiliar/data-table-sala/data-table-sala.component';
+import { UpdateSalaComponent } from './component/application/admin/sala/update-sala/update-sala.component';
+import { PlistTarifaComponent } from './component/application/admin/tarifa/plist-tarifa/plist-tarifa.component';
+import { GetTarifaComponent } from './component/application/admin/tarifa/get-tarifa/get-tarifa.component';
+import { CreateTarifaComponent } from './component/application/admin/tarifa/create-tarifa/create-tarifa.component';
+import { UpdateTarifaComponent } from './component/application/admin/tarifa/update-tarifa/update-tarifa.component';
+import { DeleteTarifaComponent } from './component/application/admin/tarifa/delete-tarifa/delete-tarifa.component';
+import { PlistSesionComponent } from './component/application/admin/sesion/plist-sesion/plist-sesion.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +83,23 @@ import { DeleteGeneroComponent } from './component/application/admin/genero/dele
     UpdatePeliculaComponent,
     CreateGeneroComponent,
     UpdateGeneroComponent,
-    DeleteGeneroComponent
+    DeleteGeneroComponent,
+    PlistTiposalaComponent,
+    CreateTiposalaComponent,
+    UpdateTiposalaComponent,
+    DeleteTiposalaComponent,
+    PlistSalaComponent,
+    GetSalaComponent,
+    CreateSalaComponent,
+    DeleteSalaComponent,
+    DataTableSalaComponent,
+    UpdateSalaComponent,
+    PlistTarifaComponent,
+    GetTarifaComponent,
+    CreateTarifaComponent,
+    UpdateTarifaComponent,
+    DeleteTarifaComponent,
+    PlistSesionComponent
   ],
   imports: [
     BrowserModule,

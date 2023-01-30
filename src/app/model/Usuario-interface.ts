@@ -12,7 +12,7 @@ export interface UsuarioInterface {
   descuento:     number;
   email:         string;
   tipousuario:   TipoUsuarioInterface;
-  facturasCount: number;
+  facturasCount: number | null;
 }
 
 //JSON DATOS PAGINA DE USUARIOS

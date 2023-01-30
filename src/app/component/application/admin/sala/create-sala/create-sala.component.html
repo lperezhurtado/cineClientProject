@@ -1,0 +1,153 @@
+<app-menu></app-menu>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-5">Nueva Sala</h1>
+
+      <form novalidate [formGroup]="form" (ngSubmit)="createSala()">
+
+
+        <div class="mb-3 row">
+          <label for="inputDni" class="col-sm-2 col-form-label">Alto</label>
+          <div class="col-sm-4 has-validation">
+            <input type="text" class="form-control" [ngClass]="{'is-valid' : !form.controls.alto.errors?.['required'] &&
+            form.dirty && !form.controls.alto.errors?.['minlength']
+              && form.controls.alto.dirty && !form.controls.alto.errors?.['maxlength'],
+              'is-invalid' :  form.controls.alto.dirty &&  form.controls.alto.errors?.['minlength']
+              ||  form.controls.alto.dirty &&  form.controls.alto.errors?.['maxlength'] ||
+              form.controls.alto.dirty &&  form.controls.alto.errors?.['required']}" id="inputDni"
+              formControlName="alto">
+            <div id="inputDniFeedback" class="invalid-feedback"
+              *ngIf="form.controls.alto.dirty &&  form.controls.alto.errors?.['minlength']">
+              La longitud mínima es de 5 caracteres.
+            </div>
+            <div id="inputDniFeedback" class="invalid-feedback"
+              *ngIf="form.controls.alto.dirty &&  form.controls.alto.errors?.['maxlength']">
+              La longitud máxima es de 10 caracteres.
+            </div>
+            <div id="inputDniFeedback" class="invalid-feedback"
+              *ngIf="form.controls.alto.dirty &&  form.controls.alto.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="inputName" class="col-sm-2 col-form-label">Ancho</label>
+          <div class="col-sm-4 has-validation">
+            <input type="text" class="form-control" [ngClass]="{'is-valid' : form.controls.ancho.dirty && !form.controls.ancho.errors?.['required'] &&
+            form.controls.ancho.dirty && !form.controls.ancho.errors?.['minlength']
+              && form.controls.ancho.dirty && !form.controls.ancho.errors?.['maxlength'],
+              'is-invalid' :  form.controls.ancho.dirty &&  form.controls.ancho.errors?.['minlength']
+              ||  form.controls.ancho.dirty &&  form.controls.ancho.errors?.['maxlength'] ||
+              form.controls.ancho.dirty &&  form.controls.ancho.errors?.['required']}" id="inputName"
+              formControlName="ancho">
+            <div id="inputNameFeedback" class="invalid-feedback"
+              *ngIf="form.controls.ancho.dirty &&  form.controls.ancho.errors?.['minlength']">
+              La longitud mínima es de 5 caracteres.
+            </div>
+            <div id="inputNameFeedback" class="invalid-feedback"
+              *ngIf="form.controls.ancho.dirty &&  form.controls.ancho.errors?.['maxlength']">
+              La longitud máxima es de 10 caracteres.
+            </div>
+            <div id="inputNameFeedback" class="invalid-feedback"
+              *ngIf="form.controls.ancho.dirty &&  form.controls.ancho.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="inputUsertype" class="col-sm-2 col-form-label">Tipo de Sala</label>
+          <div class="col-sm-6 has-validation">
+
+            <div class="input-group">
+              <span class="input-group-text">{{tipoSalaDescription}}</span>
+
+              <input type="number" class="form-control" formControlName="tiposala"
+                [ngClass]="{'is-valid' : form.controls.tiposala.dirty && !form.controls.tiposala.errors?.['required'] &&
+                !form.controls.tiposala.errors?.['pattern'],
+                'is-invalid' :  (form.controls.tiposala.dirty && form.controls.tiposala.errors?.['required'] )
+                || ( form.controls.tiposala.dirty && form.controls.tiposala.errors?.['pattern'] )}"
+              >
+
+              <button type="button" class="btn btn-outline-primary" (click)="openModalFindUsertype()">Buscar</button>
+
+            </div>
+            <!--DIALOGOS DE ERROR-->
+            <div class="text-danger"
+              *ngIf="form.controls.tiposala.dirty && form.controls.tiposala.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+            <div class="text-danger"
+              *ngIf="form.controls.tiposala.dirty && form.controls.tiposala.errors?.['pattern']">
+              El campo ha de ser un entrero de máximo 6 dígitos.
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-outline-primary" [disabled]="!form.dirty && form.invalid">Guardar</button>
+        <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Volver</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        {{modalContent}}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="findUsertype" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-tiposala-plist (closeEvent)="closeTeamModal($event)"></app-tiposala-plist>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="modal fade" id="findTeam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-team-finder-admin-unrouted (closeEvent)="closeTeamModal($event)"></app-team-finder-admin-unrouted>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+

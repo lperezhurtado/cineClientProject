@@ -1,19 +1,20 @@
-import { GeneroService } from './../../../../../service/genero.service';
-import { GeneroInterface } from './../../../../../model/Genero-interface';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TarifaInterface } from 'src/app/model/Tarifa-interface';
+import { TarifaService } from 'src/app/service/tarifa.service';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  templateUrl: './create-genero.component.html',
-  styleUrls: ['./create-genero.component.css']
+  selector: 'app-create-tarifa',
+  templateUrl: './create-tarifa.component.html',
+  styleUrls: ['./create-tarifa.component.css']
 })
-export class CreateGeneroComponent implements OnInit{
+export class CreateTarifaComponent {
 
-  genero!: GeneroInterface;
-  private entityUrl:string =  "/genero";
+  tarifa!: TarifaInterface;
+  private entityUrl:string =  "/tarifa";
   url = "";
   id!: number;
   form!: FormGroup;
@@ -22,7 +23,7 @@ export class CreateGeneroComponent implements OnInit{
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private generoService: GeneroService,
+    private tarifaService: TarifaService,
     private location: Location
   ) {
     this.url = `${environment.baseURL}${this.entityUrl}`;
@@ -31,7 +32,8 @@ export class CreateGeneroComponent implements OnInit{
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       id:[""],
-      nombre:["", [Validators.required]]
+      nombre:["", [Validators.required]],
+      precio:["", [Validators.required]]
     });
   }
 
@@ -39,15 +41,15 @@ export class CreateGeneroComponent implements OnInit{
     this.location.back();
   }
 
-  createGenero() {
-    this.genero = {
+  createTarifa() {
+    this.tarifa = {
       id: this.form.value.id,
       nombre: this.form.value.nombre,
-      peliculasCount: null
+      precio: this.form.value.precio
     }
 
     if (this.form.valid) {
-      this.generoService.createGenero(this.genero).subscribe({
+      this.tarifaService.createTarifa(this.tarifa).subscribe({
         next: (resp: number) => {
           this.id = resp;
           console.log(this.id);

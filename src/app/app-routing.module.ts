@@ -1,3 +1,16 @@
+import { DeleteTarifaComponent } from './component/application/admin/tarifa/delete-tarifa/delete-tarifa.component';
+import { UpdateTarifaComponent } from './component/application/admin/tarifa/update-tarifa/update-tarifa.component';
+import { CreateTarifaComponent } from './component/application/admin/tarifa/create-tarifa/create-tarifa.component';
+import { PlistTarifaComponent } from './component/application/admin/tarifa/plist-tarifa/plist-tarifa.component';
+import { UpdateSalaComponent } from './component/application/admin/sala/update-sala/update-sala.component';
+import { DeleteSalaComponent } from './component/application/admin/sala/delete-sala/delete-sala.component';
+import { CreateSalaComponent } from './component/application/admin/sala/create-sala/create-sala.component';
+import { GetSalaComponent } from './component/application/admin/sala/get-sala/get-sala.component';
+import { PlistSalaComponent } from './component/application/admin/sala/plist-sala/plist-sala.component';
+import { DeleteTiposalaComponent } from './component/application/admin/tiposala/delete-tiposala/delete-tiposala.component';
+import { UpdateTiposalaComponent } from './component/application/admin/tiposala/update-tiposala/update-tiposala.component';
+import { CreateTiposalaComponent } from './component/application/admin/tiposala/create-tiposala/create-tiposala.component';
+import { PlistTiposalaComponent } from './component/application/admin/tiposala/plist-tiposala/plist-tiposala.component';
 import { DeleteGeneroComponent } from './component/application/admin/genero/delete-genero/delete-genero.component';
 import { UpdateGeneroComponent } from './component/application/admin/genero/update-genero/update-genero.component';
 import { CreateGeneroComponent } from './component/application/admin/genero/create-genero/create-genero.component';
@@ -39,7 +52,23 @@ const routes: Routes = [
   {path:'admin/genero/plist', component: PlisGeneroComponent},
   {path:'admin/genero/create', component: CreateGeneroComponent},
   {path:'admin/genero/update/:id', component: UpdateGeneroComponent},
-  {path:'admin/genero/delete/:id', component: DeleteGeneroComponent}
+  {path:'admin/genero/delete/:id', component: DeleteGeneroComponent},
+  //TIPOSALA
+  {path:'admin/tiposala/plist', component: PlistTiposalaComponent},
+  {path:'admin/tiposala/create', component: CreateTiposalaComponent},
+  {path:'admin/tiposala/update/:id', component: UpdateTiposalaComponent},
+  {path:'admin/tiposala/delete/:id', component: DeleteTiposalaComponent},
+  //SALA
+  {path:'admin/sala/plist', component: PlistSalaComponent},
+  {path:'admin/sala/view/:id', component: GetSalaComponent},
+  {path:'admin/sala/create', component: CreateSalaComponent},
+  {path:'admin/sala/delete/:id', component: DeleteSalaComponent},
+  {path:'admin/sala/update/:id', component: UpdateSalaComponent},
+  //TARIFA
+  {path:'admin/tarifa/plist', component: PlistTarifaComponent},
+  {path:'admin/tarifa/create', component: CreateTarifaComponent},
+  {path:'admin/tarifa/update/:id', component: UpdateTarifaComponent},
+  {path:'admin/tarifa/delete/:id', component: DeleteTarifaComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped" *ngIf="sala">
+  <tbody>
+      <tr>
+          <th>Id</th>
+          <td>{{sala.id}}</td>
+      </tr>
+      <tr>
+          <td>Alto</td>
+          <td>{{sala.alto}}</td>
+      </tr>
+      <tr>
+          <td>Ancho</td>
+          <td>{{sala.ancho}}</td>
+      </tr>
+      <tr>
+          <td>Tipo de sala</td>
+          <td>{{sala.tiposala.id}}-{{sala.tiposala.nombre}}</td>
+      </tr>
+  </tbody>
+</table>
+
+

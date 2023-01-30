@@ -1,0 +1,89 @@
+<app-menu></app-menu>
+
+<div class="container mt-5" *ngIf="respFromServer">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-5">Lista de salas</h1>
+
+      <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
+
+        <a [routerLink]="['/admin/sala/create']" class="btn btn-primary mx-3">Alta de sala</a>
+        <app-search-unrouted [placeHolder]="'Buscar sala'" (onSearch)="setFilter( $event )"></app-search-unrouted>
+        <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
+          (eeRpp)="this.setRpp($event)">
+        </app-dropdown-register-page>
+      </div>
+
+      <div class="col-md">
+        <app-pagination-unrouted [nPage]="respFromServer.number + 1" [nTotalPages]="respFromServer.totalPages"
+          (eePage)="setPage($event)"></app-pagination-unrouted>
+      </div>
+
+      <div class="col-md text-start">
+        <h5 class="text-muted" *ngIf="strTermFilter!=''">Filtrando por {{strTermFilter}} (borrar para resetear)</h5>
+        <button class="btn btn-outline-danger" *ngIf="id_usertypeFilter!=0" (click)="setFilterBySalatype(0)">
+          <i class="bi bi-x-circle"></i> Reset usertype {{id_usertypeFilter}} filter</button>
+      </div>
+
+      <div class="col-md text-end">
+        <h5 class="text-muted">Total registros {{respFromServer.totalElements}}</h5>
+      </div>
+
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th (click)="setOrder('id')">ID</th>
+            <th (click)="setOrder('alto')">Alto</th>
+            <th (click)="setOrder('ancho')">Ancho</th>
+            <th>Tipo sala</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sala of respFromServer?.content">
+            <td>{{sala.id}}</td>
+            <td>{{sala.ancho}}</td>
+            <td>{{sala.alto}}</td>
+
+            <td (click)="setFilterBySalatype(sala.tiposala.id)">
+              {{sala.tiposala.id}}-{{sala.tiposala.nombre}}</td>
+            <td>
+
+              <div class="btn-group" role="group" aria-label="Herramientas">
+                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/sala/view',sala.id]">
+                  Ver
+                </button>
+                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/sala/update',sala.id]">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-danger" [routerLink]="['/admin','sala','delete',sala.id]">
+                  Eliminar
+                </button>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="generateInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Cine MatriX</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              {{msg}}
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="getPage()">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+

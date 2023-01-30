@@ -76,7 +76,7 @@
       </table>
     </div>
 
-    <div class="paginaPie" style="background-color: aqua;">
+    <div class="paginaPie" style="background-color: aqua;" *ngIf="Rpp >=10">
       <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
           (eePage)="setPage($event)">
       </app-pagination-unrouted>

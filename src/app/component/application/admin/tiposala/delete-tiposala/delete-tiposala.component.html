@@ -1,11 +1,11 @@
 <div class="container mt-3">
 
   <div class="titulo">
-    <h4>Eliminar Género</h4>
+    <h4>Eliminar tipo de Sala</h4>
   </div>
 
   <div class="tableContainer">
-    <table class="table table-responsive table-striped" *ngIf="genero">
+    <table class="table table-responsive table-striped" *ngIf="tipoSala">
       <thead>
         <tr>
           <th>ID</th>
@@ -14,8 +14,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{genero.id}}</td>
-          <td>{{genero.nombre}}</td>
+          <td>{{tipoSala.id}}</td>
+          <td>{{tipoSala.nombre}}</td>
         </tr>
       </tbody>
     </table>
@@ -26,7 +26,7 @@
         <div class="alert alert-danger my-3" role="alert">
             <h3>¿Está seguro que quiere borrar el género?</h3>
             <div class="d-grid gap-2 d-md-block mt-3 d-md-flex justify-content-md-center my-4">
-                <a class="btn btn-danger mx-2" (click)="deleteGenero(genero.id)">
+                <a class="btn btn-danger mx-2" (click)="deleteTipoSala(tipoSala.id)">
                     SI</a>
                 <a class="btn btn-success mx-2" (click)="back()">
                     NO </a>
@@ -35,4 +35,5 @@
     </div>
 </div>
 </div>
+
 

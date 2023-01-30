@@ -1,19 +1,19 @@
-import { GeneroService } from './../../../../../service/genero.service';
-import { GeneroInterface } from './../../../../../model/Genero-interface';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { TipoSalaInterface } from 'src/app/model/TipoSala-interface';
+import { TipoSalaService } from 'src/app/service/tipo-sala.service';
 import { environment } from 'src/environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
-  templateUrl: './create-genero.component.html',
-  styleUrls: ['./create-genero.component.css']
+  templateUrl: './create-tiposala.component.html',
+  styleUrls: ['./create-tiposala.component.css']
 })
-export class CreateGeneroComponent implements OnInit{
+export class CreateTiposalaComponent {
 
-  genero!: GeneroInterface;
-  private entityUrl:string =  "/genero";
+  tipoSala!: TipoSalaInterface;
+  private entityUrl:string =  "/tiposala";
   url = "";
   id!: number;
   form!: FormGroup;
@@ -22,7 +22,7 @@ export class CreateGeneroComponent implements OnInit{
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private generoService: GeneroService,
+    private tipoSalaService: TipoSalaService,
     private location: Location
   ) {
     this.url = `${environment.baseURL}${this.entityUrl}`;
@@ -39,15 +39,15 @@ export class CreateGeneroComponent implements OnInit{
     this.location.back();
   }
 
-  createGenero() {
-    this.genero = {
+  createTipoSala() {
+    this.tipoSala = {
       id: this.form.value.id,
       nombre: this.form.value.nombre,
-      peliculasCount: null
+      salasCount: null
     }
 
     if (this.form.valid) {
-      this.generoService.createGenero(this.genero).subscribe({
+      this.tipoSalaService.createTipoSala(this.tipoSala).subscribe({
         next: (resp: number) => {
           this.id = resp;
           console.log(this.id);
@@ -55,5 +55,4 @@ export class CreateGeneroComponent implements OnInit{
       })
     }
   }
-
 }

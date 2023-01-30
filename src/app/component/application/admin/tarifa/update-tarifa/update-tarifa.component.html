@@ -1,14 +1,19 @@
 <div class="container mt-3">
 
   <div class="titulo">
-    <h4>Actualización de Género</h4>
+    <h4>Actualización de Tarifa</h4>
   </div>
 
   <div class="formContainer">
-    <form [formGroup]="form" (ngSubmit)="updateGenero()">
+    <form [formGroup]="form" (ngSubmit)="updateTarifa()">
       <div class="inputDiv">
         <label for="inputName">Nombre</label>
         <input type="text" id="inputName" formControlName="nombre">
+      </div>
+
+      <div class="inputDiv">
+        <label for="inputName">Precio</label>
+        <input type="text" id="inputName" formControlName="precio">
       </div>
       <div class="buttons">
         <button type="submit" class="btn btn-success">Guardar</button>
@@ -17,3 +22,4 @@
     </form>
   </div>
 </div>
+

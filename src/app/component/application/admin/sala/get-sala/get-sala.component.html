@@ -1,0 +1,35 @@
+<app-menu></app-menu>
+
+<div class="container mt-5" *ngIf="sala">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-5">Datos de sala {{sala.id}}</h1>
+      <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{sala.id}}</td>
+            </tr>
+            <tr>
+                <td>Alto</td>
+                <td>{{sala.alto}}</td>
+            </tr>
+            <tr>
+                <td>Ancho</td>
+                <td>{{sala.ancho}}</td>
+            </tr>
+            <tr>
+                <td>Tipo de Sala</td>
+                <td>{{sala.tiposala.id}} ({{sala.tiposala.nombre}})</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <a class="btn btn-outline-primary m-2" (click)="goBack()"> Volver</a>
+</div>
+</div>
+
+
+
