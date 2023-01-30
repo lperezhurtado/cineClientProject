@@ -1,0 +1,81 @@
+<app-menu></app-menu>
+
+<div class="contenedor">
+  <div class="titulo">
+    Información de Pelicula
+  </div>
+
+  <div class="formContainer">
+    <form class="gridContainer" [formGroup]="form" *ngIf="form" (ngSubmit)="updatePelicula()">
+
+      <fieldset class="infoGeneral">
+
+        <div class="inputDiv">
+          <label for="inputId">ID</label>
+          <input type="text" class="" id="inputId" formControlName="id" readonly>
+        </div>
+        <div class="inputDiv">
+          <label for="inputTitulo">Titulo</label>
+          <input type="text" class="" id="inputTitulo" formControlName="titulo">
+        </div>
+        <div class="inputDiv">
+          <label for="inputDir">Director</label>
+          <input type="text" class="" id="inputDir" formControlName="director">
+        </div>
+        <div class="inputDiv">
+          <label for="inputYear">Año</label>
+          <input type="text" class="" id="inputYear" formControlName="year">
+        </div>
+        <div class="inputDiv">
+          <label for="inputDur">Duración</label>
+          <input type="text" class="" id="inputDur" formControlName="duracion">
+        </div>
+        <div class="inputDiv">
+          <label for="inputGenero">Género</label>
+          <input type="text" class="" id="inputGenero" formControlName="genero">
+        </div>
+
+      </fieldset>
+
+      <fieldset class="sinopsis">
+        <div class="inputDiv">
+          <label for="inputSin">Sinopsis</label>
+          <input type="text" class="" id="inputSin" formControlName="sinopsis">
+        </div>
+      </fieldset>
+
+      <fieldset class="options">
+        <div class="image">
+          <img [src]="this.src" alt="portada de pelicula seleccionada">
+          <input type="file" (change)="fileSelected($event)">
+        </div>
+        <div class="inputDiv">
+          <label for="inputAlta">Fecha de Alta</label>
+          <input type="text" class="" id="inputAlta" formControlName="fAlta">
+        </div>
+        <div class="inputDiv">
+          <label for="inputBaja">Fecha de Baja</label>
+          <input type="text" class="" id="inputBaja" formControlName="fBaja">
+        </div>
+        <div class="inputDiv">
+
+          <div class="inputVersion">
+            <label for="inputNormal">V. normal</label>
+            <input type="checkbox" class="" id="inputNormal" formControlName="normal">
+          </div>
+          <div class="inputEspecial">
+            <label for="inputEspecial">V. especial</label>
+            <input type="checkbox" class="" id="inputEspecial" formControlName="especial">
+          </div>
+
+        </div>
+      </fieldset>
+
+      <fieldset class="buttons">
+        <button type="submit" class="btn btn-primary btnCrear">Crear</button>
+        <button type="button" class="btn btn-danger btnCancelar" (click)="back()">Cancelar</button>
+      </fieldset>
+
+    </form>
+  </div>
+</div>

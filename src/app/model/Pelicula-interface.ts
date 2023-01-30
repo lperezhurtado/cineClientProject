@@ -2,18 +2,19 @@ import { GeneroInterface } from './Genero-interface';
 import { Pageable, Sort } from "./shared-interface";
 
 export interface PeliculaInterface {
-  id:              number;
-  titulo:          string;
+  id:               number;
+  titulo:           string;
   year:             number;
-  duracion:        number;
-  director:        string;
-  fechaAlta:       Date;
-  fechaBaja:       null;
-  versionNormal:   boolean;
-  versionEspecial: boolean;
-  genero:          GeneroInterface;
-  imagen:          string;
-  sesionesCount:   number;
+  duracion:         number;
+  director:         string;
+  sinopsis:         string,
+  fechaAlta:        Date;
+  fechaBaja:        Date | null;
+  versionNormal:    boolean;
+  versionEspecial:  boolean;
+  genero:           GeneroInterface;
+  imagen:           string;
+  sesionesCount:    number;
 }
 
 export interface PeliculaPageInterface {

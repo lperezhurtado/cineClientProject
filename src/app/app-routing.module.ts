@@ -1,3 +1,7 @@
+import { DeleteGeneroComponent } from './component/application/admin/genero/delete-genero/delete-genero.component';
+import { UpdateGeneroComponent } from './component/application/admin/genero/update-genero/update-genero.component';
+import { CreateGeneroComponent } from './component/application/admin/genero/create-genero/create-genero.component';
+import { UpdatePeliculaComponent } from './component/application/admin/pelicula/update-pelicula/update-pelicula.component';
 import { CreatePeliculaComponent } from './component/application/admin/pelicula/create-pelicula/create-pelicula.component';
 import { DeletePeliculaComponent } from './component/application/admin/pelicula/delete-pelicula/delete-pelicula.component';
 import { GetPeliculaComponent } from './component/application/admin/pelicula/get-pelicula/get-pelicula.component';
@@ -27,10 +31,15 @@ const routes: Routes = [
   {path:'admin/usuario/delete/:id', component:DeleteUsuarioComponent},
   //PELICULA
   {path:'admin/pelicula/plist', component: PlistPeliculaComponent},
-  {path:'admin/pelicula/view:id', component: GetPeliculaComponent},
+  {path:'admin/pelicula/view/:id', component: GetPeliculaComponent},
   {path:'admin/pelicula/create', component: CreatePeliculaComponent},
   {path:'admin/pelicula/delete/:id', component:DeletePeliculaComponent},
-  {path:'admin/genero/plist', component: PlisGeneroComponent}
+  {path:'admin/pelicula/update/:id', component: UpdatePeliculaComponent},
+  //GENERO
+  {path:'admin/genero/plist', component: PlisGeneroComponent},
+  {path:'admin/genero/create', component: CreateGeneroComponent},
+  {path:'admin/genero/update/:id', component: UpdateGeneroComponent},
+  {path:'admin/genero/delete/:id', component: DeleteGeneroComponent}
 ];
 
 @NgModule({

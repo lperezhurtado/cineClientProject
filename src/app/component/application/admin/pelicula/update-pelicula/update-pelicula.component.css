@@ -1,0 +1,122 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  /*display: flex;
+  align-items: center;*//*ESTO ES OTRA FORMADE CENTRAR VERTICALMENTE EL FORMULARIO*/
+  padding-top: 10vh;/*MIRAR*/
+  height: 100vh;
+  font-size: 1.1rem;
+  /*min-height: 100%;*/ /*Esto y lo de arriba (html) permiten que se ocupe el total de la pagina*/
+}
+
+.formContainer{
+  width: 75vw;
+  margin: 0 auto;
+  padding: 2vw;
+  background-color: aqua;
+}
+
+.titulo{
+  background-color: black;
+  margin-bottom: 2vh;
+  text-align: center;
+  font-size: 2.5rem;
+}
+/*Labels en inline block, que permite que todos los inputs se alineen*/
+label{
+  background-color: tomato;
+  display: inline-block;
+  width: 12vw;
+}
+input{
+  border-radius: 10px;
+}
+/*Div que tiene cada par label-input*/
+.inputDiv{
+  text-align: left;
+  margin: 1.5vh auto;
+  background-color: yellow;
+}
+
+img{
+  max-width: 300px;
+  max-height: 400px;
+}
+/*TEMPORAL*/
+.gridContainer > *{
+  box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
+  border-radius: 5px;
+  padding: .5vh;
+  text-align: center;
+}
+
+.gridContainer{
+  width: 100%;
+  background-color: blueviolet;
+  padding: 2vw;
+  display: grid;
+  gap: 3vw;
+  grid-template:
+  "info       options"    32vh
+  "sinopsis   sinopsis"   auto
+  "buttons    buttons"    7vh/
+  1fr         1fr;
+}
+
+.infoGeneral{
+  grid-area: info;
+}
+.options{
+  grid-area: options;
+}
+.sinopsis{
+  grid-area: sinopsis;
+}
+.buttons{
+  grid-area: buttons;
+}
+/*media para cambiar ancho de form*/
+@media(max-width:1702px) {
+  .formContainer{
+      width: 82vw;
+  }
+}
+
+/*cambia tamaño del grid y pasa los inputs debajo del label*/
+@media(max-width:1464px) {
+  label{
+      width: 100%;
+  }
+  .gridContainer{
+      grid-template:
+      "info       options"    45vh
+      "sinopsis   sinopsis"   auto
+      "buttons    buttons"    7vh/
+      1fr         1fr;
+      }
+}
+/*div principal ocupa todo el area de la pantalla*/
+@media(max-width:1024px) {
+  .formContainer{
+      width: 100vw;
+      height: 100vh;
+  }
+  body{
+      padding: 0;
+  }
+}
+
+/*cambia la plantilla del grid a una sola columna*/
+@media(max-width:965px) {
+  .gridContainer{
+      grid-template:
+      "options"
+      "info"
+      "sinopsis"
+      "buttons";
+  }
+}

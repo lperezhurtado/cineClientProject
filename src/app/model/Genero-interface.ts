@@ -3,7 +3,7 @@ import { Pageable, Sort } from "./shared-interface";
 export interface GeneroInterface {
   id:             number;
   nombre:         string;
-  peliculasCount: number;
+  peliculasCount: number | null;
 }
 
 export interface GeneroPageInterface {

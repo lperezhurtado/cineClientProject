@@ -58,6 +58,11 @@ export class PeliculaService {
     return this.httpClient.post<number>(this.url+'/', formData, {withCredentials:true});
    }
 
+   //UPDATE
+   updatePelicula(formData: FormData): Observable<number> {
+    return this.httpClient.put<number>(this.url, formData, {withCredentials:true});
+   }
+
    //DELETE
    deletePelicula(id: number): Observable<number> {
     return this.httpClient.delete<number>(this.url+'/'+id, {withCredentials:true});

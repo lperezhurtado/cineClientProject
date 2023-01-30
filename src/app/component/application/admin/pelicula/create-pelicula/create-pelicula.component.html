@@ -1,14 +1,4 @@
-<p>create-pelicula works!</p>
-
-
-id = new FormControl('');
-  titulo = new FormControl('');
-  director = new FormControl('');
-  year = new FormControl('');
-  duracion = new FormControl('');
-  fAlta = new FormControl('');
-  fBaja = new FormControl('');
-  formData = new FormData();
+<app-menu></app-menu>
 
 <form action="">
   <label for="">Titula</label>
@@ -30,11 +20,11 @@ id = new FormControl('');
   <input type="datetime-local" [formControl]="this.fAlta">-->
 
   <div class="field col-12 md:col-4">
-    <label for="time">Time / 24h</label>
-    <p-calendar [formControl]="this.fAlta" dateFormat="dd-mm-yy" [showTime]="true" [showIcon]="true" [showSeconds]="false" [stepMinute]="5" [showButtonBar]="true" inputId="time"></p-calendar>
+    <label for="time">Fecha de alta</label>
+    <p-calendar [formControl]="this.fAlta" dateFormat="dd-mm-yy" [showTime]="true" [showIcon]="true" [showSeconds]="false" [stepMinute]="1" [showButtonBar]="true" inputId="time"></p-calendar>
 </div>
 
 
-  <button type="submit" class="btn btn-outline-primary" (click)="createPelicula()">Guardar</button>
+  <button type="submit" class="btn btn-outline-primary" (click)="checkFile()">Guardar</button>
 
 </form>

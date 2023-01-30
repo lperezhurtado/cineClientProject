@@ -33,7 +33,19 @@ export class GeneroService {
     return this.httpClient.get<GeneroPageInterface>(this.url, httpOptions);
   }
 
+  createGenero(genero: GeneroInterface): Observable<number> {
+    return this.httpClient.post<number>(this.url+'/', genero, {withCredentials:true});
+  }
+
   getOne(id: number): Observable<GeneroInterface> {
-    return this.httpClient.get<GeneroInterface>(this.url +"/"+ id);
+    return this.httpClient.get<GeneroInterface>(this.url +"/"+ id, {withCredentials:true});
+  }
+
+  updateGenero(genero: GeneroInterface): Observable<number> {
+    return this.httpClient.put<number>(this.url, genero, {withCredentials:true});
+  }
+
+  deleteGenero(id: number): Observable<number> {
+    return this.httpClient.delete<number>(this.url+'/'+id, {withCredentials:true});
   }
 }

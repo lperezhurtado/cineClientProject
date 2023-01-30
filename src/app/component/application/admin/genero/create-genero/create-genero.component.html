@@ -1,0 +1,19 @@
+<div class="container mt-3">
+
+  <div class="titulo">
+    <h4>Nuevo Género</h4>
+  </div>
+
+  <div class="formContainer">
+    <form [formGroup]="form" (ngSubmit)="createGenero()">
+      <div class="inputDiv">
+        <label for="inputName">Nombre</label>
+        <input type="text" formControlName="nombre">
+      </div>
+      <div class="buttons">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

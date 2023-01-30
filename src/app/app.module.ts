@@ -34,6 +34,10 @@ import { GetPeliculaComponent } from './component/application/admin/pelicula/get
 import { DeletePeliculaComponent } from './component/application/admin/pelicula/delete-pelicula/delete-pelicula.component';
 import { DataTablePeliculaComponent } from './component/application/admin/pelicula/auxiliar/data-table-pelicula/data-table-pelicula.component';
 import { CreatePeliculaComponent } from './component/application/admin/pelicula/create-pelicula/create-pelicula.component';
+import { UpdatePeliculaComponent } from './component/application/admin/pelicula/update-pelicula/update-pelicula.component';
+import { CreateGeneroComponent } from './component/application/admin/genero/create-genero/create-genero.component';
+import { UpdateGeneroComponent } from './component/application/admin/genero/update-genero/update-genero.component';
+import { DeleteGeneroComponent } from './component/application/admin/genero/delete-genero/delete-genero.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { CreatePeliculaComponent } from './component/application/admin/pelicula/
     GetPeliculaComponent,
     DeletePeliculaComponent,
     DataTablePeliculaComponent,
-    CreatePeliculaComponent
+    CreatePeliculaComponent,
+    UpdatePeliculaComponent,
+    CreateGeneroComponent,
+    UpdateGeneroComponent,
+    DeleteGeneroComponent
   ],
   imports: [
     BrowserModule,
