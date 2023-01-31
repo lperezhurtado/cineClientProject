@@ -58,6 +58,8 @@ import { PlistSesionComponent } from './component/application/admin/sesion/plist
 import { CreateSesionComponent } from './component/application/admin/sesion/create-sesion/create-sesion.component';
 import { SelectPlistComponent } from './component/application/admin/sala/auxiliar/select-plist/select-plist.component';
 import { SelectPlistPeliculaComponent } from './component/application/admin/pelicula/auxiliar/select-plist/select-plist-pelicula/select-plist-pelicula.component';
+import { UpdateSesionComponent } from './component/application/admin/sesion/update-sesion/update-sesion.component';
+import { GetSesionComponent } from './component/application/admin/sesion/get-sesion/get-sesion.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +109,9 @@ import { SelectPlistPeliculaComponent } from './component/application/admin/peli
     CreateSesionComponent,
     SelectPlistComponent,
     SelectPlistTarifaComponent,
-    SelectPlistPeliculaComponent
+    SelectPlistPeliculaComponent,
+    UpdateSesionComponent,
+    GetSesionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,227 @@
+<app-menu></app-menu>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-5">Actualizar Sesión</h1>
+
+      <form novalidate [formGroup]="form" *ngIf="form" (ngSubmit)="updateSesion()">
+
+        <div class="mb-3 row">
+          <label for="inputID" class="col-sm-2 col-form-label">ID</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="inputID" formControlName="id" readonly>
+          </div>
+        </div>
+        <!--FECHA HORA-->
+        <div class="mb-3 row">
+          <label for="inputFecha" class="col-sm-2 col-form-label">Fecha/Hora</label>
+          <div class="col-sm-4 has-validation">
+
+            <p-calendar formControlName="fechaHora" dateFormat="dd-mm-yy" [showTime]="true" [showIcon]="true" [showSeconds]="false" [stepMinute]="1" [showButtonBar]="true" inputId="time"></p-calendar>
+
+            <div id="inputNameFeedback" class="invalid-feedback"
+              *ngIf="form.controls.fechaHora.dirty &&  form.controls.fechaHora.errors?.['minlength']">
+              La longitud mínima es de 5 caracteres.
+            </div>
+            <div id="inputNameFeedback" class="invalid-feedback"
+              *ngIf="form.controls.fechaHora.dirty &&  form.controls.fechaHora.errors?.['maxlength']">
+              La longitud máxima es de 10 caracteres.
+            </div>
+            <div id="inputNameFeedback" class="invalid-feedback"
+              *ngIf="form.controls.fechaHora.dirty &&  form.controls.fechaHora.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+          </div>
+        </div>
+
+        <!--SALA-->
+        <div class="mb-3 row">
+          <label for="inputUsertype" class="col-sm-2 col-form-label">Sala</label>
+          <div class="col-sm-6 has-validation">
+
+            <div class="input-group">
+              <span class="input-group-text">{{salaDescription}}</span>
+
+              <input type="number" class="form-control" formControlName="sala" (keyup)="updateSalaDescription(form.controls.sala.value)"
+                [ngClass]="{'is-valid' :  form.controls.sala.dirty &&
+                (!form.controls.sala.errors?.['required'] || !form.controls.sala.errors?.['pattern']),
+
+                'is-invalid' : form.controls.sala.dirty &&
+                (form.controls.sala.errors?.['required'] || form.controls.sala.errors?.['pattern']) }"
+              >
+
+              <button type="button" class="btn btn-outline-primary" (click)="openModalFindSala()">Buscar</button>
+            </div>
+
+            <div class="invalid-feedback"
+              *ngIf="form.controls.sala?.dirty &&  form.controls.sala?.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+            <div class="text-danger"
+              *ngIf="form.controls.sala?.dirty &&  form.controls.sala?.errors?.['pattern']">
+              El campo ha de ser un entrero de máximo 6 dígitos.
+            </div>
+          </div>
+        </div>
+        <!--PELICULA-->
+        <div class="mb-3 row">
+          <label for="inputUsertype" class="col-sm-2 col-form-label">Película</label>
+          <div class="col-sm-6 has-validation">
+
+            <div class="input-group">
+              <span class="input-group-text">{{peliculaDescription}}</span>
+
+              <input type="number" class="form-control" formControlName="pelicula" (keyup)="updatePeliculaDescription(form.controls.pelicula.value)"
+                [ngClass]="{'is-valid' :  form.controls.pelicula.dirty &&
+                (!form.controls.pelicula.errors?.['required'] || !form.controls.pelicula.errors?.['pattern']),
+
+                'is-invalid' : form.controls.pelicula.dirty &&
+                (form.controls.pelicula.errors?.['required'] || form.controls.pelicula.errors?.['pattern']) }"
+              >
+
+              <button type="button" class="btn btn-outline-primary" (click)="openModalFindPelicula()">Buscar</button>
+            </div>
+
+            <div class="invalid-feedback"
+              *ngIf="form.controls.pelicula?.dirty &&  form.controls.pelicula?.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+            <div class="text-danger"
+              *ngIf="form.controls.pelicula?.dirty &&  form.controls.pelicula?.errors?.['pattern']">
+              El campo ha de ser un entrero de máximo 6 dígitos.
+            </div>
+          </div>
+        </div>
+        <!--TARIFA-->
+        <div class="mb-3 row">
+          <label for="inputUsertype" class="col-sm-2 col-form-label">Tarifa</label>
+          <div class="col-sm-6 has-validation">
+
+            <div class="input-group">
+              <span class="input-group-text">{{tarifaDescription}}</span>
+
+              <input type="number" class="form-control" formControlName="tarifa" (keyup)="updateTarifaDescription(form.controls.tarifa.value)"
+                [ngClass]="{'is-valid' :  form.controls.tarifa.dirty &&
+                (!form.controls.tarifa.errors?.['required'] || !form.controls.tarifa.errors?.['pattern']),
+
+                'is-invalid' : form.controls.tarifa.dirty &&
+                (form.controls.tarifa.errors?.['required'] || form.controls.tarifa.errors?.['pattern']) }"
+              >
+
+              <button type="button" class="btn btn-outline-primary" (click)="openModalFindTarifa()">Buscar</button>
+            </div>
+
+            <div class="invalid-feedback"
+              *ngIf="form.controls.tarifa?.dirty &&  form.controls.tarifa?.errors?.['required']">
+              El campo es obligatorio.
+            </div>
+            <div class="text-danger"
+              *ngIf="form.controls.tarifa?.dirty &&  form.controls.tarifa?.errors?.['pattern']">
+              El campo ha de ser un entrero de máximo 6 dígitos.
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-outline-success" [disabled]="(form.pristine || form.invalid)">Guardar Cambios</button>
+        <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Cancelar</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+<!--MODAL DE NOTIFICACION-->
+<div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        {{modalContent}}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL DE SALA, PELICULA Y TARIFA-->
+<div class="modal fade" id="findSala" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-select-sala (closeEvent)="closeSalaModal($event)"></app-select-sala>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="findPelicula" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-select-pelicula (closeEvent)="closePeliculaModal($event)"></app-select-pelicula>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="findTarifa" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-select-tarifa (closeEvent)="closeTarifaModal($event)"></app-select-tarifa>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="modal fade" id="findTeam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-team-finder-admin-unrouted (closeEvent)="closeTeamModal($event)"></app-team-finder-admin-unrouted>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>-->

@@ -1,87 +1,126 @@
-import { TarifaService } from 'src/app/service/tarifa.service';
-import { PeliculaService } from 'src/app/service/pelicula.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SesionInterface, SesionNewInterface, SesionFormInterface } from './../../../../../model/Sesion-interface';
+import { SesionInterface, SesionFormInterface, SesionNewInterface } from './../../../../../model/Sesion-interface';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { PeliculaInterface } from 'src/app/model/Pelicula-interface';
+import { SalaInterface } from 'src/app/model/Sala-interface';
+import { TarifaInterface } from 'src/app/model/Tarifa-interface';
+import { PeliculaService } from 'src/app/service/pelicula.service';
 import { SalaService } from 'src/app/service/sala.service';
 import { SesionService } from 'src/app/service/sesion.service';
-import { SalaInterface } from 'src/app/model/Sala-interface';
-import { PeliculaInterface } from 'src/app/model/Pelicula-interface';
-import { TarifaInterface } from 'src/app/model/Tarifa-interface';
+import { TarifaService } from 'src/app/service/tarifa.service';
+import Swal from 'sweetalert2';
+
 declare let bootstrap: any;
 
 @Component({
-  templateUrl: './create-sesion.component.html',
-  styleUrls: ['./create-sesion.component.css']
+  templateUrl: './update-sesion.component.html',
+  styleUrls: ['./update-sesion.component.css']
 })
-export class CreateSesionComponent {
+export class UpdateSesionComponent implements OnInit {
 
-  sesion!: SesionNewInterface;
-  error = "";
-  id!: number;
+  id: number = 0
+  sesion!: SesionInterface;
+  sesionForm!: SesionFormInterface;
+  sesionNew!: SesionNewInterface;
   form!: FormGroup<SesionFormInterface>;
+  error = "";
+  //foreigns
+  actualSala!: number;
+  actualPelicula!: number;
+  actualTarifa!: number;
+
+  salaDescription: string = "Sala";
+  peliculaDescription: string = "Pelicula";
+  tarifaDescription: string = "Tarifa";
+
 
   mimodal: string = "miModal";
   myModal: any;
   modalTitle: string = "";
   modalContent: string = "";
 
-  salaDescription: string = "Sala";
-  peliculaDescription: string = "Pelicula";
-  tarifaDescription: string = "Tarifa";
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private sesionService: SesionService, //PRINCIPAL
-    private formBuilder: FormBuilder,
+    private sesionService: SesionService,
     private salaService: SalaService,
     private peliculaService: PeliculaService,
     private tarifaService: TarifaService,
+    private formBuilder: FormBuilder,
     private location: Location
-  ) { }
+  ) {
+    this.id = activatedRoute.snapshot.params['id'];
+   }
 
   ngOnInit(): void {
-    this.form = <FormGroup>this.formBuilder.group({
-      id:[""],
-      sala:["", [Validators.required]],
-      pelicula:["", [Validators.required]],
-      tarifa:["", [Validators.required]],
-      fechaHora:["", [Validators.required]]
-    });
+    this.getOne();
   }
 
   back() {
     this.location.back();
   }
+  //OBTIENE DATOS DE LA SESION
+  getOne() {
+    this.sesionService.getSesion(this.id).subscribe({
+      next: (resp: SesionInterface) => {
+        this.sesion = resp;
+        console.log("GETONE");
+        console.log(resp);
+        this.form = <FormGroup>this.formBuilder.group({
+          id: [resp.id, [Validators.required]],
+          fechaHora: [resp.fechaHora, Validators.required],
+          sala:[resp.sala.id,[Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+          pelicula: [resp.pelicula.id, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+          tarifa: [resp.tarifa.id, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]]
+        });
+        this.actualSala = resp.sala.id;
+        this.actualPelicula = resp.pelicula.id;
+        this.actualTarifa = resp.tarifa.id;
 
-  createSesion() {
-    this.sesion = {
+        this.updateSalaDescription(resp.sala.id);
+        this.updatePeliculaDescription(resp.pelicula.id);
+        this.updateTarifaDescription(resp.tarifa.id);
+        //this.updateTeamDescription(this.oDeveloper.team.id);
+
+        console.log("form");
+        console.log(this.form);
+      }
+    })
+  }
+
+  //UPDATE
+  updateSesion() {
+    this.sesionNew = {
       id: this.form.value.id!,
       fechaHora: this.form.value.fechaHora!,
-      sala: {id: this.form.value.sala!},
+      sala: {id: this.form.value.sala},
       pelicula: {id: this.form.value.pelicula},
-      tarifa: {id: this.form.value.tarifa},
+      tarifa: {id: this.form.value.tarifa}
     }
 
     if (this.form.valid) {
-      this.sesionService.createSesion(this.sesion).subscribe({
+      this.sesionService.updateSesion(this.sesionNew).subscribe({
         next: (resp: number) => {
-          this.id = resp;
-          console.log(resp);
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Sesión " + this.id + " actualizada";
+          this.showModal();
         },
         error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
           this.error = error.error.message;
-          //this.popup(error.error.message,"error");
-          console.log(error);
+          this.popup(error.error.message,"error");
+          console.log(error.error.message);
         }
       });
     }
+    else{
+      this.popup("Todos los campos deben estar rellenados","warning");
+    }
   }
-  //SALA
-  updateSalaDescription(id_sala: number) {
+
+   //SALA
+   updateSalaDescription(id_sala: number) {
     this.salaService.getSala(id_sala).subscribe({
       next: (resp: SalaInterface) => {
         this.salaDescription = 'Sala'+resp.id+'('+resp.tiposala.nombre+')';
@@ -180,4 +219,26 @@ export class CreateSesionComponent {
     this.myModal.hide();
   }
 
+
+  popup(message: string, status: string) {
+    Swal.fire({
+        customClass : {
+          title: 'swal2-title',
+          cancelButton: 'swal2-cancel',
+          confirmButton: 'swal2-confirm',
+          input: 'swal2-input'
+        },
+        icon:<any>status,
+        title: message,
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+}
 }

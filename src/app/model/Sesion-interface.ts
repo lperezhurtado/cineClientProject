@@ -29,7 +29,6 @@ export interface SesionNewInterface {
   sala:          IEntity;
   pelicula:      IEntity;
   tarifa:        IEntity;
-  entradasCount: number | null;
 }
 
 export interface SesionPageInterface {

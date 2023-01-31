@@ -32,6 +32,6 @@ export class TipoUsuarioService {
   }
 
   getOne(id: number): Observable<TipoUsuarioInterface> {
-    return this.httpClient.get<TipoUsuarioInterface>(`${environment.baseURL}${this.entityURL}` + "/" + id);
+    return this.httpClient.get<TipoUsuarioInterface>(`${environment.baseURL}${this.entityURL}` + "/" + id, {withCredentials:true});
   }
 }
