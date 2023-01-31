@@ -45,7 +45,6 @@ export class UsuarioService {
     };
 
     return this.httpClient.get<UsuarioPageInterface>(this.url, httpOptions)
-
    }
 
    createUsuario(usuario2Send: IUsuario2Send): Observable<number> {

@@ -17,10 +17,9 @@ export interface SesionInterface {
 export interface SesionFormInterface {
   id:            FormControl<number>;
   fechaHora:     FormControl<Date>;
-  sala:          FormControl<SalaInterface> //FormControl<number>
-  pelicula:      FormControl<PeliculaInterface> //FormControl<number>;
-  tarifa:        FormControl<TarifaInterface> //FormControl<number>;
-  entradasCount: number | null;
+  sala:         /* FormControl<SalaInterface>*/ FormControl<number>
+  pelicula:      /*FormControl<PeliculaInterface>*/ FormControl<number>;
+  tarifa:        /*FormControl<TarifaInterface>*/ FormControl<number>;
 }
 
 //PARA CREAR Y ACTUALIZAR

@@ -1,24 +1,26 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SalaPageInterface } from 'src/app/model/Sala-interface';
-import { SalaService } from 'src/app/service/sala.service';
+import { PeliculaPageInterface } from 'src/app/model/Pelicula-interface';
+import { PeliculaService } from 'src/app/service/pelicula.service';
 
 @Component({
-  selector:'app-sala-plist',
-  templateUrl: './plist-sala.component.html',
-  styleUrls: ['./plist-sala.component.css']
+  selector:'app-select-pelicula',
+  templateUrl: './select-plist-pelicula.component.html',
+  styleUrls: ['./select-plist-pelicula.component.css']
 })
-export class PlistSalaComponent implements OnInit {
+export class SelectPlistPeliculaComponent {
 
-  respFromServer!: SalaPageInterface;
+  @Output() closeEvent = new EventEmitter<number>();
+
+  respFromServer!: PeliculaPageInterface;
   usuarioSession!: string; //Por si acaso
 
   generated!: number;
   generados: boolean = false;
   msg: string = "";
 
-  strTermFilter: string = "";
+  filter: string = "";
   id_usertypeFilter: number = 0;
   numberOfElements: number = 5;
   page: number = 0;
@@ -26,7 +28,7 @@ export class PlistSalaComponent implements OnInit {
   sortDirection: string = "";
 
   constructor(
-    private salaService: SalaService,
+    private peliculaService: PeliculaService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -38,10 +40,9 @@ export class PlistSalaComponent implements OnInit {
   getPage() {
 
     //console.log("localstorage: ",localStorage.getItem("usuario"));
-
-    this.salaService.plistSala(this.page, this.numberOfElements, this.id_usertypeFilter, this.sortField, this.sortDirection)
+    this.peliculaService.getPlistPelicula(this.page, this.numberOfElements, this.filter, this.id_usertypeFilter, this.sortField, this.sortDirection)
       .subscribe({
-        next: (resp: SalaPageInterface) => {
+        next: (resp: PeliculaPageInterface) => {
           this.respFromServer = resp;
           if (this.page > resp.totalPages - 1) {
             this.page = resp.totalPages - 1;
@@ -66,7 +67,7 @@ export class PlistSalaComponent implements OnInit {
   }
 
   setFilter(term: string): void {
-    this.strTermFilter = term;
+    this.filter = term;
     this.getPage();
   }
 
@@ -91,5 +92,9 @@ export class PlistSalaComponent implements OnInit {
       this.sortDirection = "asc";
     }
     this.getPage();
+  }
+
+  selectPelicula(id: number) {
+    this.closeEvent.emit(id);
   }
 }

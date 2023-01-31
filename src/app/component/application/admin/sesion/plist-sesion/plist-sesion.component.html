@@ -1,1 +1,88 @@
-<p>plist-sesion works!</p>
+<app-menu></app-menu>
+
+<div class="contenedor mt-3 mx-3" style="background-color: blue; height:10vw;" *ngIf="resp">
+
+  <div class="cabecera bg-success mb-3 pb-2">
+    <h1>Gestión de Salas</h1>
+    <app-search-unrouted [placeHolder]="'Busqueda global'" (onSearch)="setFilter($event)"></app-search-unrouted>
+  </div>
+
+  <div class="cuerpo">
+    <div class="botonera">
+      <a [routerLink]="['/admin/sesion/create']" class="btn btn-primary mx-3 btn-sm">Nueva Sesion</a>
+
+      <div class="paginacion">
+        <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
+          (eePage)="setPage($event)">
+        </app-pagination-unrouted>
+
+        <app-dropdown-register-page class="mx-2" [PageSize]="resp.size"
+            (eeRpp)="this.setRpp($event)">
+        </app-dropdown-register-page>
+      </div>
+
+      <h5 class="text-muted">Total {{resp.totalElements}}</h5>
+    </div>
+
+    <div class="tabla table table-responsive table-hover">
+      <table class="table" style="background-color: bisque;">
+
+        <thead>
+          <tr>
+            <th (click)="setOrder('id')">ID</th>
+
+            <th (click)="setOrder('sala')">Sala</th>
+            <th (click)="setOrder('pelicula')">Pelicula</th>
+            <th (click)="setOrder('tarifa')">Tarifa</th>
+            <th (click)="setOrder('fechaHora')">Fecha/Hora</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let sesion of resp?.content">
+            <td>{{sesion.id}}</td>
+            <td (click)="setIDSala(sesion.sala.id)">
+              Sala {{sesion.sala.id}}
+            </td>
+            <td (click)="setIDPelicula(sesion.pelicula.id)">
+              {{sesion.pelicula.id}}-{{sesion.pelicula.titulo}}
+            </td>
+            <td (click)="setIDTarifa(sesion.tarifa.id)">
+              {{sesion.tarifa.id}}-{{sesion.tarifa.nombre}}
+            </td>
+            <td>{{sesion.fechaHora}}</td><!--AÑO-->
+            <td>
+
+              <div class="btn-group" role="group" aria-label="Herramientas">
+                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/sesion/view',sesion.id]">
+                  Ver
+                </button>
+                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/sesion/update',sesion.id]">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-danger" [routerLink]="['/admin','sesion','delete',sesion.id]">
+                  Eliminar
+                </button>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+        <caption>Total {{resp.totalElements}}</caption>
+      </table>
+    </div>
+
+    <div class="paginaPie" style="background-color: aqua;" *ngIf="Rpp >=10">
+      <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
+          (eePage)="setPage($event)">
+      </app-pagination-unrouted>
+
+      <app-dropdown-register-page class="mx-2" [PageSize]="resp.size"
+          (eeRpp)="this.setRpp($event)">
+      </app-dropdown-register-page>
+    </div>
+
+  </div>
+</div>
+

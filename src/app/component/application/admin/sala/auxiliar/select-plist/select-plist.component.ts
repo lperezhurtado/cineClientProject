@@ -1,15 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SalaPageInterface } from 'src/app/model/Sala-interface';
 import { SalaService } from 'src/app/service/sala.service';
 
 @Component({
-  selector:'app-sala-plist',
-  templateUrl: './plist-sala.component.html',
-  styleUrls: ['./plist-sala.component.css']
+  selector:'app-select-sala',
+  templateUrl: './select-plist.component.html',
+  styleUrls: ['./select-plist.component.css']
 })
-export class PlistSalaComponent implements OnInit {
+export class SelectPlistComponent {
+
+  @Output() closeEvent = new EventEmitter<number>();
 
   respFromServer!: SalaPageInterface;
   usuarioSession!: string; //Por si acaso
@@ -91,5 +93,9 @@ export class PlistSalaComponent implements OnInit {
       this.sortDirection = "asc";
     }
     this.getPage();
+  }
+
+  selectSala(id: number) {
+    this.closeEvent.emit(id);
   }
 }

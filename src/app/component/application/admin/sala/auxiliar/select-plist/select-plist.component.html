@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mb-5">Generos</h1>
+      <table class="table table-responsive table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Alto</th>
+            <th>Ancho</th>
+            <th>Tipo de Sala</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sala of respFromServer?.content">
+            <td>{{sala.id}}</td>
+            <td>{{sala.alto}}</td>
+            <td>{{sala.ancho}}</td>
+            <td>{{sala.tiposala.nombre}}</td>
+            <td>
+              <div class="btn-group" role="group" aria-label="Herramientas">
+                <button class="btn btn-sm btn-outline-primary" (click)="selectSala(sala.id)">
+                  Seleccionar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

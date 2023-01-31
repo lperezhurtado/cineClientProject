@@ -14,7 +14,7 @@ export class PlistTarifaComponent {
   @Output() closeEvent = new EventEmitter<number>();
   respFromServer!: TarifaPageInterface;
   page: number = 0;
-  size: number = 5;
+  size: number = 10;
   totalPages!: number;
 
   constructor(

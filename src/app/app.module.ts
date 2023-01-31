@@ -1,3 +1,4 @@
+import { SelectPlistTarifaComponent } from './component/application/admin/tarifa/Auxiliar/select-plist/select-plist-tarifa.component';
 import { CryptoService } from './service/crypto.service';
 import { UsuarioService } from './service/usuario.service';
 import { LoginService } from './service/login.service';
@@ -54,6 +55,9 @@ import { CreateTarifaComponent } from './component/application/admin/tarifa/crea
 import { UpdateTarifaComponent } from './component/application/admin/tarifa/update-tarifa/update-tarifa.component';
 import { DeleteTarifaComponent } from './component/application/admin/tarifa/delete-tarifa/delete-tarifa.component';
 import { PlistSesionComponent } from './component/application/admin/sesion/plist-sesion/plist-sesion.component';
+import { CreateSesionComponent } from './component/application/admin/sesion/create-sesion/create-sesion.component';
+import { SelectPlistComponent } from './component/application/admin/sala/auxiliar/select-plist/select-plist.component';
+import { SelectPlistPeliculaComponent } from './component/application/admin/pelicula/auxiliar/select-plist/select-plist-pelicula/select-plist-pelicula.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +103,11 @@ import { PlistSesionComponent } from './component/application/admin/sesion/plist
     CreateTarifaComponent,
     UpdateTarifaComponent,
     DeleteTarifaComponent,
-    PlistSesionComponent
+    PlistSesionComponent,
+    CreateSesionComponent,
+    SelectPlistComponent,
+    SelectPlistTarifaComponent,
+    SelectPlistPeliculaComponent
   ],
   imports: [
     BrowserModule,

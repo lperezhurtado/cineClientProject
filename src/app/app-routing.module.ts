@@ -1,3 +1,5 @@
+import { CreateSesionComponent } from './component/application/admin/sesion/create-sesion/create-sesion.component';
+import { PlistSesionComponent } from './component/application/admin/sesion/plist-sesion/plist-sesion.component';
 import { DeleteTarifaComponent } from './component/application/admin/tarifa/delete-tarifa/delete-tarifa.component';
 import { UpdateTarifaComponent } from './component/application/admin/tarifa/update-tarifa/update-tarifa.component';
 import { CreateTarifaComponent } from './component/application/admin/tarifa/create-tarifa/create-tarifa.component';
@@ -69,6 +71,9 @@ const routes: Routes = [
   {path:'admin/tarifa/create', component: CreateTarifaComponent},
   {path:'admin/tarifa/update/:id', component: UpdateTarifaComponent},
   {path:'admin/tarifa/delete/:id', component: DeleteTarifaComponent},
+  //SESION
+  {path:'admin/sesion/plist', component: PlistSesionComponent},
+  {path:'admin/sesion/create', component: CreateSesionComponent}
 ];
 
 @NgModule({
