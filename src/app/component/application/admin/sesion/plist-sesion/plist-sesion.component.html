@@ -3,7 +3,7 @@
 <div class="contenedor mt-3 mx-3" style="background-color: blue; height:10vw;" *ngIf="resp">
 
   <div class="cabecera bg-success mb-3 pb-2">
-    <h1>Gestión de Salas</h1>
+    <h1>Gestión de Sesiones</h1>
     <app-search-unrouted [placeHolder]="'Busqueda global'" (onSearch)="setFilter($event)"></app-search-unrouted>
   </div>
 
@@ -53,6 +53,7 @@
             </td>
             <td>{{sesion.fechaHora}}</td><!--AÑO-->
             <td>
+
 
               <div class="btn-group" role="group" aria-label="Herramientas">
                 <button class="btn btn-sm btn-primary" [routerLink]="['/admin/sesion/view',sesion.id]">

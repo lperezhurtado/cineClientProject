@@ -30,17 +30,40 @@
           <label for="inputDur">Duración</label>
           <input type="text" class="" id="inputDur" formControlName="duracion">
         </div>
+
         <div class="inputDiv">
-          <label for="inputGenero">Género</label>
-          <input type="text" class="" id="inputGenero" formControlName="genero">
+          <label for="inputGenero" class="">Genero</label>
+            <div class="input-group">
+              <span class="input-group-text">{{generoDescription}}</span>
+
+              <input type="number" class="form-control" formControlName="genero" id="inputGenero"
+                [ngClass]="{'is-valid' : !form.controls['genero'].hasError && !form.controls['genero'].dirty &&
+                !form.controls['genero'].errors?.['pattern'],
+                'is-invalid' :  (form.controls['genero'].dirty && form.controls['genero'].errors?.['required'] )
+                || ( form.controls['genero'].dirty && form.controls['genero'].errors?.['pattern'] )}"
+              >
+
+              <button type="button" class="btn btn-outline-primary" (click)="openModalFindGenero()">Buscar</button>
+
+            </div>
+            <!--DIALOGOS DE ERROR-->
+            <div class="text-danger"
+              *ngIf="form.controls['genero'].dirty && form.controls['genero'].errors?.['required']">
+              El campo es obligatorio.
+            </div>
+            <div class="text-danger"
+              *ngIf="form.controls['genero'].dirty && form.controls['genero'].errors?.['pattern']">
+              El campo ha de ser un entrero de máximo 6 dígitos.
+            </div>
+
         </div>
 
       </fieldset>
 
       <fieldset class="sinopsis">
         <div class="inputDiv">
-          <label for="inputSin">Sinopsis</label>
-          <input type="text" class="" id="inputSin" formControlName="sinopsis">
+          <label for="inputSin label-form">Sinopsis</label>
+          <textarea type="text" class="form-control" id="inputSin" formControlName="sinopsis"></textarea>
         </div>
       </fieldset>
 
@@ -49,23 +72,29 @@
           <img [src]="this.src" alt="portada de pelicula seleccionada">
           <input type="file" (change)="fileSelected($event)">
         </div>
-        <div class="inputDiv">
-          <label for="inputAlta">Fecha de Alta</label>
-          <input type="text" class="" id="inputAlta" formControlName="fAlta">
-        </div>
-        <div class="inputDiv">
-          <label for="inputBaja">Fecha de Baja</label>
-          <input type="text" class="" id="inputBaja" formControlName="fBaja">
-        </div>
-        <div class="inputDiv">
 
-          <div class="inputVersion">
-            <label for="inputNormal">V. normal</label>
-            <input type="checkbox" class="" id="inputNormal" formControlName="normal">
+        <div class="row mb-3">
+          <div class="field col-5 md:col-5 ">
+            <label for="time">Fecha de alta</label>
+            <input type="text" class="form-control" formControlName="fAlta" readonly>
           </div>
-          <div class="inputEspecial">
+
+          <div class="field col-5 md:col-5 ms-2">
+            <label for="time">Fecha de Baja</label>
+            <p-calendar formControlName="fBaja" dateFormat="dd-mm-yy" [showIcon]="true" [showButtonBar]="true" inputId="time"></p-calendar>
+          </div>
+        </div>
+
+        <div class="inputDiv row ms-5">
+
+          <div class="inputVersion form-check form-switch col-4">
+            <input class="form-check-input" formControlName="normal" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label for="inputNormal">V. normal</label>
+           <!-- <input type="checkbox" class="" id="inputNormal" formControlName="normal">-->
+          </div>
+          <div class="inputEspecial form-check form-switch col-4">
+            <input type="checkbox" class="form-check-input" id="inputEspecial" formControlName="especial" role="switch" id="flexSwitchCheckDefault">
             <label for="inputEspecial">V. especial</label>
-            <input type="checkbox" class="" id="inputEspecial" formControlName="especial">
           </div>
 
         </div>
@@ -77,5 +106,43 @@
       </fieldset>
 
     </form>
+
+    <div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            {{modalContent}}
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="findGenero" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel1">{{modalTitle}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <app-genero-plist (closeEvent)="closeGeneroModal($event)"></app-genero-plist>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

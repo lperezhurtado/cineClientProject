@@ -3,7 +3,7 @@ import { CryptoService } from './service/crypto.service';
 import { UsuarioService } from './service/usuario.service';
 import { LoginService } from './service/login.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -60,6 +60,8 @@ import { SelectPlistComponent } from './component/application/admin/sala/auxilia
 import { SelectPlistPeliculaComponent } from './component/application/admin/pelicula/auxiliar/select-plist/select-plist-pelicula/select-plist-pelicula.component';
 import { UpdateSesionComponent } from './component/application/admin/sesion/update-sesion/update-sesion.component';
 import { GetSesionComponent } from './component/application/admin/sesion/get-sesion/get-sesion.component';
+import { DeleteSesionComponent } from './component/application/admin/sesion/delete-sesion/delete-sesion.component';
+import { DataTableSesionComponent } from './component/application/admin/sesion/Auxiliar/data-table-sesion/data-table-sesion.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,9 @@ import { GetSesionComponent } from './component/application/admin/sesion/get-ses
     SelectPlistTarifaComponent,
     SelectPlistPeliculaComponent,
     UpdateSesionComponent,
-    GetSesionComponent
+    GetSesionComponent,
+    DeleteSesionComponent,
+    DataTableSesionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped" *ngIf="sesion">
+  <tbody>
+      <tr>
+          <th>Id</th>
+          <td>{{sesion.id}}</td>
+      </tr>
+      <tr>
+          <td>Sala</td>
+          <td>Sala {{sesion.sala.id}}</td>
+      </tr>
+      <tr>
+          <td>Pelicula</td>
+          <td>{{sesion.pelicula.titulo}}</td>
+      </tr>
+      <tr>
+          <td>Tarifa</td>
+          <td>{{sesion.tarifa.nombre}}</td>
+      </tr>
+  </tbody>
+</table>

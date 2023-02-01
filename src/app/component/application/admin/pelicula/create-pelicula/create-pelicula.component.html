@@ -1,30 +1,128 @@
 <app-menu></app-menu>
-
+<div class="container">
+<h1 class="text-center mb-3">Nueva Película</h1>
 <form action="">
-  <label for="">Titula</label>
-  <input type="text" [formControl]="this.titulo">
+  <label for="" class="form-label">Titulo</label>
+  <input type="text" class="form-control"
+  [ngClass]="{'is-valid' : titulo.dirty && !titulo.errors?.['required'] && titulo.dirty && !titulo.errors?.['minlength']
+    && titulo.dirty && !titulo.errors?.['maxlength'],
+    'is-invalid' :  titulo.dirty &&  titulo.errors?.['minlength'] || titulo.dirty &&  titulo.errors?.['maxlength'] ||
+    titulo.dirty &&  titulo.errors?.['required']}" [formControl]="this.titulo">
 
-  <label for="">Director</label>
-  <input type="text" [formControl]="this.director">
+  <label for="" class="form-label">Director</label>
+  <input type="text" class="form-control mb-2" [formControl]="this.director">
 
-  <label for="">Año</label>
-  <input type="number" [formControl]="this.year">
+  <div class="mb-3 row">
+    <label for="inputUsertype" class="col-sm-2 col-form-label">Genero</label>
+    <div class="col-sm-6 has-validation">
 
-  <label for="">duracion</label>
-  <input type="number" [formControl]="this.duracion">
+      <div class="input-group">
+        <span class="input-group-text">{{generoDescription}}</span>
 
-  <label for="">Imagen</label>
-  <input type="file" (change)="fileSelected($event)">
+        <input type="number" class="form-control" [formControl]="this.genero"
+          [ngClass]="{'is-valid' : !genero.hasError && !genero.dirty &&
+          !genero.errors?.['pattern'],
+          'is-invalid' :  (genero.dirty && genero.errors?.['required'] )
+          || ( genero.dirty && genero.errors?.['pattern'] )}"
+        >
+
+        <button type="button" class="btn btn-outline-primary" (click)="openModalFindGenero()">Buscar</button>
+
+      </div>
+      <!--DIALOGOS DE ERROR-->
+      <div class="text-danger"
+        *ngIf="genero.dirty && genero.errors?.['required']">
+        El campo es obligatorio.
+      </div>
+      <div class="text-danger"
+        *ngIf="genero.dirty && genero.errors?.['pattern']">
+        El campo ha de ser un entrero de máximo 6 dígitos.
+      </div>
+    </div>
+  </div>
+
+  <div class="my-3 mx-3 row inputDiv">
+
+    <div class="inputVersion form-check form-switch col-4">
+      <input class="form-check-input" [formControl]="this.normal" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+      <label for="inputNormal">V. normal</label>
+     <!-- <input type="checkbox" class="" id="inputNormal" formControlName="normal">-->
+    </div>
+    <div class="inputEspecial form-check form-switch col-4">
+      <input type="checkbox" class="form-check-input" id="inputEspecial" [formControl]="this.especial" role="switch" id="flexSwitchCheckDefault">
+      <label for="inputEspecial">V. especial</label>
+    </div>
+
+  </div>
+
+  <label for="" class="form-label">Año</label>
+  <input type="number" class="form-control" [formControl]="this.year">
+
+  <label for="" class="form-label">Duración (en min.)</label>
+  <input type="number" class="form-control" [formControl]="this.duracion">
+
+  <label for="" class="form-label">Sinopsis</label>
+  <textarea type="" class="form-control" [formControl]="this.sinopsis"></textarea>
+
+  <label for="" class="form-label">Imagen</label>
+  <input type="file" class="form-control mb-2" (change)="fileSelected($event)">
 
   <!--<label for="">Fecha alta</label>
   <input type="datetime-local" [formControl]="this.fAlta">-->
 
-  <div class="field col-12 md:col-4">
-    <label for="time">Fecha de alta</label>
-    <p-calendar [formControl]="this.fAlta" dateFormat="dd-mm-yy" [showTime]="true" [showIcon]="true" [showSeconds]="false" [stepMinute]="1" [showButtonBar]="true" inputId="time"></p-calendar>
-</div>
+  <div class="row mb-3">
+    <div class="field col-5 md:col-3 ">
+      <label for="time">Fecha de alta</label>
+      <p-calendar [formControl]="this.fAlta" dateFormat="dd-mm-yy" [showIcon]="true" [showButtonBar]="true" inputId="time"></p-calendar>
+    </div>
 
+    <div class="field col-5 md:col-3 ">
+      <label for="time">Fecha de Baja</label>
+      <p-calendar [formControl]="this.fBaja" dateFormat="dd-mm-yy" [showIcon]="true" [showButtonBar]="true" inputId="time"></p-calendar>
+      <span>No es obligatorio incluir fecha de baja</span>
+    </div>
+  </div>
 
   <button type="submit" class="btn btn-outline-primary" (click)="checkFile()">Guardar</button>
+  <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Volver</button>
 
 </form>
+
+<div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        {{modalContent}}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="findGenero" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-genero-plist (closeEvent)="closeGeneroModal($event)"></app-genero-plist>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

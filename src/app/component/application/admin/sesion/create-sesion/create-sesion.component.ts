@@ -71,6 +71,9 @@ export class CreateSesionComponent {
         next: (resp: number) => {
           this.id = resp;
           console.log(resp);
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Sesión " + resp + " añadida";
+          this.showModal();
         },
         error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
           this.error = error.error.message;

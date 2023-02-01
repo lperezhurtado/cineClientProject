@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2'
+import { GeneroInterface } from 'src/app/model/Genero-interface';
+
+declare let bootstrap: any;
 
 @Component({
   templateUrl: './create-pelicula.component.html',
@@ -12,7 +15,7 @@ import Swal from 'sweetalert2'
 })
 export class CreatePeliculaComponent implements OnInit {
 
-  id = new FormControl('');
+  id = new FormControl();
   titulo = new FormControl('');
   year = new FormControl('');
   duracion = new FormControl('');
@@ -25,6 +28,14 @@ export class CreatePeliculaComponent implements OnInit {
   genero = new FormControl();
 
   formData = new FormData();
+
+  generoDescription: string = "Genero";
+
+   //modals
+   mimodal: string = "miModal";
+   myModal: any;
+   modalTitle: string = "";
+   modalContent: string = "";
 
   constructor(
     private router: Router,
@@ -51,13 +62,19 @@ export class CreatePeliculaComponent implements OnInit {
                     fechaBaja: this.fBaja.value,
                     versionNormal:this.normal.value,
                     versionEspecial:this.especial.value,
-                    genero: { id: 1 /*this.genero.value*/ }
+                    genero: { id:this.genero.value}
                   };
     this.formData.append("pelicula", JSON.stringify(pelicula));
 
+
     this.peliculaService.createPelicula(this.formData).subscribe({
       next: (data: number) => {
-        console.log(data);
+        this.id.setValue(data);
+        console.log("ID",this.id);
+
+        this.modalTitle = "Cine MatriX";
+        this.modalContent = "Pelicula " + data + " añadida";
+        this.showModal();
       }
     });
   }
@@ -98,6 +115,47 @@ export class CreatePeliculaComponent implements OnInit {
       }
 
     })
-
   }
+
+  updateGeneroDescription(id_genero: number) {
+    this.generoService.getOne(id_genero).subscribe({
+      next: (resp: GeneroInterface) => {
+        this.generoDescription = resp.nombre;
+        return this.generoDescription;
+      },
+      error: (error: any) => {
+        this.generoDescription = "No se ha encontrado";
+        //this.form.controls['tiposala'].setErrors({'incorrect': true});
+      }
+    });
+  }
+
+  showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+       myModalEl.addEventListener('hidden.bs.modal', (event): void => {
+
+      this.router.navigate(['/admin/pelicula/view/', this.id.value])
+      });
+    }
+    this.myModal.show()
+  }
+
+  openModalFindGenero(): void {
+    this.myModal = new bootstrap.Modal(document.getElementById("findGenero"), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    this.myModal.show()
+  }
+
+  closeGeneroModal(id_genero: number) {
+    this.genero.setValue(id_genero);
+    //this.form.controls['tiposala'].setValue(id_genero);
+    this.updateGeneroDescription(id_genero);
+    this.myModal.hide();
+  }
+
 }

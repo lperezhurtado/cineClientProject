@@ -1,3 +1,4 @@
+import { DeleteSesionComponent } from './component/application/admin/sesion/delete-sesion/delete-sesion.component';
 import { GetSesionComponent } from './component/application/admin/sesion/get-sesion/get-sesion.component';
 import { UpdateSesionComponent } from './component/application/admin/sesion/update-sesion/update-sesion.component';
 import { CreateSesionComponent } from './component/application/admin/sesion/create-sesion/create-sesion.component';
@@ -78,6 +79,7 @@ const routes: Routes = [
   {path:'admin/sesion/create', component: CreateSesionComponent},
   {path:'admin/sesion/update/:id', component: UpdateSesionComponent},
   {path:'admin/sesion/view/:id', component: GetSesionComponent},
+  {path:'admin/sesion/delete/:id', component: DeleteSesionComponent}
 ];
 
 @NgModule({

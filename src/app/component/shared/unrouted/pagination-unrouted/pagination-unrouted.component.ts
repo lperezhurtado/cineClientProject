@@ -8,8 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class PaginationUnroutedComponent implements OnInit {
 
-  _nPage!: number;
-  _nTotalPages!: number;
+  _nPage: number = 0;
+  _nTotalPages: number = 0;
   aPaginationBar!: string[];
 
   @Input()

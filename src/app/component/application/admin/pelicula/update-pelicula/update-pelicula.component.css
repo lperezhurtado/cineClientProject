@@ -57,13 +57,13 @@ img{
 .gridContainer{
   width: 100%;
   background-color: blueviolet;
-  padding: 2vw;
+  padding: .5vw;
   display: grid;
-  gap: 3vw;
+  gap: 1vw;
   grid-template:
-  "info       options"    32vh
+  "info       options"    40vh
   "sinopsis   sinopsis"   auto
-  "buttons    buttons"    7vh/
+  "buttons    buttons"    5vh/
   1fr         1fr;
 }
 

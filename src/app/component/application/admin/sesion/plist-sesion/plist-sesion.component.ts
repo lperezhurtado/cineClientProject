@@ -1,8 +1,12 @@
+import { formatDate, registerLocaleData } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SesionPageInterface } from 'src/app/model/Sesion-interface';
 import { SesionService } from 'src/app/service/sesion.service';
+
+import localeES from "@angular/common/locales/es";
+
 
 @Component({
   templateUrl: './plist-sesion.component.html',
@@ -20,7 +24,7 @@ export class PlistSesionComponent {
   page: number = 0;
   sortField: string = "";
   sortDir: string = "";
-
+  fecha!: Date;
   constructor(
     private sesionService: SesionService,
     private activatedRoute: ActivatedRoute,
@@ -40,6 +44,14 @@ export class PlistSesionComponent {
           this.page = respFromServer.totalPages - 1;
         }
         console.log(respFromServer);
+        console.log(respFromServer.content[0].fechaHora);
+        this.fecha = respFromServer.content[0].fechaHora
+        console.log(this.fecha.toString);
+
+        const format = formatDate(this.fecha,'dd/MM/yyyy - hh:mm', 'en-US');
+        console.log("format",format);
+        registerLocaleData(localeES, "es");
+
       },
       error: (error: HttpErrorResponse) => {
         console.log("entra al error");

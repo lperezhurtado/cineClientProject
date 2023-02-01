@@ -72,7 +72,7 @@
                 || ( form.controls.tiposala.dirty && form.controls.tiposala.errors?.['pattern'] )}"
               >
 
-              <button type="button" class="btn btn-outline-primary" (click)="openModalFindUsertype()">Buscar</button>
+              <button type="button" class="btn btn-outline-primary" (click)="openModalFindTipoSala()">Buscar</button>
 
             </div>
             <!--DIALOGOS DE ERROR-->
@@ -114,7 +114,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="findUsertype" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+<div class="modal fade" id="findTipoSala" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -123,7 +123,7 @@
       </div>
       <div class="modal-body">
 
-        <app-tiposala-plist (closeEvent)="closeTeamModal($event)"></app-tiposala-plist>
+        <app-tiposala-plist (closeEvent)="closeTipoSalaModal($event)"></app-tiposala-plist>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>

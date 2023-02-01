@@ -66,6 +66,9 @@ export class CreateSalaComponent {
         next: (resp: number) => {
           this.id = resp;
           console.log(resp);
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Sala " + resp + " añadida";
+          this.showModal();
         },
         error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
           this.error = error.error.message;
@@ -97,7 +100,7 @@ export class CreateSalaComponent {
     if (myModalEl) {
        myModalEl.addEventListener('hidden.bs.modal', (event): void => {
 
-      this.router.navigate(['/admin/usuario/view/', this.id])
+      this.router.navigate(['/admin/sala/view/', this.id])
       });
     }
     this.myModal.show()
@@ -110,14 +113,14 @@ export class CreateSalaComponent {
     this.myModal.show()
   }
 
-  openModalFindUsertype(): void {
-    this.myModal = new bootstrap.Modal(document.getElementById("findUsertype"), { //pasar el myModal como parametro
+  openModalFindTipoSala(): void {
+    this.myModal = new bootstrap.Modal(document.getElementById("findTipoSala"), { //pasar el myModal como parametro
       keyboard: false
     });
     this.myModal.show()
   }
 
-  closeTeamModal(id_tiposala: number) {
+  closeTipoSalaModal(id_tiposala: number) {
     this.form.controls['tiposala'].setValue(id_tiposala);
     this.updateTipoSalaDescription(id_tiposala);
     this.myModal.hide();
