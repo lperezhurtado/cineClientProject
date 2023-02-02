@@ -1,0 +1,14 @@
+<div class="container mt-5" *ngIf="resp">
+  <table class="table">
+    <tr *ngFor="let item of filas" class="mt-5 bg-danger">
+      <td *ngFor="let item2 of item">
+        <div class="bg-warning" (click)="mostrar(item2.libre)">{{item2.ejeY+1}}</div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <button class="btn btn-outline-primary" (click)="back()">Volver</button>
+</div>
+

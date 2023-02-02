@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { GeneroInterface } from './Genero-interface';
 import { Pageable, Sort } from "./shared-interface";
 
@@ -15,6 +16,20 @@ export interface PeliculaInterface {
   genero:           GeneroInterface;
   imagen:           string;
   sesionesCount:    number;
+}
+
+export interface PeliculaFormInterface {
+  id:               FormControl< number>;
+  titulo:           FormControl< string>;
+  year:             FormControl< number>;
+  duracion:         FormControl< number>;
+  director:         FormControl< string>;
+  sinopsis:         FormControl< string>;
+  fechaAlta:        FormControl< Date>;
+  fechaBaja:        FormControl< Date | null>;
+  versionNormal:    FormControl< boolean>;
+  versionEspecial:  FormControl< boolean>;
+  genero:           FormControl< number>;
 }
 
 export interface PeliculaPageInterface {

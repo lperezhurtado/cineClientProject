@@ -1,3 +1,4 @@
+import { ListEntradaComponent } from './component/application/admin/entrada/list-entrada/list-entrada.component';
 import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
 import { ListaGeneroComponent } from './component/application/admin/genero/lista-genero/lista-genero.component';
 import { GetTiposalaComponent } from './component/application/admin/tiposala/get-tiposala/get-tiposala.component';
@@ -88,7 +89,9 @@ const routes: Routes = [
   {path:'admin/sesion/create', component: CreateSesionComponent},
   {path:'admin/sesion/update/:id', component: UpdateSesionComponent},
   {path:'admin/sesion/view/:id', component: GetSesionComponent},
-  {path:'admin/sesion/delete/:id', component: DeleteSesionComponent}
+  {path:'admin/sesion/delete/:id', component: DeleteSesionComponent},
+  //ENTRADA
+  {path:'admin/entrada/list/:id', component: ListEntradaComponent}
 ];
 
 @NgModule({

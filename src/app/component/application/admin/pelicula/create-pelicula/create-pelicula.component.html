@@ -4,13 +4,18 @@
 <form action="">
   <label for="" class="form-label">Titulo</label>
   <input type="text" class="form-control"
-  [ngClass]="{'is-valid' : titulo.dirty && !titulo.errors?.['required'] && titulo.dirty && !titulo.errors?.['minlength']
+    [ngClass]="{'is-valid' : titulo.dirty && !titulo.errors?.['required'] && titulo.dirty && !titulo.errors?.['minlength']
     && titulo.dirty && !titulo.errors?.['maxlength'],
     'is-invalid' :  titulo.dirty &&  titulo.errors?.['minlength'] || titulo.dirty &&  titulo.errors?.['maxlength'] ||
     titulo.dirty &&  titulo.errors?.['required']}" [formControl]="this.titulo">
 
   <label for="" class="form-label">Director</label>
-  <input type="text" class="form-control mb-2" [formControl]="this.director">
+  <input type="text" class="form-control mb-2"
+    [ngClass]="{ 'is-valid' : director.dirty &&
+    (!director.errors?.['required'] || !director.errors?.['minlength'] || !director.errors?.['maxlength']),
+
+    'is-invalid' : director.dirty && director.hasError
+    (director.errors?.['required'] || director.errors?.['minlength'] || director.errors?.['maxlength']) }" [formControl]="this.director">
 
   <div class="mb-3 row">
     <label for="inputUsertype" class="col-sm-2 col-form-label">Genero</label>

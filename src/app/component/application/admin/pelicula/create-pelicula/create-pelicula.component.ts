@@ -1,6 +1,7 @@
+import { PeliculaFormInterface } from './../../../../../model/Pelicula-interface';
 import { GeneroService } from './../../../../../service/genero.service';
 import { PeliculaService } from './../../../../../service/pelicula.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -28,6 +29,7 @@ export class CreatePeliculaComponent implements OnInit {
   genero = new FormControl();
 
   formData = new FormData();
+  form!:FormGroup<PeliculaFormInterface>;
 
   generoDescription: string = "Genero";
 
@@ -41,11 +43,26 @@ export class CreatePeliculaComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private peliculaService: PeliculaService,
+    private formBuilder: FormBuilder,
     private location: Location,
     private generoService: GeneroService
   ) { }
 
   ngOnInit(): void {
+
+    this.form = <FormGroup>this.formBuilder.group({
+      id: [""],
+      titulo: ["", [Validators.required, Validators.minLength(1)]],
+      year: [, [Validators.required, Validators.min(2000), Validators.max(2025)]],
+      duracion: ["", [Validators.required, Validators.min(60), Validators.max(250)]],
+      director: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
+      sinopsis: ["", [Validators.required]],
+      fAlta: ["", [Validators.required]],
+      fBaja: ["", [Validators.required]],
+      normal: ["", [Validators.required]],
+      especial: ["", [Validators.required]],
+      genero:["", [Validators.required, Validators.pattern(/^\d{1,10}$/)]]
+    });
   }
 
   back() {
@@ -65,6 +82,7 @@ export class CreatePeliculaComponent implements OnInit {
                     genero: { id:this.genero.value}
                   };
     this.formData.append("pelicula", JSON.stringify(pelicula));
+
 
 
     this.peliculaService.createPelicula(this.formData).subscribe({

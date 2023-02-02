@@ -65,6 +65,7 @@ import { DataTableSesionComponent } from './component/application/admin/sesion/A
 import { ListaTiposalaComponent } from './component/application/admin/tiposala/lista-tiposala/lista-tiposala.component';
 import { GetTiposalaComponent } from './component/application/admin/tiposala/get-tiposala/get-tiposala.component';
 import { ListaGeneroComponent } from './component/application/admin/genero/lista-genero/lista-genero.component';
+import { ListEntradaComponent } from './component/application/admin/entrada/list-entrada/list-entrada.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,8 @@ import { ListaGeneroComponent } from './component/application/admin/genero/lista
     DataTableSesionComponent,
     ListaTiposalaComponent,
     GetTiposalaComponent,
-    ListaGeneroComponent
+    ListaGeneroComponent,
+    ListEntradaComponent
   ],
   imports: [
     BrowserModule,
