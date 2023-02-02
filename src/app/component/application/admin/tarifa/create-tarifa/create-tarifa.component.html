@@ -1,24 +1,43 @@
 <div class="container mt-3">
 
   <div class="titulo">
-    <h4>Nuevo Género</h4>
+    <h4>Nueva Tarifa</h4>
   </div>
 
   <div class="formContainer">
     <form [formGroup]="form" (ngSubmit)="createTarifa()">
       <div class="inputDiv">
-        <label for="inputName">Nombre</label>
-        <input type="text" formControlName="nombre">
+        <label for="inputName" class="label-form">Nombre</label>
+        <input type="text" class="form-control" formControlName="nombre">
       </div>
       <div class="inputDiv">
-        <label for="inputName">Precio</label>
-        <input type="text" formControlName="precio">
+        <label for="inputName" class="form-label">Precio</label>
+        <input type="text" class="form-control" formControlName="precio">
       </div>
       <div class="buttons">
         <button type="submit" class="btn btn-success">Guardar</button>
         <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>
       </div>
     </form>
+  </div>
+
+  <div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          {{modalContent}}
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

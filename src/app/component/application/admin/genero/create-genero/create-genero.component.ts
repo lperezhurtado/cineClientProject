@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
+declare let bootstrap: any;
+
 @Component({
   templateUrl: './create-genero.component.html',
   styleUrls: ['./create-genero.component.css']
@@ -17,6 +19,12 @@ export class CreateGeneroComponent implements OnInit{
   url = "";
   id!: number;
   form!: FormGroup;
+
+  //modals
+  mimodal: string = "miModal";
+  myModal: any;
+  modalTitle: string = "";
+  modalContent: string = "";
 
   constructor(
     private router: Router,
@@ -51,9 +59,26 @@ export class CreateGeneroComponent implements OnInit{
         next: (resp: number) => {
           this.id = resp;
           console.log(this.id);
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Género " + resp + " añadido";
+          this.showModal();
         }
       })
     }
+  }
+
+  showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+       myModalEl.addEventListener('hidden.bs.modal', (event): void => {
+
+      this.router.navigate(['/admin/genero/lista'])
+      });
+    }
+    this.myModal.show()
   }
 
 }

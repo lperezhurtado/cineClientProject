@@ -4,6 +4,8 @@ import { TarifaInterface } from 'src/app/model/Tarifa-interface';
 import { TarifaService } from 'src/app/service/tarifa.service';
 import { Location } from '@angular/common';
 
+declare let bootstrap: any;
+
 @Component({
   templateUrl: './delete-tarifa.component.html',
   styleUrls: ['./delete-tarifa.component.css']
@@ -12,6 +14,7 @@ export class DeleteTarifaComponent {
 
   tarifa!: TarifaInterface;
   id: number;
+  msg: string = "";
 
   constructor(
     private router: Router,
@@ -43,6 +46,15 @@ export class DeleteTarifaComponent {
     this.tarifaService.deleteTarifa(id).subscribe({
       next: (resp: number) => {
         console.log(resp);
+        this.msg = "Sala " + this.id + " eliminada";
+        console.log("Tipo de sala "+resp+" borrada");
+
+        const myModal = new bootstrap.Modal('#removeInfo', {
+          keyboard: false
+        })
+
+        myModal.show();
+        this.location.back();
       }
     });
   }

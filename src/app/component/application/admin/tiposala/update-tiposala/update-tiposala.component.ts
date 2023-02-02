@@ -6,6 +6,8 @@ import { TipoSalaInterface } from 'src/app/model/TipoSala-interface';
 import { TipoSalaService } from 'src/app/service/tipo-sala.service';
 import { environment } from 'src/environments/environment';
 
+declare let bootstrap: any;
+
 @Component({
   templateUrl: './update-tiposala.component.html',
   styleUrls: ['./update-tiposala.component.css']
@@ -17,6 +19,12 @@ export class UpdateTiposalaComponent {
   url = "";
   id: number;
   form!: FormGroup;
+
+  //modals
+  mimodal: string = "miModal";
+  myModal: any;
+  modalTitle: string = "";
+  modalContent: string = "";
 
   constructor(
     private router: Router,
@@ -65,8 +73,25 @@ export class UpdateTiposalaComponent {
       this.tipoSalaService.updateTipoSala(this.tipoSala).subscribe({
         next: (resp: number) => {
           console.log(resp);
+          this.id = resp;
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Tipo de sala " + resp + " actualizada";
+          this.showModal();
         }
       });
     }
+  }
+
+  showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+      myModalEl.addEventListener('hidden.bs.modal', (event): void => {
+      this.router.navigate(['/admin/tiposala/view', this.id])
+      })
+    }
+    this.myModal.show()
   }
 }

@@ -1,26 +1,53 @@
-<div class="container mt-5">
+<app-menu></app-menu>
+
+<div class="container mt-5" *ngIf="respFromServer">
   <div class="row">
     <div class="col">
-      <h1 class="text-center mb-5">Tarifa</h1>
+      <h1 class="text-center mb-5">Tarifas</h1>
+
+      <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
+
+        <a [routerLink]="['/admin/tarifa/create']" class="btn btn-primary mx-3">Añadir tarifa</a>
+        <app-search-unrouted [placeHolder]="'Buscar tarifa'" (onSearch)="setFilter( $event )"></app-search-unrouted>
+        <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
+          (eeRpp)="this.setRpp($event)">
+        </app-dropdown-register-page>
+
+      </div>
+      <div class="col-md">
+        <app-pagination-unrouted [nPage]="respFromServer.number + 1" [nTotalPages]="respFromServer.totalPages"
+          (eePage)="setPage($event)"></app-pagination-unrouted>
+      </div>
+
+      <div class="col-md text-end">
+        <h5 class="text-muted">Total registros {{respFromServer.totalElements}}</h5>
+      </div>
+
       <table class="table table-responsive table-striped">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Precio</th>
+            <th (click)="setOrder('id')">ID</th>
+            <th (click)="setOrder('nombre')">Nombre</th>
+            <th (click)="setOrder('precio')">Precio</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let tarifa of respFromServer?.content">
-            <td>{{tarifa.id}}</td>
-            <td>{{tarifa.nombre}}</td>
-            <td>{{tarifa.precio}} €</td>
+            <td >{{tarifa.id}}</td>
+            <td >{{tarifa.nombre}}</td>
+            <td >{{tarifa.precio}} €</td>
             <td>
+
               <div class="btn-group" role="group" aria-label="Herramientas">
-                <button class="btn btn-sm btn-outline-primary" (click)="selectTarifa(tarifa.id)">
-                  Seleccionar
+                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/tarifa/update',tarifa.id]">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-danger" [routerLink]="['/admin','tarifa','delete',tarifa.id]">
+                  Eliminar
                 </button>
               </div>
+
             </td>
           </tr>
         </tbody>

@@ -10,7 +10,7 @@
   <div class="cuerpo">
     <div class="botonera">
       <a [routerLink]="['/admin/sesion/create']" class="btn btn-primary mx-3 btn-sm">Nueva Sesion</a>
-
+      <a [routerLink]="['/admin/tarifa/plist']" class="btn btn-info mx-3 btn-sm">Ver tarifas</a>
       <div class="paginacion">
         <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
           (eePage)="setPage($event)">

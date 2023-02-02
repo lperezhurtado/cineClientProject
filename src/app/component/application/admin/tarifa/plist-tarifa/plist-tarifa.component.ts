@@ -16,6 +16,9 @@ export class PlistTarifaComponent {
   page: number = 0;
   size: number = 10;
   totalPages!: number;
+  sortField: string = "";
+  sortDirection: string = "";
+  filter: string = "";
 
   constructor(
     private tarifaService: TarifaService,
@@ -24,10 +27,10 @@ export class PlistTarifaComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getPlist();
+    this.getPage();
   }
 
-  getPlist() {
+  getPage() {
     this.tarifaService.plistTarifa(this.page, this.size)
     .subscribe({
       next: (resp: TarifaPageInterface) => {
@@ -42,10 +45,29 @@ export class PlistTarifaComponent {
 
   setPage(page: number) {
     this.page = page;
-    this.getPlist();
+    this.getPage();
   }
 
-  selectTarifa(id: number) {
-    this.closeEvent.emit(id);
+  setRpp(rpp: number) {
+    this.size = rpp;
+    this.page = 0;
+    this.getPage();
+  }
+
+  setFilter(term: string): void {
+    this.filter = term;
+    this.getPage();
+  }
+
+
+
+  setOrder(order: string): void {
+    this.sortField = order;
+    if (this.sortDirection == "asc") {
+      this.sortDirection = "desc";
+    } else {
+      this.sortDirection = "asc";
+    }
+    this.getPage();
   }
 }

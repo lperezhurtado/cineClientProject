@@ -6,6 +6,8 @@ import { GeneroService } from 'src/app/service/genero.service';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
+declare let bootstrap: any;
+
 @Component({
   templateUrl: './update-genero.component.html',
   styleUrls: ['./update-genero.component.css']
@@ -17,6 +19,12 @@ export class UpdateGeneroComponent implements OnInit {
   url = "";
   id: number;
   form!: FormGroup;
+
+  //modals
+  mimodal: string = "miModal";
+  myModal: any;
+  modalTitle: string = "";
+  modalContent: string = "";
 
   constructor(
     private router: Router,
@@ -65,8 +73,24 @@ export class UpdateGeneroComponent implements OnInit {
       this.generoService.updateGenero(this.genero).subscribe({
         next: (resp: number) => {
           console.log(resp);
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Género " + resp + " actualizado";
+          this.showModal();
         }
       });
     }
+  }
+
+  showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+      myModalEl.addEventListener('hidden.bs.modal', (event): void => {
+      this.router.navigate(['/admin/genero/lista'])
+      })
+    }
+    this.myModal.show()
   }
 }

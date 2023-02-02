@@ -1,3 +1,7 @@
+import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
+import { ListaGeneroComponent } from './component/application/admin/genero/lista-genero/lista-genero.component';
+import { GetTiposalaComponent } from './component/application/admin/tiposala/get-tiposala/get-tiposala.component';
+import { ListaTiposalaComponent } from './component/application/admin/tiposala/lista-tiposala/lista-tiposala.component';
 import { DeleteSesionComponent } from './component/application/admin/sesion/delete-sesion/delete-sesion.component';
 import { GetSesionComponent } from './component/application/admin/sesion/get-sesion/get-sesion.component';
 import { UpdateSesionComponent } from './component/application/admin/sesion/update-sesion/update-sesion.component';
@@ -32,7 +36,7 @@ import { GetUsuarioComponent } from './component/application/admin/usuario/get-u
 import { PlistUsuarioComponent } from './component/application/admin/usuario/plist-usuario/plist-usuario.component';
 import { LogoutComponent } from './component/shared/logout/logout.component';
 import { LoginComponent } from './component/shared/login/login.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './component/shared/home/home.component';
 
@@ -47,6 +51,8 @@ const routes: Routes = [
   {path:'admin/usuario/create', component: CreateUsuarioComponent},
   {path:'admin/usuario/update/:id', component: UpdateUsuarioComponent},
   {path:'admin/usuario/delete/:id', component:DeleteUsuarioComponent},
+  //TIPOUSUARIO
+  {path:'admin/tipousuario/plist', component:PlistTipousuarioComponent},
   //PELICULA
   {path:'admin/pelicula/plist', component: PlistPeliculaComponent},
   {path:'admin/pelicula/view/:id', component: GetPeliculaComponent},
@@ -55,14 +61,17 @@ const routes: Routes = [
   {path:'admin/pelicula/update/:id', component: UpdatePeliculaComponent},
   //GENERO
   {path:'admin/genero/plist', component: PlisGeneroComponent},
+  {path:'admin/genero/lista', component: ListaGeneroComponent},
   {path:'admin/genero/create', component: CreateGeneroComponent},
   {path:'admin/genero/update/:id', component: UpdateGeneroComponent},
   {path:'admin/genero/delete/:id', component: DeleteGeneroComponent},
   //TIPOSALA
   {path:'admin/tiposala/plist', component: PlistTiposalaComponent},
+  {path:'admin/tiposala/list', component: ListaTiposalaComponent},
   {path:'admin/tiposala/create', component: CreateTiposalaComponent},
   {path:'admin/tiposala/update/:id', component: UpdateTiposalaComponent},
   {path:'admin/tiposala/delete/:id', component: DeleteTiposalaComponent},
+  {path:'admin/tiposala/view/:id', component: GetTiposalaComponent},
   //SALA
   {path:'admin/sala/plist', component: PlistSalaComponent},
   {path:'admin/sala/view/:id', component: GetSalaComponent},

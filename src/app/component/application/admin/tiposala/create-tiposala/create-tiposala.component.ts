@@ -6,6 +6,8 @@ import { TipoSalaService } from 'src/app/service/tipo-sala.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 
+declare let bootstrap: any;
+
 @Component({
   templateUrl: './create-tiposala.component.html',
   styleUrls: ['./create-tiposala.component.css']
@@ -17,6 +19,12 @@ export class CreateTiposalaComponent {
   url = "";
   id!: number;
   form!: FormGroup;
+
+  //modals
+  mimodal: string = "miModal";
+  myModal: any;
+  modalTitle: string = "";
+  modalContent: string = "";
 
   constructor(
     private router: Router,
@@ -51,8 +59,25 @@ export class CreateTiposalaComponent {
         next: (resp: number) => {
           this.id = resp;
           console.log(this.id);
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Tipo de sala " + resp + " añadida";
+          this.showModal();
         }
       })
     }
+  }
+
+  showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+       myModalEl.addEventListener('hidden.bs.modal', (event): void => {
+
+      this.router.navigate(['/admin/tiposala/view/', this.id])
+      });
+    }
+    this.myModal.show()
   }
 }

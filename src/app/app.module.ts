@@ -62,6 +62,9 @@ import { UpdateSesionComponent } from './component/application/admin/sesion/upda
 import { GetSesionComponent } from './component/application/admin/sesion/get-sesion/get-sesion.component';
 import { DeleteSesionComponent } from './component/application/admin/sesion/delete-sesion/delete-sesion.component';
 import { DataTableSesionComponent } from './component/application/admin/sesion/Auxiliar/data-table-sesion/data-table-sesion.component';
+import { ListaTiposalaComponent } from './component/application/admin/tiposala/lista-tiposala/lista-tiposala.component';
+import { GetTiposalaComponent } from './component/application/admin/tiposala/get-tiposala/get-tiposala.component';
+import { ListaGeneroComponent } from './component/application/admin/genero/lista-genero/lista-genero.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +118,10 @@ import { DataTableSesionComponent } from './component/application/admin/sesion/A
     UpdateSesionComponent,
     GetSesionComponent,
     DeleteSesionComponent,
-    DataTableSesionComponent
+    DataTableSesionComponent,
+    ListaTiposalaComponent,
+    GetTiposalaComponent,
+    ListaGeneroComponent
   ],
   imports: [
     BrowserModule,

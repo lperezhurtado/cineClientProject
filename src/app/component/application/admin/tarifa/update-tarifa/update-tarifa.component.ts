@@ -6,6 +6,8 @@ import { TarifaInterface } from 'src/app/model/Tarifa-interface';
 import { TarifaService } from 'src/app/service/tarifa.service';
 import { environment } from 'src/environments/environment';
 
+declare let bootstrap: any;
+
 @Component({
   selector: 'app-update-tarifa',
   templateUrl: './update-tarifa.component.html',
@@ -18,6 +20,12 @@ export class UpdateTarifaComponent {
   url = "";
   id: number;
   form!: FormGroup;
+
+  //modals
+  mimodal: string = "miModal";
+  myModal: any;
+  modalTitle: string = "";
+  modalContent: string = "";
 
   constructor(
     private router: Router,
@@ -67,8 +75,25 @@ export class UpdateTarifaComponent {
       this.tarifaService.updateTarifa(this.tarifa).subscribe({
         next: (resp: number) => {
           console.log(resp);
+          this.id = resp;
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Tarifa " + resp + " actualizada";
+          this.showModal();
         }
       });
     }
+  }
+
+  showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+      myModalEl.addEventListener('hidden.bs.modal', (event): void => {
+      this.router.navigate(['/admin/tarifa/plist'])
+      })
+    }
+    this.myModal.show()
   }
 }

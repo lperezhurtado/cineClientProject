@@ -3,17 +3,15 @@
 <div class="container mt-5" *ngIf="respFromServer">
   <div class="row">
     <div class="col">
-      <h1 class="text-center mb-5">Lista de salas</h1>
+      <h1 class="text-center mb-5">Tipos de sala</h1>
 
       <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
 
-        <a [routerLink]="['/admin/sala/create']" class="btn btn-primary mx-3">Alta de sala</a>
-        <app-search-unrouted [placeHolder]="'Buscar sala'" (onSearch)="setFilter( $event )"></app-search-unrouted>
+        <a [routerLink]="['/admin/tiposala/create']" class="btn btn-primary mx-3">Alta de tiposala</a>
+        <app-search-unrouted [placeHolder]="'Buscar tiposala'" (onSearch)="setFilter( $event )"></app-search-unrouted>
         <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
           (eeRpp)="this.setRpp($event)">
         </app-dropdown-register-page>
-
-        <a [routerLink]="['/admin/tiposala/list']" class="btn btn-outline-info mx-3">Ver tipos de sala</a>
       </div>
 
       <div class="col-md">
@@ -35,35 +33,30 @@
         <thead>
           <tr>
             <th (click)="setOrder('id')">ID</th>
-            <th (click)="setOrder('alto')">Alto</th>
-            <th (click)="setOrder('ancho')">Ancho</th>
-            <th>Tipo sala</th>
+            <th (click)="setOrder('nombre')">Nombre</th>
+
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let sala of respFromServer?.content">
-            <td>{{sala.id}}</td>
-            <td>{{sala.ancho}}</td>
-            <td>{{sala.alto}}</td>
-
-            <td (click)="setFilterBySalatype(sala.tiposala.id)">
-              {{sala.tiposala.id}}-{{sala.tiposala.nombre}}</td>
+          <tr *ngFor="let tiposala of respFromServer?.content">
+            <td>{{tiposala.id}}</td>
+            <td>{{tiposala.nombre}}</td>
             <td>
 
               <div class="btn-group" role="group" aria-label="Herramientas">
-                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/sala/view',sala.id]">
+                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/tiposala/view',tiposala.id]"> <!--[routerLink]="['/admin/tiposala/view',tiposala.id]"-->
                   Ver
                 </button>
-                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/sala/update',sala.id]">
+                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/tiposala/update',tiposala.id]">
                   Editar
                 </button>
-                <button class="btn btn-sm btn-danger" [routerLink]="['/admin','sala','delete',sala.id]">
+                <button class="btn btn-sm btn-danger" [routerLink]="['/admin','tiposala','delete',tiposala.id]">
                   Eliminar
                 </button>
               </div>
-
             </td>
+
           </tr>
         </tbody>
       </table>
@@ -87,5 +80,25 @@
       </div>
   </div>
 </div>
+
+
+<!--<div class="modal fade" id="findTipoSala" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-get-tiposala [id]="this.aux"></app-get-tiposala>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+
 
 

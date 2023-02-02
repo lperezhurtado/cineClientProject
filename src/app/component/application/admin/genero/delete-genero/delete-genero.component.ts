@@ -6,6 +6,8 @@ import { GeneroService } from 'src/app/service/genero.service';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
+declare let bootstrap: any;
+
 @Component({
   templateUrl: './delete-genero.component.html',
   styleUrls: ['./delete-genero.component.css']
@@ -14,6 +16,7 @@ export class DeleteGeneroComponent implements OnInit {
 
   genero!: GeneroInterface;
   id: number;
+  msg: string = "";
 
   constructor(
     private router: Router,
@@ -45,6 +48,13 @@ export class DeleteGeneroComponent implements OnInit {
     this.generoService.deleteGenero(id).subscribe({
       next: (resp: number) => {
         console.log(resp);
+        this.msg = "Género " + this.id + " eliminado";
+        const myModal = new bootstrap.Modal('#removeInfo', {
+          keyboard: false
+        })
+
+        myModal.show();
+        this.location.back();
       }
     });
   }

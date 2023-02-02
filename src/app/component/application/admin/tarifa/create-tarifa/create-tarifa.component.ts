@@ -6,6 +6,8 @@ import { TarifaService } from 'src/app/service/tarifa.service';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
+declare let bootstrap: any;
+
 @Component({
   selector: 'app-create-tarifa',
   templateUrl: './create-tarifa.component.html',
@@ -18,6 +20,12 @@ export class CreateTarifaComponent {
   url = "";
   id!: number;
   form!: FormGroup;
+
+  //modals
+  mimodal: string = "miModal";
+  myModal: any;
+  modalTitle: string = "";
+  modalContent: string = "";
 
   constructor(
     private router: Router,
@@ -53,9 +61,26 @@ export class CreateTarifaComponent {
         next: (resp: number) => {
           this.id = resp;
           console.log(this.id);
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Tarifa " + resp + " añadida";
+          this.showModal();
         }
       })
     }
+  }
+
+  showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+       myModalEl.addEventListener('hidden.bs.modal', (event): void => {
+
+      this.router.navigate(['/admin/tarifa/plist'])
+      });
+    }
+    this.myModal.show()
   }
 
 }
