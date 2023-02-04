@@ -8,12 +8,19 @@
   <div class="formContainer">
     <form [formGroup]="form" (ngSubmit)="createTipoSala()">
       <div class="inputDiv">
-        <label for="inputName">Nombre</label>
-        <input type="text" formControlName="nombre">
+        <label for="inputName" class="form-label">Nombre</label>
+        <input type="text" class="form-control" formControlName="nombre"
+          [ngClass]="{'is-valid' : form.controls['nombre'].dirty && !form.controls['nombre'].errors?.['required'] &&
+          form.controls['nombre'].dirty && !form.controls['nombre'].errors?.['minlength']
+          && form.controls['nombre'].dirty && !form.controls['nombre'].errors?.['maxlength'],
+          'is-invalid' :  form.controls['nombre'].dirty &&  form.controls['nombre'].errors?.['minlength']
+          ||  form.controls['nombre'].dirty &&  form.controls['nombre'].errors?.['maxlength'] ||
+          form.controls['nombre'].dirty &&  form.controls['nombre'].errors?.['required']}"
+        >
       </div>
-      <div class="buttons">
+      <div class="buttons mt-4">
         <button type="submit" class="btn btn-success">Guardar</button>
-        <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>
+        <button type="button" class="btn btn-danger ms-3" (click)="back()">Cancelar</button>
       </div>
     </form>
   </div>

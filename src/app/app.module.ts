@@ -4,6 +4,9 @@ import { UsuarioService } from './service/usuario.service';
 import { LoginService } from './service/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs);
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -66,6 +69,7 @@ import { ListaTiposalaComponent } from './component/application/admin/tiposala/l
 import { GetTiposalaComponent } from './component/application/admin/tiposala/get-tiposala/get-tiposala.component';
 import { ListaGeneroComponent } from './component/application/admin/genero/lista-genero/lista-genero.component';
 import { ListEntradaComponent } from './component/application/admin/entrada/list-entrada/list-entrada.component';
+import { FormatDatePipe } from './pipe/FormatDate.pipe';
 
 @NgModule({
   declarations: [
@@ -123,7 +127,8 @@ import { ListEntradaComponent } from './component/application/admin/entrada/list
     ListaTiposalaComponent,
     GetTiposalaComponent,
     ListaGeneroComponent,
-    ListEntradaComponent
+    ListEntradaComponent,
+    FormatDatePipe
   ],
   imports: [
     BrowserModule,
@@ -137,7 +142,8 @@ import { ListEntradaComponent } from './component/application/admin/entrada/list
   providers: [
     CryptoService,
     LoginService,
-    UsuarioService
+    UsuarioService,
+    { provide: LOCALE_ID, useValue: 'es-ES' }
   ],
   bootstrap: [AppComponent]
 })

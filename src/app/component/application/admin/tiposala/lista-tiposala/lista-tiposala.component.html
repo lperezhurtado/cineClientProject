@@ -3,11 +3,12 @@
 <div class="container mt-5" *ngIf="respFromServer">
   <div class="row">
     <div class="col">
+      <button class="btn btn-outline-info" (click)="back()">Volver</button>
       <h1 class="text-center mb-5">Tipos de sala</h1>
 
       <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
 
-        <a [routerLink]="['/admin/tiposala/create']" class="btn btn-primary mx-3">Alta de tiposala</a>
+        <a [routerLink]="['/admin/tiposala/create']" class="btn btn-primary mx-3">Añadir tipo de sala</a>
         <app-search-unrouted [placeHolder]="'Buscar tiposala'" (onSearch)="setFilter( $event )"></app-search-unrouted>
         <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
           (eeRpp)="this.setRpp($event)">
@@ -20,7 +21,7 @@
       </div>
 
       <div class="col-md text-start">
-        <h5 class="text-muted" *ngIf="strTermFilter!=''">Filtrando por {{strTermFilter}} (borrar para resetear)</h5>
+        <h5 class="text-muted" *ngIf="filter!=''">Filtrando por {{filter}} (borrar para resetear)</h5>
         <button class="btn btn-outline-danger" *ngIf="id_usertypeFilter!=0" (click)="setFilterBySalatype(0)">
           <i class="bi bi-x-circle"></i> Reset usertype {{id_usertypeFilter}} filter</button>
       </div>
@@ -45,9 +46,6 @@
             <td>
 
               <div class="btn-group" role="group" aria-label="Herramientas">
-                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/tiposala/view',tiposala.id]"> <!--[routerLink]="['/admin/tiposala/view',tiposala.id]"-->
-                  Ver
-                </button>
                 <button class="btn btn-sm btn-warning" [routerLink]="['/admin/tiposala/update',tiposala.id]">
                   Editar
                 </button>

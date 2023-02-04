@@ -3,6 +3,7 @@ import { PeliculaPageInterface } from './../../../../../model/Pelicula-interface
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admin-plist-pelicula',
@@ -20,15 +21,26 @@ export class PlistPeliculaComponent implements OnInit {
   sortField: string = "";
   sortDir: string = "";
 
+  private entityUrl="/pelicula"
+  url = "";
+
   constructor(
     private peliculaService: PeliculaService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    this.url = `${environment.baseURL}${this.entityUrl}`;
+   }
 
   ngOnInit(): void {
     this.getPage();
   }
+
+  getURLimage(images: string): string{
+    let result =this.url +'/images/'+images;
+    return result;
+  }
+
   //GETPAGE
   getPage() {
     this.peliculaService.getPlistPelicula(this.page, this.Rpp, this.filter, this.id_genero, this.sortField, this.sortDir)

@@ -11,16 +11,8 @@
           <label for="inputFecha" class="col-sm-2 col-form-label">Fecha/Hora</label>
           <div class="col-sm-4 has-validation">
 
-            <p-calendar formControlName="fechaHora" dateFormat="dd-mm-yy" [showTime]="true" [showIcon]="true" [showSeconds]="false" [stepMinute]="1" [showButtonBar]="true" inputId="time"></p-calendar>
+            <p-calendar formControlName="fechaHora" [locale]="es" dateFormat="dd-mm-yy" [showTime]="true" [showIcon]="true" [showSeconds]="false" [stepMinute]="1" [showButtonBar]="true" inputId="time"></p-calendar>
 
-            <div id="inputNameFeedback" class="invalid-feedback"
-              *ngIf="form.controls.fechaHora.dirty &&  form.controls.fechaHora.errors?.['minlength']">
-              La longitud mínima es de 5 caracteres.
-            </div>
-            <div id="inputNameFeedback" class="invalid-feedback"
-              *ngIf="form.controls.fechaHora.dirty &&  form.controls.fechaHora.errors?.['maxlength']">
-              La longitud máxima es de 10 caracteres.
-            </div>
             <div id="inputNameFeedback" class="invalid-feedback"
               *ngIf="form.controls.fechaHora.dirty &&  form.controls.fechaHora.errors?.['required']">
               El campo es obligatorio.
@@ -115,7 +107,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-outline-primary" [disabled]="!form.dirty && form.invalid">Guardar</button>
+        <button type="submit" class="btn btn-outline-primary" [disabled]="form.invalid">Guardar</button>
         <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Volver</button>
       </form>
 

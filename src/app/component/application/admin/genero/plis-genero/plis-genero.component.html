@@ -1,7 +1,19 @@
 <div class="container mt-5">
   <div class="row">
-    <div class="col">
+    <div class="col" *ngIf="respFromServer">
       <h1 class="text-center mb-5">Generos</h1>
+
+      <app-search-unrouted [placeHolder]="'Buscar género'" (onSearch)="setFilter($event)"></app-search-unrouted>
+
+      <div class="paginacion">
+        <app-pagination-unrouted [nPage]="respFromServer.number + 1" [nTotalPages]="respFromServer.totalPages"
+          (eePage)="setPage($event)">
+        </app-pagination-unrouted>
+
+        <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
+            (eeRpp)="this.setRpp($event)">
+        </app-dropdown-register-page>
+      </div>
       <table class="table table-responsive table-striped">
         <thead>
           <tr>

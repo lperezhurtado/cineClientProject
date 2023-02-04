@@ -1,9 +1,16 @@
+import { FormControl } from '@angular/forms';
 import { Pageable, Sort } from "./shared-interface";
 
 export interface TarifaInterface {
   id:       number;
   nombre:   string;
   precio:   number;
+}
+
+export interface TarifaFormInterface {
+  id:       FormControl<number>;
+  nombre:   FormControl<string>;
+  precio:   FormControl<number>;
 }
 
 export interface TarifaPageInterface {

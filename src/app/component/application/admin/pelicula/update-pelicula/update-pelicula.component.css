@@ -14,21 +14,26 @@ body{
 }
 
 .formContainer{
-  width: 75vw;
+  width: 85vw;
   margin: 0 auto;
   padding: 2vw;
-  background-color: aqua;
+
+}
+
+img{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 20px;;
+  border-radius: 10px;
 }
 
 .titulo{
-  background-color: black;
+
   margin-bottom: 2vh;
   text-align: center;
   font-size: 2.5rem;
 }
 /*Labels en inline block, que permite que todos los inputs se alineen*/
 label{
-  background-color: tomato;
+
   display: inline-block;
   width: 12vw;
 }
@@ -39,7 +44,7 @@ input{
 .inputDiv{
   text-align: left;
   margin: 1.5vh auto;
-  background-color: yellow;
+
 }
 
 img{
@@ -56,13 +61,13 @@ img{
 
 .gridContainer{
   width: 100%;
-  background-color: blueviolet;
+
   padding: .5vw;
   display: grid;
   gap: 1vw;
   grid-template:
   "info       options"    40vh
-  "sinopsis   sinopsis"   auto
+  "sinopsis   options"   auto
   "buttons    buttons"    5vh/
   1fr         1fr;
 }
@@ -94,7 +99,7 @@ img{
   .gridContainer{
       grid-template:
       "info       options"    45vh
-      "sinopsis   sinopsis"   auto
+      "sinopsis   options"   auto
       "buttons    buttons"    7vh/
       1fr         1fr;
       }

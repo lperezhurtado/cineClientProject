@@ -8,7 +8,7 @@
       <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
 
         <a [routerLink]="['/admin/sala/create']" class="btn btn-primary mx-3">Alta de sala</a>
-        <app-search-unrouted [placeHolder]="'Buscar sala'" (onSearch)="setFilter( $event )"></app-search-unrouted>
+       <!--<app-search-unrouted [placeHolder]="'Buscar sala'" (onSearch)="setFilter( $event )"></app-search-unrouted>-->
         <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
           (eeRpp)="this.setRpp($event)">
         </app-dropdown-register-page>

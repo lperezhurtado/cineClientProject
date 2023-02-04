@@ -6,14 +6,26 @@
   </div>
 
   <div class="formContainer">
-    <form [formGroup]="form" (ngSubmit)="updateTipoSala()">
+    <form [formGroup]="form" *ngIf="form" (ngSubmit)="updateTipoSala()">
       <div class="inputDiv">
-        <label for="inputName">Nombre</label>
-        <input type="text" id="inputName" formControlName="nombre">
+        <label for="inputName" class="label-form">Nombre</label>
+        <input type="text" class="form-control" id="inputName" formControlName="nombre"
+        [ngClass]="{ 'is-valid' :
+        (!form.controls.nombre.errors?.['required'] || !form.controls.nombre.errors?.['minlength']),
+
+        'is-invalid' : form.controls.nombre.dirty &&
+        (form.controls.nombre.errors?.['minlength'] || form.controls.nombre.errors?.['required']) }"
+        >
+
+        <div id="inputNameFeedback" class="invalid-feedback"
+          *ngIf="form.controls['nombre'].dirty &&  form.controls['nombre'].errors?.['required']">
+          El campo es obligatorio.
+        </div>
+
       </div>
-      <div class="buttons">
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>
+      <div class="buttons mt-4">
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Guardar</button>
+        <button type="button" class="btn btn-danger ms-3" (click)="back()">Cancelar</button>
       </div>
     </form>
   </div>

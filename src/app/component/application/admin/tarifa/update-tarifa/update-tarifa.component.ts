@@ -1,3 +1,4 @@
+import { TarifaFormInterface } from './../../../../../model/Tarifa-interface';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,11 +16,9 @@ declare let bootstrap: any;
 })
 export class UpdateTarifaComponent {
 
-  private entityUrl="/genero";
   tarifa!: TarifaInterface;
-  url = "";
   id: number;
-  form!: FormGroup;
+  form!: FormGroup<TarifaFormInterface>;
 
   //modals
   mimodal: string = "miModal";
@@ -35,15 +34,9 @@ export class UpdateTarifaComponent {
     private formBuilder: FormBuilder
   ){
     this.id = activatedRoute.snapshot.params['id'];
-    this.url = `${environment.baseURL}${this.entityUrl}`;
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      id:[""],
-      nombre:["", [Validators.required]],
-      precio:["", [Validators.required]]
-    });
       this.getTarifa();
   }
 
@@ -54,11 +47,10 @@ export class UpdateTarifaComponent {
   getTarifa() {
     this.tarifaService.getTarifa(this.id).subscribe({
       next: (resp: TarifaInterface) => {
-        console.log(resp);
-        this.form = this.formBuilder.group({
+        this.form = <FormGroup> this.formBuilder.group({
           id:     [resp.id],
-          nombre: [resp.nombre],
-          precio: [resp.precio]
+          nombre: [resp.nombre, [Validators.required]],
+          precio: [resp.precio, [Validators.required ,  Validators.maxLength(5)]]
         });
       }
     });
@@ -66,15 +58,14 @@ export class UpdateTarifaComponent {
 
   updateTarifa() {
     this.tarifa = {
-      id: this.form.value.id,
-      nombre: this.form.value.nombre,
-      precio: this.form.value.precio
+      id: this.form.value.id!,
+      nombre: this.form.value.nombre!,
+      precio: this.form.value.precio!
     }
 
     if (this.form.valid) {
       this.tarifaService.updateTarifa(this.tarifa).subscribe({
         next: (resp: number) => {
-          console.log(resp);
           this.id = resp;
           this.modalTitle = "Cine MatriX";
           this.modalContent = "Tarifa " + resp + " actualizada";

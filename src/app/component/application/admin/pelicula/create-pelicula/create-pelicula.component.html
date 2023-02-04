@@ -1,12 +1,12 @@
 <app-menu></app-menu>
 <div class="container">
 <h1 class="text-center mb-3">Nueva Película</h1>
-<form action="">
+<!--<form action="">
   <label for="" class="form-label">Titulo</label>
   <input type="text" class="form-control"
     [ngClass]="{'is-valid' : titulo.dirty && !titulo.errors?.['required'] && titulo.dirty && !titulo.errors?.['minlength']
     && titulo.dirty && !titulo.errors?.['maxlength'],
-    'is-invalid' :  titulo.dirty &&  titulo.errors?.['minlength'] || titulo.dirty &&  titulo.errors?.['maxlength'] ||
+    'is-invalid' :  titulo.dirty &&  titulo.errors?.['required'] ||
     titulo.dirty &&  titulo.errors?.['required']}" [formControl]="this.titulo">
 
   <label for="" class="form-label">Director</label>
@@ -14,7 +14,7 @@
     [ngClass]="{ 'is-valid' : director.dirty &&
     (!director.errors?.['required'] || !director.errors?.['minlength'] || !director.errors?.['maxlength']),
 
-    'is-invalid' : director.dirty && director.hasError
+    'is-invalid' :
     (director.errors?.['required'] || director.errors?.['minlength'] || director.errors?.['maxlength']) }" [formControl]="this.director">
 
   <div class="mb-3 row">
@@ -34,7 +34,7 @@
         <button type="button" class="btn btn-outline-primary" (click)="openModalFindGenero()">Buscar</button>
 
       </div>
-      <!--DIALOGOS DE ERROR-->
+
       <div class="text-danger"
         *ngIf="genero.dirty && genero.errors?.['required']">
         El campo es obligatorio.
@@ -51,7 +51,7 @@
     <div class="inputVersion form-check form-switch col-4">
       <input class="form-check-input" [formControl]="this.normal" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
       <label for="inputNormal">V. normal</label>
-     <!-- <input type="checkbox" class="" id="inputNormal" formControlName="normal">-->
+
     </div>
     <div class="inputEspecial form-check form-switch col-4">
       <input type="checkbox" class="form-check-input" id="inputEspecial" [formControl]="this.especial" role="switch" id="flexSwitchCheckDefault">
@@ -72,8 +72,7 @@
   <label for="" class="form-label">Imagen</label>
   <input type="file" class="form-control mb-2" (change)="fileSelected($event)">
 
-  <!--<label for="">Fecha alta</label>
-  <input type="datetime-local" [formControl]="this.fAlta">-->
+
 
   <div class="row mb-3">
     <div class="field col-5 md:col-3 ">
@@ -91,7 +90,140 @@
   <button type="submit" class="btn btn-outline-primary" (click)="checkFile()">Guardar</button>
   <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Volver</button>
 
+</form>-->
+
+
+
+
+
+
+
+
+
+<form action="" [formGroup]="form">
+  <label for="" class="form-label">Titulo</label>
+  <input type="text" class="form-control" formControlName="titulo"
+    [ngClass]="{'is-valid' : form.controls.titulo.dirty && !form.controls.titulo.errors?.['required'] &&
+    form.controls.titulo.dirty && !form.controls.titulo.errors?.['minlength']
+    && form.controls.titulo.dirty && !form.controls.titulo.errors?.['maxlength'],
+    'is-invalid' :  form.controls.titulo.dirty &&  form.controls.titulo.errors?.['minlength']
+    ||  form.controls.titulo.dirty &&  form.controls.titulo.errors?.['maxlength'] ||
+    form.controls.titulo.dirty &&  form.controls.titulo.errors?.['required']}"
+  >
+
+  <label for="" class="form-label">Director</label>
+  <input type="text" class="form-control mb-2" formControlName="director"
+  [ngClass]="{'is-valid' : form.controls.director.dirty && !form.controls.director.errors?.['required'] &&
+  form.controls.director.dirty && !form.controls.director.errors?.['minlength']
+    && form.controls.director.dirty && !form.controls.director.errors?.['maxlength'],
+    'is-invalid' :  form.controls.director.dirty &&  form.controls.director.errors?.['minlength']
+    ||  form.controls.director.dirty &&  form.controls.director.errors?.['maxlength'] ||
+    form.controls.director.dirty &&  form.controls.director.errors?.['required']}"
+  >
+
+  <div class="mb-3 row">
+    <label for="inputUsertype" class="col-sm-2 col-form-label">Género</label>
+    <div class="col-sm-6 has-validation">
+
+      <div class="input-group">
+        <span class="input-group-text">{{generoDescription}}</span>
+
+        <input type="number" class="form-control" formControlName="genero"
+        [ngClass]="{'is-valid' : form.controls.genero.dirty && !form.controls.genero.errors?.['required'] &&
+        form.controls.genero.dirty && !form.controls.genero.errors?.['minlength']
+          && form.controls.genero.dirty && !form.controls.genero.errors?.['maxlength'],
+          'is-invalid' :  form.controls.genero.dirty &&  form.controls.genero.errors?.['minlength']
+          ||  form.controls.genero.dirty &&  form.controls.genero.errors?.['maxlength'] ||
+          form.controls.genero.dirty &&  form.controls.genero.errors?.['required']}"
+        >
+
+        <button type="button" class="btn btn-outline-primary" (click)="openModalFindGenero()">Buscar</button>
+      </div>
+
+      <div class="text-danger"
+        *ngIf="form.controls.genero.dirty && form.controls.genero.errors?.['required']">
+        El campo es obligatorio.
+      </div>
+      <div class="text-danger"
+        *ngIf="form.controls.genero.dirty && form.controls.genero.errors?.['pattern']">
+        El campo ha de ser un entrero de máximo 6 dígitos.
+      </div>
+    </div>
+  </div>
+
+  <div class="my-3 mx-3 row inputDiv">
+
+    <div class="inputVersion form-check form-switch col-4">
+      <input class="form-check-input" formControlName="versionNormal" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+      <label for="inputNormal">V. normal</label>
+
+    </div>
+    <div class="inputEspecial form-check form-switch col-4">
+      <input type="checkbox" class="form-check-input" id="inputEspecial" formControlName="versionEspecial" role="switch" id="flexSwitchCheckDefault">
+      <label for="inputEspecial">V. especial</label>
+    </div>
+
+  </div>
+
+  <label for="" class="form-label">Año</label>
+  <input type="number" class="form-control" formControlName="year"
+  [ngClass]="{'is-valid' : form.controls.year.dirty && !form.controls.year.errors?.['required'] &&
+  form.controls.year.dirty && !form.controls.year.errors?.['min']
+    && form.controls.year.dirty && !form.controls.year.errors?.['max'],
+    'is-invalid' :  form.controls.year.dirty &&  form.controls.year.errors?.['min']
+    ||  form.controls.year.dirty &&  form.controls.year.errors?.['max'] ||
+    form.controls.year.dirty &&  form.controls.year.errors?.['required']}"
+  >
+
+  <label for="" class="form-label">Duración (en min.)</label>
+  <input type="number" class="form-control" formControlName="duracion"
+    [ngClass]="{'is-valid' : form.controls.duracion.dirty && !form.controls.duracion.errors?.['required'] &&
+    form.controls.duracion.dirty && !form.controls.duracion.errors?.['min']
+    && form.controls.duracion.dirty && !form.controls.duracion.errors?.['max'],
+    'is-invalid' :  form.controls.duracion.dirty &&  form.controls.duracion.errors?.['min']
+    ||  form.controls.duracion.dirty &&  form.controls.duracion.errors?.['max'] ||
+    form.controls.duracion.dirty &&  form.controls.duracion.errors?.['required']}"
+  >
+
+  <label for="" class="form-label">Sinopsis</label>
+  <textarea type="" class="form-control" formControlName="sinopsis"
+  [ngClass]="{'is-valid' : form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['required'] &&
+  form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['minlength']
+    && form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['maxlength'],
+    'is-invalid' :  form.controls.sinopsis.dirty &&  form.controls.sinopsis.errors?.['minlength']
+    ||  form.controls.sinopsis.dirty &&  form.controls.sinopsis.errors?.['maxlength'] ||
+    form.controls.sinopsis.dirty &&  form.controls.sinopsis.errors?.['required']}"
+  ></textarea>
+
+  <label for="" class="form-label">Imagen</label>
+  <input type="file" class="form-control mb-2" (change)="fileSelected($event)">
+
+
+  <div class="row mb-3">
+    <div class="field col-5 md:col-3 ">
+      <label for="time">Fecha de alta</label>
+      <p-calendar formControlName="fechaAlta" dateFormat="dd-mm-yy" [showIcon]="true" [showButtonBar]="true" inputId="time"></p-calendar>
+    </div>
+
+    <div class="field col-5 md:col-3 ">
+      <label for="time">Fecha de Baja</label>
+      <p-calendar formControlName="fechaBaja" dateFormat="dd-mm-yy" [showIcon]="true" [showButtonBar]="true" inputId="time"></p-calendar>
+      <span>No es obligatorio incluir fecha de baja</span>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-outline-primary" [disabled]="this.form.invalid" (click)="checkFile()">Guardar</button>
+  <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Volver</button>
+
 </form>
+
+
+
+
+
+
+
+
 
 <div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">

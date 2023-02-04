@@ -1,4 +1,6 @@
-<div class="container mt-3">
+<app-menu></app-menu>
+
+<div class="container mt-5">
 
   <div class="titulo">
     <h4>Nueva Tarifa</h4>
@@ -8,15 +10,25 @@
     <form [formGroup]="form" (ngSubmit)="createTarifa()">
       <div class="inputDiv">
         <label for="inputName" class="label-form">Nombre</label>
-        <input type="text" class="form-control" formControlName="nombre">
+        <input type="text" class="form-control" formControlName="nombre"
+        [ngClass]="{'is-valid' : !form.controls.nombre.errors?.['required'] && !form.controls.nombre.errors?.['minlength'],
+
+        'is-invalid' : form.controls.nombre.dirty &&
+        (form.controls.nombre.errors?.['minlength'] || form.controls.nombre.errors?.['required'])}"
+        >
       </div>
       <div class="inputDiv">
         <label for="inputName" class="form-label">Precio</label>
-        <input type="text" class="form-control" formControlName="precio">
+        <input type="number" class="form-control" formControlName="precio"
+          [ngClass]="{'is-valid' : !form.controls.precio.errors?.['required'] && !form.controls.precio.errors?.['pattern'],
+
+          'is-invalid' : form.controls.precio.dirty &&
+          (form.controls.precio.errors?.['required'] || form.controls.precio.errors?.['pattern'])}"
+        >
       </div>
-      <div class="buttons">
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>
+      <div class="buttons mt-4">
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Guardar</button>
+        <button type="button" class="btn btn-danger ms-3" (click)="back()">Cancelar</button>
       </div>
     </form>
   </div>

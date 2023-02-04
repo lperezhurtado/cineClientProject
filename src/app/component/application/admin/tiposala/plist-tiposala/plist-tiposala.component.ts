@@ -12,10 +12,14 @@ import { TipoSalaService } from 'src/app/service/tipo-sala.service';
 export class PlistTiposalaComponent implements OnInit{
 
   @Output() closeEvent = new EventEmitter<number>();
+
+  filter: string = "";
   respFromServer!: TSalaPageInterface;
   page: number = 0;
   size: number = 5;
   totalPages!: number;
+  sortField: string = "";
+  sortDirection: string = "";
 
   constructor(
     private tipoSalaService: TipoSalaService,
@@ -28,7 +32,7 @@ export class PlistTiposalaComponent implements OnInit{
   }
 
   getPlist() {
-    this.tipoSalaService.plistTipoSala(this.page, this.size)
+    this.tipoSalaService.plistTipoSala(this.page, this.size, this.filter, this.sortField, this.sortDirection)
     .subscribe({
       next: (resp: TSalaPageInterface) => {
         this.respFromServer = resp;
@@ -42,6 +46,27 @@ export class PlistTiposalaComponent implements OnInit{
 
   setPage(page: number) {
     this.page = page;
+    this.getPlist();
+  }
+
+  setRpp(rpp: number) {
+    this.size = rpp;
+    this.page = 0;
+    this.getPlist();
+  }
+
+  setFilter(term: string): void {
+    this.filter = term;
+    this.getPlist();
+  }
+
+  setOrder(order: string): void {
+    this.sortField = order;
+    if (this.sortDirection == "asc") {
+      this.sortDirection = "desc";
+    } else {
+      this.sortDirection = "asc";
+    }
     this.getPlist();
   }
 

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TipoSalaInterface, TSalaPageInterface } from '../model/TipoSala-interface';
+import { TipoSalaInterface, TipoSalaNewInterface, TSalaPageInterface } from '../model/TipoSala-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,20 @@ export class TipoSalaService {
     private httpClient: HttpClient
   ) { }
 
-  plistTipoSala(page: number, size: number): Observable<TSalaPageInterface> {
+  plistTipoSala(page: number, size: number, filter: string, strSortField:string, strOrderDirection:string): Observable<TSalaPageInterface> {
 
     let params = new HttpParams()
+    .set("filter", filter)
     .set("page", page)
     .set("size", size);
+
+    if (strSortField != "") {
+      if (strOrderDirection != "") {
+        params = params.set("sort", strSortField+","+strOrderDirection);
+      } else {
+        params = params.set("sort", strSortField);
+      }
+    }
 
     const httpOptions = {
       header: new HttpHeaders({
@@ -33,7 +42,7 @@ export class TipoSalaService {
     return this.httpClient.get<TSalaPageInterface>(this.url, httpOptions);
   }
 
-  createTipoSala(tipoSala: TipoSalaInterface): Observable<number> {
+  createTipoSala(tipoSala: TipoSalaNewInterface): Observable<number> {
     return this.httpClient.post<number>(this.url+'/', tipoSala, {withCredentials:true});
   }
 

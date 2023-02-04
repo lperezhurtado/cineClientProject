@@ -13,13 +13,10 @@ declare let bootstrap: any;
 export class ListaTiposalaComponent {
 
   respFromServer!: TSalaPageInterface;
-  tipoSalaSession!: string; //Por si acaso
 
-  generated!: number;
-  generados: boolean = false;
   msg: string = "";
 
-  strTermFilter: string = "";
+  filter: string = "";
   id_usertypeFilter: number = 0;
   numberOfElements: number = 5;
   page: number = 0;
@@ -38,6 +35,9 @@ export class ListaTiposalaComponent {
     private router: Router
   ) { }
 
+  back() {
+    this.router.navigate(['admin/sala/plist']);
+  }
   ngOnInit(): void {
     this.getPage();
   }
@@ -46,14 +46,13 @@ export class ListaTiposalaComponent {
 
     //console.log("localstorage: ",localStorage.getItem("usuario"));
 
-    this.tipoSalaService.plistTipoSala(this.page, this.numberOfElements)
+    this.tipoSalaService.plistTipoSala(this.page, this.numberOfElements, this.filter, this.sortField, this.sortDirection)
       .subscribe({
         next: (resp: TSalaPageInterface) => {
           this.respFromServer = resp;
           if (this.page > resp.totalPages - 1) {
             this.page = resp.totalPages - 1;
           }
-          console.log(resp);
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);
@@ -73,7 +72,7 @@ export class ListaTiposalaComponent {
   }
 
   setFilter(term: string): void {
-    this.strTermFilter = term;
+    this.filter = term;
     this.getPage();
   }
 
@@ -86,7 +85,6 @@ export class ListaTiposalaComponent {
       this.id_usertypeFilter = 0;
       this.page = 0;
     }
-
     this.getPage();
   }
 

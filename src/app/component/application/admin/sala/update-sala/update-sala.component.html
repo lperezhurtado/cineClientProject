@@ -25,13 +25,9 @@
               (form.controls.alto.errors?.['minlength'] || form.controls.alto.errors?.['maxlength'] || form.controls.alto.errors?.['required']) }"
             >
             <!--MODALES DE ERROR-->
-            <div id="inputNameFeedback" class="invalid-feedback"
-              *ngIf="form.controls.alto?.dirty &&  form.controls.alto?.errors?.['minlength']">
-              La longitud mínima es de 5 caracteres.
-            </div>
             <div id="inputDniFeedback" class="invalid-feedback"
               *ngIf="form.controls.alto?.dirty &&  form.controls.alto?.errors?.['maxlength']">
-              La longitud máxima es de 10 caracteres.
+              Máx. 2 dígitos.
             </div>
             <div id="inputDniFeedback" class="invalid-feedback"
               *ngIf="form.controls.alto?.dirty &&  form.controls.alto?.errors?.['required']">
@@ -54,12 +50,8 @@
             >
             <!--MODALES DE ERROR-->
             <div id="inputNameFeedback" class="invalid-feedback"
-              *ngIf="form.controls.ancho?.dirty &&  form.controls.ancho?.errors?.['minlength']">
-              La longitud mínima es de 5 caracteres.
-            </div>
-            <div id="inputNameFeedback" class="invalid-feedback"
               *ngIf="form.controls.ancho?.dirty &&  form.controls.ancho?.errors?.['maxlength']">
-              La longitud máxima es de 10 caracteres.
+              Máx. 2 dígitos.
             </div>
             <div id="inputNameFeedback" class="invalid-feedback"
               *ngIf="form.controls.ancho?.dirty &&  form.controls.ancho?.errors?.['required']">
@@ -144,22 +136,3 @@
   </div>
 </div>
 
-<!--
-<div class="modal fade" id="findTeam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-        <app-team-finder-admin-unrouted (closeEvent)="closeTeamModal($event)"></app-team-finder-admin-unrouted>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>-->

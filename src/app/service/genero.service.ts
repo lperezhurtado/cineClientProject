@@ -1,4 +1,4 @@
-import { GeneroPageInterface, GeneroInterface } from './../model/Genero-interface';
+import { GeneroPageInterface, GeneroInterface, GeneroNewInterface } from './../model/Genero-interface';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,11 +16,20 @@ export class GeneroService {
     private httpClient: HttpClient
   ) { }
 
-  plistGenero(page: number, size: number): Observable<GeneroPageInterface> {
+  plistGenero(page: number, size: number, filter: string, strSortField:string, strOrderDirection:string): Observable<GeneroPageInterface> {
 
     let params = new HttpParams()
+    .set("filter", filter)
     .set("page", page)
     .set("size", size);
+
+    if (strSortField != "") {
+      if (strOrderDirection != "") {
+        params = params.set("sort", strSortField+","+strOrderDirection);
+      } else {
+        params = params.set("sort", strSortField);
+      }
+    }
 
     const httpOptions = {
       header: new HttpHeaders({
@@ -33,7 +42,7 @@ export class GeneroService {
     return this.httpClient.get<GeneroPageInterface>(this.url, httpOptions);
   }
 
-  createGenero(genero: GeneroInterface): Observable<number> {
+  createGenero(genero: GeneroNewInterface): Observable<number> {
     return this.httpClient.post<number>(this.url+'/', genero, {withCredentials:true});
   }
 

@@ -40,12 +40,6 @@ export class UpdateSalaComponent {
    }
 
   ngOnInit(): void {
-    this.form = <FormGroup>this.formBuilder.group({
-      id:[""],
-      alto:["", [Validators.required]],
-      ancho:["", [Validators.required]],
-      tiposala:["", [Validators.required]]
-    });
     this.getSala();
   }
 
@@ -56,12 +50,11 @@ export class UpdateSalaComponent {
   getSala() {
     this.salaService.getSala(this.id).subscribe({
       next: (resp: SalaInterface) => {
-        console.log(resp);
         this.form =<FormGroup> this.formBuilder.group({
-          id:     [resp.id],
-          alto: [resp.alto],
-          ancho:  [resp.ancho],
-          tiposala:[resp.tiposala.id]
+          id:       [resp.id],
+          alto:     [resp.alto, [Validators.required,  Validators.maxLength(2)]],
+          ancho:    [resp.ancho, [Validators.required, Validators.maxLength(2)]],
+          tiposala: [resp.tiposala.id, [Validators.required]]
         });
       }
     });
@@ -79,7 +72,7 @@ export class UpdateSalaComponent {
       this.salaService.updateSala(this.sala).subscribe({
         next: (resp: number) => {
           this.modalTitle = "Cine MatriX";
-          this.modalContent = "Usuario " + resp + " actualizado";
+          this.modalContent = "Sala " + resp + " actualizada";
           this.showModal();
         }
       });

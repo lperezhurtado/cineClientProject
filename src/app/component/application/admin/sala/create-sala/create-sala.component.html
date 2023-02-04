@@ -11,20 +11,21 @@
         <div class="mb-3 row">
           <label for="inputDni" class="col-sm-2 col-form-label">Alto</label>
           <div class="col-sm-4 has-validation">
-            <input type="text" class="form-control" [ngClass]="{'is-valid' : !form.controls.alto.errors?.['required'] &&
-            form.dirty && !form.controls.alto.errors?.['minlength']
+            <input type="number" class="form-control" [ngClass]="{'is-valid' : !form.controls.alto.errors?.['required'] &&
+              form.dirty && !form.controls.alto.errors?.['min']
               && form.controls.alto.dirty && !form.controls.alto.errors?.['maxlength'],
               'is-invalid' :  form.controls.alto.dirty &&  form.controls.alto.errors?.['minlength']
               ||  form.controls.alto.dirty &&  form.controls.alto.errors?.['maxlength'] ||
               form.controls.alto.dirty &&  form.controls.alto.errors?.['required']}" id="inputDni"
               formControlName="alto">
+
             <div id="inputDniFeedback" class="invalid-feedback"
-              *ngIf="form.controls.alto.dirty &&  form.controls.alto.errors?.['minlength']">
-              La longitud mínima es de 5 caracteres.
+              *ngIf="form.controls.alto.dirty &&  form.controls.alto.errors?.['min']">
+              Se requiere un mínimo de 3 filas.
             </div>
             <div id="inputDniFeedback" class="invalid-feedback"
               *ngIf="form.controls.alto.dirty &&  form.controls.alto.errors?.['maxlength']">
-              La longitud máxima es de 10 caracteres.
+              Max. 2 dígitos.
             </div>
             <div id="inputDniFeedback" class="invalid-feedback"
               *ngIf="form.controls.alto.dirty &&  form.controls.alto.errors?.['required']">
@@ -36,7 +37,7 @@
         <div class="mb-3 row">
           <label for="inputName" class="col-sm-2 col-form-label">Ancho</label>
           <div class="col-sm-4 has-validation">
-            <input type="text" class="form-control" [ngClass]="{'is-valid' : form.controls.ancho.dirty && !form.controls.ancho.errors?.['required'] &&
+            <input type="number" class="form-control" [ngClass]="{'is-valid' : form.controls.ancho.dirty && !form.controls.ancho.errors?.['required'] &&
             form.controls.ancho.dirty && !form.controls.ancho.errors?.['minlength']
               && form.controls.ancho.dirty && !form.controls.ancho.errors?.['maxlength'],
               'is-invalid' :  form.controls.ancho.dirty &&  form.controls.ancho.errors?.['minlength']
@@ -87,7 +88,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-outline-primary" [disabled]="!form.dirty && form.invalid">Guardar</button>
+        <button type="submit" class="btn btn-outline-primary" [disabled]="form.invalid">Guardar</button>
         <button type="button" class="btn btn-outline-danger ms-3" (click)="back()">Volver</button>
       </form>
 

@@ -28,15 +28,19 @@
             </tr>
             <tr>
                 <td>Fecha de alta</td>
-                <td>{{pelicula.fechaAlta}}</td>
+                <td>{{pelicula.fechaAlta | date: 'dd-MM-yyyy / HH:mm'}}</td>
             </tr>
             <tr>
               <td>Fecha de baja</td>
-              <td>{{pelicula.fechaBaja}}</td>
+              <td>{{pelicula.fechaBaja | date: 'dd-MM-yyyy / HH:mm'}}</td>
           </tr>
             <tr>
                 <td>Genero</td>
                 <td>{{pelicula.genero.id}} ({{pelicula.genero.nombre}})</td>
+            </tr>
+            <tr>
+              <td>Sinopsis</td>
+              <td>{{pelicula.sinopsis}}</td>
             </tr>
         </tbody>
       </table>

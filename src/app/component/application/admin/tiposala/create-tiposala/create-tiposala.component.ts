@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TipoSalaInterface } from 'src/app/model/TipoSala-interface';
+import { TipoSalaInterface, TipoSalaNewInterface } from 'src/app/model/TipoSala-interface';
 import { TipoSalaService } from 'src/app/service/tipo-sala.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import Swal from 'sweetalert2'
 
 declare let bootstrap: any;
 
@@ -14,7 +15,7 @@ declare let bootstrap: any;
 })
 export class CreateTiposalaComponent {
 
-  tipoSala!: TipoSalaInterface;
+  tipoSala!: TipoSalaNewInterface;
   private entityUrl:string =  "/tiposala";
   url = "";
   id!: number;
@@ -51,7 +52,7 @@ export class CreateTiposalaComponent {
     this.tipoSala = {
       id: this.form.value.id,
       nombre: this.form.value.nombre,
-      salasCount: null
+
     }
 
     if (this.form.valid) {
@@ -64,6 +65,9 @@ export class CreateTiposalaComponent {
           this.showModal();
         }
       })
+    }
+    else{
+      this.popup("Por favor, rellena todos los campos","warning");
     }
   }
 
@@ -80,4 +84,26 @@ export class CreateTiposalaComponent {
     }
     this.myModal.show()
   }
+
+  popup(message: string, status: string) {
+    Swal.fire({
+        customClass : {
+          title: 'swal2-title',
+          cancelButton: 'swal2-cancel',
+          confirmButton: 'swal2-confirm',
+          input: 'swal2-input'
+        },
+        icon:<any>status,
+        title: message,
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+}
 }

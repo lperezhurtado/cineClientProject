@@ -16,11 +16,20 @@ export class TarifaService {
     private httpClient: HttpClient
   ) { }
 
-  plistTarifa(page: number, size: number): Observable<TarifaPageInterface> {
+  plistTarifa(page: number, size: number, filter: string, strSortField:string, strOrderDirection:string): Observable<TarifaPageInterface> {
 
     let params = new HttpParams()
+    .set("filter", filter)
     .set("page", page)
     .set("size", size);
+
+    if (strSortField != "") {
+      if (strOrderDirection != "") {
+        params = params.set("sort", strSortField+","+strOrderDirection);
+      } else {
+        params = params.set("sort", strSortField);
+      }
+    }
 
     const httpOptions = {
       header: new HttpHeaders({

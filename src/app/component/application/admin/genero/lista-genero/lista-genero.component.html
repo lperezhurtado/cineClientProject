@@ -1,14 +1,17 @@
-<app-menu></app-menu>
+  <app-menu></app-menu>
 
 <div class="container mt-5" *ngIf="respFromServer">
   <div class="row">
     <div class="col">
-      <h1 class="text-center mb-5">Géneros</h1>
+      <div>
+        <button class="btn btn-outline-primary" (click)="back()">Volver</button>
+        <h1 class="text-center mb-5">Géneros</h1>
+      </div>
 
       <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
 
-        <a [routerLink]="['/admin/genero/create']" class="btn btn-primary mx-3">Añadir genero</a>
-        <app-search-unrouted [placeHolder]="'Buscar tiposala'" (onSearch)="setFilter( $event )"></app-search-unrouted>
+        <a [routerLink]="['/admin/genero/create']" class="btn btn-primary mx-3">Añadir género</a>
+        <app-search-unrouted [placeHolder]="'Buscar por nombre'" (onSearch)="setFilter( $event )"></app-search-unrouted>
         <app-dropdown-register-page class="mx-2" [PageSize]="respFromServer.size"
           (eeRpp)="this.setRpp($event)">
         </app-dropdown-register-page>
@@ -20,9 +23,7 @@
       </div>
 
       <div class="col-md text-start">
-        <h5 class="text-muted" *ngIf="strTermFilter!=''">Filtrando por {{strTermFilter}} (borrar para resetear)</h5>
-        <button class="btn btn-outline-danger" *ngIf="id_usertypeFilter!=0" (click)="setFilterBySalatype(0)">
-          <i class="bi bi-x-circle"></i> Reset usertype {{id_usertypeFilter}} filter</button>
+        <h5 class="text-muted" *ngIf="filter!=''">Filtrando por {{filter}} (borrar para resetear)</h5>
       </div>
 
       <div class="col-md text-end">
@@ -34,7 +35,6 @@
           <tr>
             <th (click)="setOrder('id')">ID</th>
             <th (click)="setOrder('nombre')">Nombre</th>
-
             <th>Acciones</th>
           </tr>
         </thead>
@@ -43,11 +43,7 @@
             <td>{{genero.id}}</td>
             <td>{{genero.nombre}}</td>
             <td>
-
               <div class="btn-group" role="group" aria-label="Herramientas">
-                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/genero/view',genero.id]"> <!--[routerLink]="['/admin/tiposala/view',tiposala.id]"-->
-                  Ver
-                </button>
                 <button class="btn btn-sm btn-warning" [routerLink]="['/admin/genero/update',genero.id]">
                   Editar
                 </button>
@@ -56,50 +52,10 @@
                 </button>
               </div>
             </td>
-
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="generateInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Cine MatriX</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              {{msg}}
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="getPage()">Close</button>
-          </div>
-      </div>
-  </div>
-</div>
-
-
-<!--<div class="modal fade" id="findTipoSala" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">{{modalTitle}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-        <app-get-tiposala [id]="this.aux"></app-get-tiposala>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>-->
-
-
-
-

@@ -1,3 +1,4 @@
+import { TarifaFormInterface } from './../../../../../model/Tarifa-interface';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,10 +17,8 @@ declare let bootstrap: any;
 export class CreateTarifaComponent {
 
   tarifa!: TarifaInterface;
-  private entityUrl:string =  "/tarifa";
-  url = "";
   id!: number;
-  form!: FormGroup;
+  form!: FormGroup<TarifaFormInterface>;
 
   //modals
   mimodal: string = "miModal";
@@ -33,15 +32,13 @@ export class CreateTarifaComponent {
     private formBuilder: FormBuilder,
     private tarifaService: TarifaService,
     private location: Location
-  ) {
-    this.url = `${environment.baseURL}${this.entityUrl}`;
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
+    this.form = <FormGroup>this.formBuilder.group({
       id:[""],
       nombre:["", [Validators.required]],
-      precio:["", [Validators.required]]
+      precio:["", [Validators.required, Validators.pattern('')]]
     });
   }
 
@@ -51,9 +48,9 @@ export class CreateTarifaComponent {
 
   createTarifa() {
     this.tarifa = {
-      id: this.form.value.id,
-      nombre: this.form.value.nombre,
-      precio: this.form.value.precio
+      id: this.form.value.id!,
+      nombre: this.form.value.nombre!,
+      precio: this.form.value.precio!
     }
 
     if (this.form.valid) {

@@ -41,8 +41,8 @@ export class CreateSalaComponent {
   ngOnInit(): void {
     this.form = <FormGroup>this.formBuilder.group({
       id:[""],
-      alto:["", [Validators.required]],
-      ancho:["", [Validators.required]],
+      alto:["", [Validators.required, Validators.min(3), Validators.maxLength(2)]],
+      ancho:["", [Validators.required, Validators.min(3), Validators.maxLength(2)]],
       tiposala:["", [Validators.required]]
     });
   }
@@ -61,11 +61,9 @@ export class CreateSalaComponent {
     }
 
     if (this.form.valid) {
-      console.log(this.form);
       this.salaService.createSala(this.sala).subscribe({
         next: (resp: number) => {
           this.id = resp;
-          console.log(resp);
           this.modalTitle = "Cine MatriX";
           this.modalContent = "Sala " + resp + " añadida";
           this.showModal();
@@ -125,7 +123,5 @@ export class CreateSalaComponent {
     this.updateTipoSalaDescription(id_tiposala);
     this.myModal.hide();
   }
-
-
 
 }

@@ -1,23 +1,33 @@
-<div class="container mt-3">
+<app-menu></app-menu>
+
+<div class="container mt-5">
 
   <div class="titulo">
     <h4>Actualización de Tarifa</h4>
   </div>
 
   <div class="formContainer">
-    <form [formGroup]="form" (ngSubmit)="updateTarifa()">
+    <form [formGroup]="form" *ngIf="form" (ngSubmit)="updateTarifa()">
       <div class="inputDiv">
         <label for="inputName" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="inputName" formControlName="nombre">
+        <input type="text" class="form-control" id="inputName" formControlName="nombre"
+        [ngClass]="{ 'is-valid' : (!form.controls.nombre.errors?.['required'] || !form.controls.nombre.errors?.['maxlength']),
+        'is-invalid' : form.controls.nombre.dirty &&
+        (form.controls.nombre.errors?.['maxlength'] || form.controls.nombre.errors?.['required']) }"
+        >
       </div>
 
       <div class="inputDiv">
         <label for="inputName" class="form-label">Precio</label>
-        <input type="text" class="form-control" id="inputName" formControlName="precio">
+        <input type="number" class="form-control" id="inputName" formControlName="precio" maxlength="5"
+        [ngClass]="{ 'is-valid' : (!form.controls.precio.errors?.['required'] || !form.controls.precio.errors?.['maxLength']),
+        'is-invalid' : form.controls.precio.dirty &&
+        (form.controls.precio.errors?.['maxLength'] || form.controls.precio.errors?.['required']) }"
+        >
       </div>
-      <div class="buttons">
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <button type="button" class="btn btn-danger" (click)="back()">Cancelar</button>
+      <div class="buttons mt-4">
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Guardar</button>
+        <button type="button" class="btn btn-danger ms-3" (click)="back()">Cancelar</button>
       </div>
     </form>
   </div>

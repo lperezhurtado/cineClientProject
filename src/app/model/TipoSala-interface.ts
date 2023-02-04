@@ -1,9 +1,20 @@
+import { FormControl } from '@angular/forms';
 import { Pageable, Sort } from "./shared-interface";
 
 export interface TipoSalaInterface {
     id:           number;
     nombre:       string;
-    salasCount:   number | null;
+    salasCount:   number;
+}
+
+export interface TipoSalaNewInterface {
+  id:           number;
+  nombre:       string;
+}
+
+export interface TipoSalaFormInterface {
+  id:           FormControl<number>;
+  nombre:       FormControl<string>;
 }
 
 export interface TSalaPageInterface {

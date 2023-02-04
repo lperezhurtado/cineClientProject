@@ -1,10 +1,10 @@
+import { TipoSalaNewInterface, TipoSalaFormInterface } from './../../../../../model/TipoSala-interface';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TipoSalaInterface } from 'src/app/model/TipoSala-interface';
 import { TipoSalaService } from 'src/app/service/tipo-sala.service';
-import { environment } from 'src/environments/environment';
 
 declare let bootstrap: any;
 
@@ -14,11 +14,10 @@ declare let bootstrap: any;
 })
 export class UpdateTiposalaComponent {
 
-  private entityUrl="/tiposala";
   tipoSala!: TipoSalaInterface;
-  url = "";
+  tipoSalaUpdate!: TipoSalaNewInterface;
   id: number;
-  form!: FormGroup;
+  form!: FormGroup<TipoSalaFormInterface>;
 
   //modals
   mimodal: string = "miModal";
@@ -34,14 +33,9 @@ export class UpdateTiposalaComponent {
     private formBuilder: FormBuilder
   ){
     this.id = activatedRoute.snapshot.params['id'];
-    this.url = `${environment.baseURL}${this.entityUrl}`;
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      id:[""],
-      nombre:["", [Validators.required]]
-    });
     this.getTipoSala();
   }
 
@@ -52,27 +46,23 @@ export class UpdateTiposalaComponent {
   getTipoSala() {
     this.tipoSalaService.getTipoSala(this.id).subscribe({
       next: (resp: TipoSalaInterface) => {
-        console.log(resp);
-        this.form = this.formBuilder.group({
+        this.form = <FormGroup> this.formBuilder.group({
           id:     [resp.id],
-          nombre: [resp.nombre],
-          count:  [resp.salasCount]
+          nombre: [resp.nombre, [Validators.required, Validators.minLength(1)]]
         });
       }
     });
   }
 
   updateTipoSala() {
-    this.tipoSala = {
-      id: this.form.value.id,
-      nombre: this.form.value.nombre,
-      salasCount: this.form.value.count
+    this.tipoSalaUpdate = {
+      id: this.form.value.id!,
+      nombre: this.form.value.nombre!,
     }
 
     if (this.form.valid) {
       this.tipoSalaService.updateTipoSala(this.tipoSala).subscribe({
         next: (resp: number) => {
-          console.log(resp);
           this.id = resp;
           this.modalTitle = "Cine MatriX";
           this.modalContent = "Tipo de sala " + resp + " actualizada";

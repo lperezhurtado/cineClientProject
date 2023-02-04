@@ -20,7 +20,7 @@ export class SelectPlistTarifaComponent {
   generados: boolean = false;
   msg: string = "";
 
-  strTermFilter: string = "";
+  filter: string = "";
   id_usertypeFilter: number = 0;
   numberOfElements: number = 10;
   page: number = 0;
@@ -41,7 +41,7 @@ export class SelectPlistTarifaComponent {
 
     //console.log("localstorage: ",localStorage.getItem("usuario"));
 
-    this.tarifaService.plistTarifa(this.page, this.numberOfElements)
+    this.tarifaService.plistTarifa(this.page, this.numberOfElements, this.filter, this.sortField, this.sortDirection)
       .subscribe({
         next: (resp: TarifaPageInterface) => {
           this.respFromServer = resp;
@@ -68,7 +68,7 @@ export class SelectPlistTarifaComponent {
   }
 
   setFilter(term: string): void {
-    this.strTermFilter = term;
+    this.filter = term;
     this.getPage();
   }
 

@@ -66,14 +66,14 @@ export class UpdateSesionComponent implements OnInit {
     this.sesionService.getSesion(this.id).subscribe({
       next: (resp: SesionInterface) => {
         this.sesion = resp;
-        console.log("GETONE");
-        console.log(resp);
+        this.sesion.fechaHora = new Date(resp.fechaHora);
+
         this.form = <FormGroup>this.formBuilder.group({
-          id: [resp.id, [Validators.required]],
-          fechaHora: [resp.fechaHora, Validators.required],
-          sala:[resp.sala.id,[Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
-          pelicula: [resp.pelicula.id, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-          tarifa: [resp.tarifa.id, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]]
+          id: [this.sesion.id, [Validators.required]],
+          fechaHora: [this.sesion.fechaHora, Validators.required],
+          sala:[this.sesion.sala.id,[Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+          pelicula: [this.sesion.pelicula.id, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+          tarifa: [this.sesion.tarifa.id, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]]
         });
         this.actualSala = resp.sala.id;
         this.actualPelicula = resp.pelicula.id;

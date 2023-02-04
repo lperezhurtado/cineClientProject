@@ -1,4 +1,4 @@
-import { PeliculaFormInterface } from './../../../../../model/Pelicula-interface';
+import { PeliculaFormInterface, PeliculaNewInterface } from './../../../../../model/Pelicula-interface';
 import { GeneroService } from './../../../../../service/genero.service';
 import { PeliculaService } from './../../../../../service/pelicula.service';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -16,7 +16,8 @@ declare let bootstrap: any;
 })
 export class CreatePeliculaComponent implements OnInit {
 
-  id = new FormControl();
+  id!: number;
+  /*id = new FormControl();
   titulo = new FormControl('');
   year = new FormControl('');
   duracion = new FormControl('');
@@ -26,10 +27,13 @@ export class CreatePeliculaComponent implements OnInit {
   fBaja = new FormControl();
   normal = new FormControl(true);
   especial = new FormControl(false);
-  genero = new FormControl();
+  genero = new FormControl();*/
+
+  iPelicula!: PeliculaNewInterface;
 
   formData = new FormData();
   form!:FormGroup<PeliculaFormInterface>;
+  error: string = "";
 
   generoDescription: string = "Genero";
 
@@ -53,24 +57,26 @@ export class CreatePeliculaComponent implements OnInit {
     this.form = <FormGroup>this.formBuilder.group({
       id: [""],
       titulo: ["", [Validators.required, Validators.minLength(1)]],
-      year: [, [Validators.required, Validators.min(2000), Validators.max(2025)]],
-      duracion: ["", [Validators.required, Validators.min(60), Validators.max(250)]],
+      year: [, [Validators.required, Validators.min(2000), Validators.max(2026)]],
+      duracion: ["", [Validators.required, Validators.min(60), Validators.max(290)]],
       director: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
       sinopsis: ["", [Validators.required]],
-      fAlta: ["", [Validators.required]],
-      fBaja: ["", [Validators.required]],
-      normal: ["", [Validators.required]],
-      especial: ["", [Validators.required]],
-      genero:["", [Validators.required, Validators.pattern(/^\d{1,10}$/)]]
+      fechaAlta: [Date , [Validators.required]],
+      fechaBaja: [null ],
+      versionNormal: [true ],
+      versionEspecial: [false ],
+      genero:["", [Validators.required, Validators.pattern(/^\d{1,15}$/)]]
     });
   }
 
   back() {
     this.location.back();
   }
+  //PRUEBA DE FORMULARIO CON CONTRO
 
   createPelicula() {
-    let pelicula = {titulo: this.titulo.value,
+    //DE MOMENTO SE DEJA SIN MAS
+    /*let pelicula = {titulo: this.titulo.value,
                     year: this.year.value,
                     duracion: this.duracion.value,
                     director: this.director.value,
@@ -80,21 +86,44 @@ export class CreatePeliculaComponent implements OnInit {
                     versionNormal:this.normal.value,
                     versionEspecial:this.especial.value,
                     genero: { id:this.genero.value}
+                  };*/
+
+    this.iPelicula = {
+                    titulo: this.form.value.titulo!,
+                    year: this.form.value.year!,
+                    duracion: this.form.value.duracion!,
+                    director: this.form.value.director!,
+                    sinopsis: this.form.value.sinopsis!,
+                    fechaAlta: this.form.value.fechaAlta!,
+                    fechaBaja: this.form.value.fechaBaja!,
+                    versionNormal:this.form.value.versionNormal!,
+                    versionEspecial:this.form.value.versionEspecial!,
+                    genero: { id:this.form.value.genero}
                   };
-    this.formData.append("pelicula", JSON.stringify(pelicula));
+
+    this.formData.append("pelicula", JSON.stringify(this.iPelicula)); //se añade objetocon datos de formulario
+
+    console.log(this.iPelicula.fechaAlta);
+    if (this.form.valid) {
+      this.peliculaService.createPelicula(this.formData).subscribe({
+        next: (data: number) => {
+          //this.id.setValue(data);
+          this.id = data;
+          this.modalTitle = "Cine MatriX";
+          this.modalContent = "Pelicula " + data + " añadida";
+          this.showModal();
+        },
+        error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
+          this.error = error.error.message;
+          this.popupError(error.error.message,"error");
+          console.log(error);
+        }
+      });
+    } else {
+      this.popupError("Por favor, rellena todos los campos","warning");
+    }
 
 
-
-    this.peliculaService.createPelicula(this.formData).subscribe({
-      next: (data: number) => {
-        this.id.setValue(data);
-        console.log("ID",this.id);
-
-        this.modalTitle = "Cine MatriX";
-        this.modalContent = "Pelicula " + data + " añadida";
-        this.showModal();
-      }
-    });
   }
   //INICIA EL PROCESO DE CREATE PELICULA
   checkFile() {
@@ -135,6 +164,28 @@ export class CreatePeliculaComponent implements OnInit {
     })
   }
 
+  popupError(message: string, status: string) {
+    Swal.fire({
+        customClass : {
+          title: 'swal2-title',
+          cancelButton: 'swal2-cancel',
+          confirmButton: 'swal2-confirm',
+          input: 'swal2-input'
+        },
+        icon:<any>status,
+        title: message,
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+}
+
   updateGeneroDescription(id_genero: number) {
     this.generoService.getOne(id_genero).subscribe({
       next: (resp: GeneroInterface) => {
@@ -156,7 +207,7 @@ export class CreatePeliculaComponent implements OnInit {
     if (myModalEl) {
        myModalEl.addEventListener('hidden.bs.modal', (event): void => {
 
-      this.router.navigate(['/admin/pelicula/view/', this.id.value])
+      this.router.navigate(['/admin/pelicula/view/', this.id])
       });
     }
     this.myModal.show()
@@ -170,8 +221,8 @@ export class CreatePeliculaComponent implements OnInit {
   }
 
   closeGeneroModal(id_genero: number) {
-    this.genero.setValue(id_genero);
-    //this.form.controls['tiposala'].setValue(id_genero);
+    //this.genero.setValue(id_genero);
+    this.form.controls['genero'].setValue(id_genero);
     this.updateGeneroDescription(id_genero);
     this.myModal.hide();
   }

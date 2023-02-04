@@ -30,8 +30,12 @@ export class PlistTarifaComponent {
     this.getPage();
   }
 
+  back() {
+    this.router.navigate(['admin/sesion/plist'])
+  }
+
   getPage() {
-    this.tarifaService.plistTarifa(this.page, this.size)
+    this.tarifaService.plistTarifa(this.page, this.size, this.filter, this.sortField, this.sortDirection)
     .subscribe({
       next: (resp: TarifaPageInterface) => {
         this.respFromServer = resp;
@@ -58,8 +62,6 @@ export class PlistTarifaComponent {
     this.filter = term;
     this.getPage();
   }
-
-
 
   setOrder(order: string): void {
     this.sortField = order;

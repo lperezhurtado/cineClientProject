@@ -1,10 +1,10 @@
 <app-menu></app-menu>
 
-<div class="contenedor mt-3 mx-3" style="background-color: blue; height:10vw;" *ngIf="resp">
+<div class="contenedor mt-3 mx-3" style="height:10vw;" *ngIf="resp">
 
-  <div class="cabecera bg-success mb-3 pb-2">
+  <div class="cabecera mb-3 pb-2">
     <h1>Gestión de Peliculas</h1>
-    <app-search-unrouted [placeHolder]="'Busqueda global'" (onSearch)="setFilter($event)"></app-search-unrouted>
+    <app-search-unrouted class="mt-4 me-3" [placeHolder]="'Busqueda por pelicula o director'" (onSearch)="setFilter($event)"></app-search-unrouted>
   </div>
 
   <div class="cuerpo">
@@ -37,8 +37,8 @@
             <th (click)="setOrder('year')">Año</th>
             <th (click)="setOrder('duracion')">Duración</th>
             <th (click)="setOrder('director')">Director</th>
-            <th (click)="setOrder('')">Versión normal</th>
-            <th (click)="setOrder('')">Versión Especial</th>
+            <th (click)="setOrder('')">V. normal</th>
+            <th (click)="setOrder('')">V. Especial</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -46,13 +46,13 @@
         <tbody>
           <tr *ngFor="let pelicula of resp?.content">
             <td>{{pelicula.id}}</td>
-            <td>{{pelicula.imagen}}</td>
+            <td> <a [routerLink]="['/admin/pelicula/view',pelicula.id]"><img style="width: 130px; height: 170px;" [src]="getURLimage(pelicula.imagen)" alt=""></a></td>
             <td>{{pelicula.titulo}}</td>
             <td (click)="setIDGenero(pelicula.genero.id)">
               {{pelicula.genero.id}}-{{pelicula.genero.nombre}}
             </td>
             <td>{{pelicula.year}}</td><!--AÑO-->
-            <td>{{pelicula.duracion}}</td>
+            <td>{{pelicula.duracion}} min.</td>
             <td>{{pelicula.director}}</td>
             <td>{{pelicula.versionNormal}}</td>
             <td>{{pelicula.versionEspecial}}</td>
@@ -75,17 +75,18 @@
         </tbody>
         <caption>Total {{resp.totalElements}}</caption>
       </table>
+      <div class="paginaPie" *ngIf="resp.numberOfElements >= 5"><!--*ngIf="Rpp >= 10 && resp.numberOfElements >= 10"-->
+        <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
+            (eePage)="setPage($event)">
+        </app-pagination-unrouted>
+
+        <app-dropdown-register-page class="mx-2" [PageSize]="resp.size"
+            (eeRpp)="this.setRpp($event)">
+        </app-dropdown-register-page>
+      </div>
     </div>
 
-    <div class="paginaPie" style="background-color: aqua;" *ngIf="Rpp >= 10 && resp.numberOfElements >= 10">
-      <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
-          (eePage)="setPage($event)">
-      </app-pagination-unrouted>
 
-      <app-dropdown-register-page class="mx-2" [PageSize]="resp.size"
-          (eeRpp)="this.setRpp($event)">
-      </app-dropdown-register-page>
-    </div>
 
   </div>
 </div>
