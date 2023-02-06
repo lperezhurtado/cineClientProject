@@ -11,36 +11,70 @@
       <fieldset class="infoGeneral">
 
         <div class="inputDiv">
-          <label for="inputId">ID</label>
-          <input type="text" class="" id="inputId" formControlName="id" readonly>
-        </div>
-        <div class="inputDiv">
-          <label for="inputTitulo">Titulo</label>
-          <input type="text" class="" id="inputTitulo" formControlName="titulo">
-        </div>
-        <div class="inputDiv">
-          <label for="inputDir">Director</label>
-          <input type="text" class="" id="inputDir" formControlName="director">
-        </div>
-        <div class="inputDiv">
-          <label for="inputYear">Año</label>
-          <input type="text" class="" id="inputYear" formControlName="year">
-        </div>
-        <div class="inputDiv">
-          <label for="inputDur">Duración</label>
-          <input type="text" class="" id="inputDur" formControlName="duracion">
+          <label for="inputId" class="form-label">ID</label>
+          <input type="text" class="inputID" id="inputId" formControlName="id" readonly>
         </div>
 
         <div class="inputDiv">
-          <label for="inputGenero" class="">Genero</label>
+          <label for="inputTitulo" class="form-label">Titulo</label>
+          <input type="text" class="form-control" id="inputTitulo" formControlName="titulo"
+            [ngClass]="{'is-valid' : form.controls['titulo'].dirty && !form.controls['titulo'].errors?.['required'] &&
+            form.controls['titulo'].dirty && !form.controls['titulo'].errors?.['minlength']
+            && form.controls['titulo'].dirty && !form.controls['titulo'].errors?.['maxlength'],
+            'is-invalid' :  form.controls['titulo'].dirty &&  form.controls['titulo'].errors?.['minlength']
+            ||  form.controls['titulo'].dirty &&  form.controls['titulo'].errors?.['maxlength'] ||
+            form.controls['titulo'].dirty &&  form.controls['titulo'].errors?.['required']}"
+          >
+        </div>
+
+        <div class="inputDiv">
+          <label for="inputDir" class="form-label">Director</label>
+          <input type="text" class="form-control" id="inputDir" formControlName="director"
+            [ngClass]="{'is-valid' : form.controls['director'].dirty && !form.controls['director'].errors?.['required'] &&
+            form.controls['director'].dirty && !form.controls['director'].errors?.['minlength']
+            && form.controls['director'].dirty && !form.controls['director'].errors?.['maxlength'],
+            'is-invalid' :  form.controls['director'].dirty &&  form.controls['director'].errors?.['minlength']
+            ||  form.controls['director'].dirty &&  form.controls['director'].errors?.['maxlength'] ||
+            form.controls['director'].dirty &&  form.controls['director'].errors?.['required']}"
+          >
+        </div>
+
+        <div class="inputDiv">
+          <label for="inputYear" class="form-label">Año</label>
+          <input type="number" class="form-control" id="inputYear" formControlName="year"
+            [ngClass]="{'is-valid' : form.controls['year'].dirty && !form.controls['year'].errors?.['required'] &&
+            form.controls['year'].dirty && !form.controls['year'].errors?.['min']
+            && form.controls['year'].dirty && !form.controls['year'].errors?.['max'],
+            'is-invalid' :  form.controls['year'].dirty &&  form.controls['year'].errors?.['min']
+            ||  form.controls['year'].dirty &&  form.controls['year'].errors?.['max'] ||
+            form.controls['year'].dirty &&  form.controls['year'].errors?.['required']}"
+          >
+        </div>
+
+        <div class="inputDiv">
+          <label for="inputDur" class="form-label">Duración (min.)</label>
+          <input type="number" class="form-control" id="inputDur" formControlName="duracion"
+            [ngClass]="{'is-valid' : form.controls['duracion'].dirty && !form.controls['duracion'].errors?.['required'] &&
+            form.controls['duracion'].dirty && !form.controls['duracion'].errors?.['min']
+            && form.controls['duracion'].dirty && !form.controls['duracion'].errors?.['max'],
+            'is-invalid' :  form.controls['duracion'].dirty &&  form.controls['duracion'].errors?.['min']
+            ||  form.controls['duracion'].dirty &&  form.controls['duracion'].errors?.['max'] ||
+            form.controls['duracion'].dirty &&  form.controls['duracion'].errors?.['required']}"
+          >
+        </div>
+
+        <div class="inputDiv">
+          <label for="inputGenero" class="form-label">Genero</label>
             <div class="input-group">
               <span class="input-group-text">{{generoDescription}}</span>
 
               <input type="number" class="form-control" formControlName="genero" id="inputGenero"
-                [ngClass]="{'is-valid' : !form.controls['genero'].hasError && !form.controls['genero'].dirty &&
-                !form.controls['genero'].errors?.['pattern'],
-                'is-invalid' :  (form.controls['genero'].dirty && form.controls['genero'].errors?.['required'] )
-                || ( form.controls['genero'].dirty && form.controls['genero'].errors?.['pattern'] )}"
+                [ngClass]="{'is-valid' : form.controls['genero'].dirty && !form.controls['genero'].errors?.['required'] &&
+                form.controls['genero'].dirty && !form.controls['genero'].errors?.['minlength']
+                && form.controls['genero'].dirty && !form.controls['genero'].errors?.['maxlength'],
+                'is-invalid' :  form.controls['genero'].dirty &&  form.controls['genero'].errors?.['minlength']
+                ||  form.controls['genero'].dirty &&  form.controls['genero'].errors?.['maxlength'] ||
+                form.controls['genero'].dirty &&  form.controls['genero'].errors?.['required']}"
               >
 
               <button type="button" class="btn btn-outline-primary" (click)="openModalFindGenero()">Buscar</button>
@@ -62,25 +96,35 @@
 
       <fieldset class="sinopsis">
         <div class="inputDiv">
-          <label for="inputSin label-form">Sinopsis</label>
-          <textarea type="text" class="form-control" id="inputSin" formControlName="sinopsis"></textarea>
+          <label for="inputSin" class="form-label">Sinopsis</label>
+          <textarea type="text" class="form-control" id="inputSin" formControlName="sinopsis"
+            [ngClass]="{'is-valid' : form.controls['sinopsis'].dirty && !form.controls['sinopsis'].errors?.['required'] &&
+            form.controls['sinopsis'].dirty && !form.controls['sinopsis'].errors?.['minlength']
+            && form.controls['sinopsis'].dirty && !form.controls['sinopsis'].errors?.['maxlength'],
+            'is-invalid' :  form.controls['sinopsis'].dirty &&  form.controls['sinopsis'].errors?.['minlength']
+            ||  form.controls['sinopsis'].dirty &&  form.controls['sinopsis'].errors?.['maxlength'] ||
+            form.controls['sinopsis'].dirty &&  form.controls['sinopsis'].errors?.['required']}"
+          ></textarea>
         </div>
       </fieldset>
 
       <fieldset class="options">
         <div class="image">
-          <img [src]="this.src" alt="portada de pelicula seleccionada" class="me-3">
-          <input type="file" (change)="fileSelected($event)">
+          <img [src]="this.src" alt="portada de pelicula seleccionada" class="me-3 mb-3">
+          <div class="btn btn-primary btn-rounded">
+            <input type="file" class=" form-control" (change)="fileSelected($event)">
+          </div>
+
         </div>
 
         <div class="row my-3">
           <div class="field col-5 md:col-5 ">
-            <label for="time">Fecha de alta</label>
-            <input type="text" class="form-control" formControlName="fAlta" readonly>
+            <label for="time" class="form-label">Fecha de alta</label>
+            <p-calendar formControlName="fAlta" dateFormat="dd-mm-yy" [showIcon]="true" [showButtonBar]="true" inputId="time"></p-calendar>
           </div>
 
           <div class="field col-5 md:col-5 ms-2">
-            <label for="time">Fecha de Baja</label>
+            <label for="time" class="form-label">Fecha de Baja</label>
             <p-calendar formControlName="fBaja" dateFormat="dd-mm-yy" [showIcon]="true" [showButtonBar]="true" inputId="time"></p-calendar>
           </div>
         </div>
@@ -100,9 +144,9 @@
         </div>
       </fieldset>
 
-      <fieldset class="buttons">
-        <button type="submit" class="btn btn-primary btnCrear">Crear</button>
-        <button type="button" class="btn btn-danger btnCancelar" (click)="back()">Cancelar</button>
+      <fieldset class="buttons text-center">
+        <button type="submit" class="btn btn-primary btnCrear" [disabled]="this.form.invalid">Crear</button>
+        <button type="button" class="btn btn-danger btnCancelar ms-3" (click)="back()">Cancelar</button>
       </fieldset>
 
     </form>

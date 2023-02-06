@@ -13,7 +13,6 @@ export interface EntradaInterface {
 }
 
 export interface EntradaNewInterface {
-
   id:           number;
   ejeX:         number;
   ejeY:         number;

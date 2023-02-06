@@ -26,7 +26,7 @@
     </div>
 
     <div class="tabla table table-responsive table-hover">
-      <table class="table" style="background-color: bisque;">
+      <table class="table">
 
         <thead>
           <tr>
@@ -46,7 +46,7 @@
         <tbody>
           <tr *ngFor="let pelicula of resp?.content">
             <td>{{pelicula.id}}</td>
-            <td> <a [routerLink]="['/admin/pelicula/view',pelicula.id]"><img style="width: 130px; height: 170px;" [src]="getURLimage(pelicula.imagen)" alt=""></a></td>
+            <td> <a [routerLink]="['/admin/pelicula/view',pelicula.id]"><img style="width: 120px; height: 160px;" [src]="getURLimage(pelicula.imagen)" alt=""></a></td>
             <td>{{pelicula.titulo}}</td>
             <td (click)="setIDGenero(pelicula.genero.id)">
               {{pelicula.genero.id}}-{{pelicula.genero.nombre}}

@@ -26,14 +26,12 @@ img{
 }
 
 .titulo{
-
   margin-bottom: 2vh;
   text-align: center;
   font-size: 2.5rem;
 }
 /*Labels en inline block, que permite que todos los inputs se alineen*/
 label{
-
   display: inline-block;
   width: 12vw;
 }
@@ -44,7 +42,10 @@ input{
 .inputDiv{
   text-align: left;
   margin: 1.5vh auto;
+}
 
+.inputID, .inputID{
+  border: none;
 }
 
 img{
@@ -61,12 +62,11 @@ img{
 
 .gridContainer{
   width: 100%;
-
   padding: .5vw;
   display: grid;
   gap: 1vw;
   grid-template:
-  "info       options"    40vh
+  "info       options"    45vh
   "sinopsis   options"   auto
   "buttons    buttons"    5vh/
   1fr         1fr;

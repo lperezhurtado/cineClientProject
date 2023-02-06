@@ -26,6 +26,7 @@ export class ListEntradaComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getList();
+    console.log("ID ONiNIT", this.id);
   }
 
   back() {

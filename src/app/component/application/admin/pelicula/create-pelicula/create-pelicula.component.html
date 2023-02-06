@@ -93,13 +93,6 @@
 </form>-->
 
 
-
-
-
-
-
-
-
 <form action="" [formGroup]="form">
   <label for="" class="form-label">Titulo</label>
   <input type="text" class="form-control" formControlName="titulo"
@@ -129,8 +122,8 @@
         <span class="input-group-text">{{generoDescription}}</span>
 
         <input type="number" class="form-control" formControlName="genero"
-        [ngClass]="{'is-valid' : form.controls.genero.dirty && !form.controls.genero.errors?.['required'] &&
-        form.controls.genero.dirty && !form.controls.genero.errors?.['minlength']
+          [ngClass]="{'is-valid' : form.controls.genero.dirty && !form.controls.genero.errors?.['required'] &&
+          form.controls.genero.dirty && !form.controls.genero.errors?.['minlength']
           && form.controls.genero.dirty && !form.controls.genero.errors?.['maxlength'],
           'is-invalid' :  form.controls.genero.dirty &&  form.controls.genero.errors?.['minlength']
           ||  form.controls.genero.dirty &&  form.controls.genero.errors?.['maxlength'] ||
@@ -167,8 +160,8 @@
 
   <label for="" class="form-label">Año</label>
   <input type="number" class="form-control" formControlName="year"
-  [ngClass]="{'is-valid' : form.controls.year.dirty && !form.controls.year.errors?.['required'] &&
-  form.controls.year.dirty && !form.controls.year.errors?.['min']
+    [ngClass]="{'is-valid' : form.controls.year.dirty && !form.controls.year.errors?.['required'] &&
+    form.controls.year.dirty && !form.controls.year.errors?.['min']
     && form.controls.year.dirty && !form.controls.year.errors?.['max'],
     'is-invalid' :  form.controls.year.dirty &&  form.controls.year.errors?.['min']
     ||  form.controls.year.dirty &&  form.controls.year.errors?.['max'] ||
@@ -187,8 +180,8 @@
 
   <label for="" class="form-label">Sinopsis</label>
   <textarea type="" class="form-control" formControlName="sinopsis"
-  [ngClass]="{'is-valid' : form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['required'] &&
-  form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['minlength']
+    [ngClass]="{'is-valid' : form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['required'] &&
+    form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['minlength']
     && form.controls.sinopsis.dirty && !form.controls.sinopsis.errors?.['maxlength'],
     'is-invalid' :  form.controls.sinopsis.dirty &&  form.controls.sinopsis.errors?.['minlength']
     ||  form.controls.sinopsis.dirty &&  form.controls.sinopsis.errors?.['maxlength'] ||

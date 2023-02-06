@@ -57,21 +57,23 @@ export class UpdatePeliculaComponent implements OnInit {
     this.peliculaService.getPelicula(this.idAux).subscribe({
       next: (resp: PeliculaInterface) => {
         this.pelicula = resp;
+        this.pelicula.fechaAlta = new Date(resp.fechaAlta);
+
         this.src = this.getURLimage(resp.imagen);
         console.log(resp.imagen);
         this.generoDescription = resp.genero.nombre;
         this.form = this.formBuilder.group({
           id:       [resp.id],
-          titulo:   [resp.titulo],
-          year:     [resp.year],
-          duracion: [resp.duracion],
-          director: [resp.director],
-          sinopsis: [resp.sinopsis],
-          fAlta:    [resp.fechaAlta],
+          titulo:   [resp.titulo, [Validators.required]],
+          year:     [resp.year, [Validators.required, Validators.min(2000), Validators.max(2026)]],
+          duracion: [resp.duracion, [Validators.required, Validators.min(60), Validators.max(290)]],
+          director: [resp.director, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+          sinopsis: [resp.sinopsis, [Validators.required]],
+          fAlta:    [resp.fechaAlta, [Validators.required]],
           fBaja:    [resp.fechaBaja],
           normal:   [resp.versionNormal],
           especial: [resp.versionEspecial],
-          genero:   [resp.genero.id]
+          genero:   [resp.genero.id, [Validators.required, Validators.pattern(/^\d{1,15}$/)]]
         });
       }
     });
