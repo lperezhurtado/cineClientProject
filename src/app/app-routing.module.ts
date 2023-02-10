@@ -1,3 +1,4 @@
+import { CreateCompraComponent } from './component/application/admin/compra/create-compra/create-compra.component';
 import { ListEntradaComponent } from './component/application/admin/entrada/list-entrada/list-entrada.component';
 import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
 import { ListaGeneroComponent } from './component/application/admin/genero/lista-genero/lista-genero.component';
@@ -91,7 +92,10 @@ const routes: Routes = [
   {path:'admin/sesion/view/:id', component: GetSesionComponent},
   {path:'admin/sesion/delete/:id', component: DeleteSesionComponent},
   //ENTRADA
-  {path:'admin/entrada/list/:id', component: ListEntradaComponent}
+  {path:'admin/entrada/list/:id', component: ListEntradaComponent},
+  //COMPRA
+  {path:'admin/entrada/create', component: CreateCompraComponent},
+  {path:'admin/entrada/create/:entradas[]', component: CreateCompraComponent}
 ];
 
 @NgModule({

@@ -1,0 +1,56 @@
+
+<div class="container mt-5">
+
+  <div>
+    <button class="btn btn-danger" routerLink="">Cancelar entradas</button>
+  </div>
+
+  Datos de tu Compra
+  <div>
+    Entradas a nombre de {{loggedUsuario.nombre}} {{loggedUsuario.apellido1}}
+  </div>
+  <div>
+    Correo: {{loggedUsuario.email}}
+  </div>
+
+  <div>
+    <p>
+      {{sesion.pelicula.titulo}}
+    </p>
+    <p>
+      {{sesion.fechaHora | date: 'hh:mm'}}
+    </p>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li *ngFor="let item of arrayEntradas">
+          Entrada nº {{item.id}} (fila {{item.ejeX+1}} - butaca {{item.ejeY+1}})
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <button class="btn btn-outline-danger" (click)="back()">
+        Volver
+      </button>
+      <button class="btn btn-outline-info" *ngIf="this.arrayCompras.length == 0" (click)="createCompra()">
+        Confirmar compra
+      </button>
+
+      <!--<button class="btn btn-outline-info" (click)="createFactura()">
+        Crear factura
+      </button>-->
+
+      <!--<button class="btn btn-outline-info" (click)="getCompras()">
+        get compra
+      </button>-->
+
+      <button class="btn btn-outline-success" *ngIf="this.arrayCompras.length != 0" (click)="updateCompras()">
+        Generar Factura
+      </button>
+    </div>
+  </div>
+</div>
+
+
+

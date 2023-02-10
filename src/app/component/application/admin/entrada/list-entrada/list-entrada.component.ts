@@ -1,8 +1,11 @@
+import { SesionInterface } from './../../../../../model/Sesion-interface';
+import { UsuarioInterface } from 'src/app/model/Usuario-interface';
 import { Location } from '@angular/common';
 import { EntradaInterface } from './../../../../../model/Entrada-interface';
 import { EntradaService } from './../../../../../service/entrada.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   templateUrl: './list-entrada.component.html',
@@ -11,10 +14,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ListEntradaComponent implements OnInit {
 
   resp!: EntradaInterface[];
-  id!: number;
-
-  ejex!:number[];
+  sesion!: SesionInterface;
+  id!: number; //id de la sesion
+  //entradas:number[] = [];
+  //ejex!:number[];
   filas: any[] = [];
+  //user! :UsuarioInterface;
+  arrayEntradas: EntradaInterface[] = []
 
   constructor(
     private entradaService: EntradaService,
@@ -26,7 +32,6 @@ export class ListEntradaComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getList();
-    console.log("ID ONiNIT", this.id);
   }
 
   back() {
@@ -37,7 +42,7 @@ export class ListEntradaComponent implements OnInit {
     this.entradaService.getListEntrada(this.id).subscribe({
       next: (resp: EntradaInterface[]) => {
         this.resp = resp;
-
+        this.sesion = resp[0].sesion; //recoge los datos de la sesion
         let i = 0;
         let k = 0;
         let fila: EntradaInterface[] = [];
@@ -67,11 +72,74 @@ export class ListEntradaComponent implements OnInit {
     });
   }
 
-  mostrar(libre: boolean) {
-    console.log(libre);
-
-    console.log(libre !== libre);
-
+  localStorage(){
+    localStorage.setItem("arrayEntradas", JSON.stringify(this.arrayEntradas));
+    //localStorage.setItem("entradas", JSON.stringify(this.entradas));
+    //console.log("entradas: ",localStorage.getItem("entradas"));
+    //localStorage.setItem("datos", JSON.stringify(this.resp[0].sesion));
+    //console.log("datos: ",localStorage.getItem("datos"));
   }
 
+  seleccionar(entrada: EntradaInterface) {
+
+   /* if (this.arrayEntradas.includes(entrada)) {
+      console.log(this.arrayEntradas);
+      var i = this.arrayEntradas.indexOf(entrada);
+      this.arrayEntradas.splice(i, 1);
+      console.log(this.arrayEntradas);
+    }
+    else{
+      this.arrayEntradas.push(entrada);
+      console.log(this.arrayEntradas);
+      console.log("entra al else de arrayEntradas");
+    }*/
+
+    if (!entrada.libre) {
+      alert("butaca ocupada");
+    } else {
+      console.log(entrada.id);
+      if(this.arrayEntradas.includes(entrada)) {
+        var i = this.arrayEntradas.indexOf(entrada);
+        this.arrayEntradas.splice(i, 1);
+        console.log(this.arrayEntradas);
+      } else {
+        this.arrayEntradas.push(entrada);
+        console.log(this.arrayEntradas);
+      }
+      /*if (this.entradas.includes(entrada.id)) {
+        console.log("entra al if");
+        var index = this.entradas.indexOf(entrada.id);
+        this.entradas.splice(index,1);
+        console.log(this.entradas);
+      } else {
+        console.log("entra al else");
+        this.entradas.push(entrada.id);
+        console.log(this.entradas);
+      }*/
+    }
+  }
+
+  popup() {
+    Swal.fire({
+      title: "Estás seguro",
+      //text: "No se ha seleccionado ninguna imagen",
+      icon: 'success',
+      showCancelButton:false,
+      confirmButtonColor: '#3085d6',
+      //cancelButtonColor: '#d33',
+      confirmButtonText: "Comprar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        /*Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )*/
+
+          this.localStorage();
+
+      }
+
+    })
+  }
 }

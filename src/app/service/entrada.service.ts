@@ -1,4 +1,4 @@
-import { EntradaInterface } from './../model/Entrada-interface';
+import { EntradaInterface, EntradaNewInterface } from './../model/Entrada-interface';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -29,5 +29,17 @@ export class EntradaService {
     };
 
     return this.httpClient.get<EntradaInterface[]>(this.url+'/list', httpOptions);
+  }
+
+  getEntrada(id: number): Observable<EntradaInterface> {
+    return this.httpClient.get<EntradaInterface>(this.url+"/"+id, {withCredentials:true});
+  }
+
+  deleteEntrada(id:number): Observable<number> {
+    return this.httpClient.delete<number>(this.url+"/"+id, {withCredentials:true});
+  }
+
+  updateEntrada(newEntrada: EntradaNewInterface): Observable<number> {
+    return this.httpClient.put<number>(this.url, newEntrada, {withCredentials:true});
   }
 }

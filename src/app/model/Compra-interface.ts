@@ -15,10 +15,12 @@ export interface CompraInterface {
 
 //No se le pasa idFactura porque se crea cuando se obtine el ID de la compra creada
 export interface CompraNewInterface {
+  id:               number | undefined;
   precio:           number;
   fecha:            Date;
   descuentoUsuario: number;
   entrada:          IEntity;
+  factura:          IEntity | null;
 }
 
 export interface CompraFormInterface {

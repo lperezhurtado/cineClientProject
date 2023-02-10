@@ -1,0 +1,25 @@
+
+<div class="container contenedor mb-4 bg-info">
+  <div class="row">
+    <div class="col">
+      <img style="width: 120px; height: 160px;" [src]="getURLimage(sesion.pelicula.imagen)" alt="">
+      <hr>
+      pelicula: {{sesion.pelicula.titulo}}
+      <hr>
+      Sesion nº {{sesion.id}}
+      <hr>
+      Sala {{sesion.sala.id}} ({{sesion.sala.tiposala.nombre}})
+      <hr>
+      hora: {{sesion.fechaHora | date: 'HH:mm'}}
+    </div>
+    <div class="col">
+      <ul style="list-style: decimal;">
+        <li *ngFor="let entrada of entradas">
+          Entrada nº {{entrada.id}} (fila {{entrada.ejeX+1}} - butaca {{entrada.ejeY+1}})
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>

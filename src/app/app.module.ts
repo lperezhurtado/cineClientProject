@@ -70,6 +70,8 @@ import { GetTiposalaComponent } from './component/application/admin/tiposala/get
 import { ListaGeneroComponent } from './component/application/admin/genero/lista-genero/lista-genero.component';
 import { ListEntradaComponent } from './component/application/admin/entrada/list-entrada/list-entrada.component';
 import { FormatDatePipe } from './pipe/FormatDate.pipe';
+import { CreateCompraComponent } from './component/application/admin/compra/create-compra/create-compra.component';
+import { PreviewEntradaComponent } from './component/application/admin/entrada/auxiliar/preview-entrada/preview-entrada.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +130,9 @@ import { FormatDatePipe } from './pipe/FormatDate.pipe';
     GetTiposalaComponent,
     ListaGeneroComponent,
     ListEntradaComponent,
-    FormatDatePipe
+    FormatDatePipe,
+    CreateCompraComponent,
+    PreviewEntradaComponent
   ],
   imports: [
     BrowserModule,

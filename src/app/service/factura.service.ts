@@ -1,32 +1,32 @@
-import { CompraPageInterface, CompraNewInterface, CompraInterface } from './../model/Compra-interface';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { FacturaInterface, FacturaNewInterface, FacturaPageInterface } from '../model/Factura-interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompraService {
+export class FacturaService {
 
-  private entityURL: string = "/compra";
+  private entityURL: string = "/factura";
   url: string = "";
 
   constructor(
     private httpClient: HttpClient
   ) {
     this.url = `${environment.baseURL}${this.entityURL}`;
-  }
+   }
 
-  getPageCompra(page:number, size:number, id_entrada:number, strSortField:string, strOrderDirection:string)
-  :Observable<CompraPageInterface> {
+   getPageFactura(page:number, size:number, id_usuario:number, strSortField:string, strOrderDirection:string)
+  :Observable<FacturaPageInterface> {
 
     let params = new HttpParams()
     .set("page",page)
     .set("size", size);
 
-    if(id_entrada != 0) {
-      params = params.set("entrada", id_entrada);
+    if(id_usuario != 0) {
+      params = params.set("entrada", id_usuario);
     }
 
     if (strSortField != "") {
@@ -45,26 +45,22 @@ export class CompraService {
       params: params
     }
 
-    return this.httpClient.get<CompraPageInterface>(this.url, httpOptions);
+    return this.httpClient.get<FacturaPageInterface>(this.url, httpOptions);
   }
 
-  createCompra(newCompra: CompraNewInterface): Observable<number> {
+  createFactura(newCompra: FacturaNewInterface): Observable<number> {
     return this.httpClient.post<number>(this.url+"/", newCompra, {withCredentials:true});
   }
 
-  getCompra(id:number): Observable<CompraInterface> {
-    return this.httpClient.get<CompraInterface>(this.url+"/"+id, {withCredentials:true});
+  getFactura(id:number): Observable<FacturaInterface> {
+    return this.httpClient.get<FacturaInterface>(this.url+"/"+id, {withCredentials:true});
   }
 
-  deleteCompra(id:number): Observable<number> {
+  deleteFactura(id:number): Observable<number> {
     return this.httpClient.delete<number>(this.url+"/"+id, {withCredentials:true});
   }
 
-  updateCompra(newCompra: CompraNewInterface): Observable<number> {
+  updateFactura(newCompra: FacturaNewInterface): Observable<number> {
     return this.httpClient.put<number>(this.url, newCompra, {withCredentials:true});
-  }
-
-  updateCompraFactura(newCompra: CompraNewInterface): Observable<number> {
-    return this.httpClient.put<number>(this.url+"/", newCompra, {withCredentials:true});
   }
 }
