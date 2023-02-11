@@ -73,6 +73,8 @@ import { FormatDatePipe } from './pipe/FormatDate.pipe';
 import { CreateCompraComponent } from './component/application/admin/compra/create-compra/create-compra.component';
 import { PreviewEntradaComponent } from './component/application/admin/entrada/auxiliar/preview-entrada/preview-entrada.component';
 import { FooterComponent } from './component/shared/footer/footer.component';
+import { CarteleraComponent } from './component/application/user/cartelera/cartelera.component';
+import { ViewPeliculaComponent } from './component/application/user/pelicula/view-pelicula/view-pelicula.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +136,9 @@ import { FooterComponent } from './component/shared/footer/footer.component';
     FormatDatePipe,
     CreateCompraComponent,
     PreviewEntradaComponent,
-    FooterComponent
+    FooterComponent,
+    CarteleraComponent,
+    ViewPeliculaComponent
   ],
   imports: [
     BrowserModule,

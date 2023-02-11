@@ -1,3 +1,5 @@
+import { ViewPeliculaComponent } from './component/application/user/pelicula/view-pelicula/view-pelicula.component';
+import { CarteleraComponent } from './component/application/user/cartelera/cartelera.component';
 import { CreateCompraComponent } from './component/application/admin/compra/create-compra/create-compra.component';
 import { ListEntradaComponent } from './component/application/admin/entrada/list-entrada/list-entrada.component';
 import { PlistTipousuarioComponent } from './component/application/admin/tipousuario/plist-tipousuario/plist-tipousuario.component';
@@ -95,7 +97,11 @@ const routes: Routes = [
   {path:'admin/entrada/list/:id', component: ListEntradaComponent},
   //COMPRA
   {path:'admin/entrada/create', component: CreateCompraComponent},
-  {path:'admin/entrada/create/:entradas[]', component: CreateCompraComponent}
+  {path:'admin/entrada/create/:entradas[]', component: CreateCompraComponent},
+  //======USER======
+  //CARTELERA
+  {path:'user/cartelera/plist', component: CarteleraComponent},
+  {path:'user/pelicula/view/:id', component: ViewPeliculaComponent}
 ];
 
 @NgModule({

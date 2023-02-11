@@ -47,6 +47,9 @@ export class PeliculaService {
 
     return this.httpClient.get<PeliculaPageInterface>(this.url, httpOptions);
    }
+   countPelicula(): Observable<number> {
+    return this.httpClient.get<number>(this.url+'/count',{withCredentials:true});
+   }
 
    //GET
    getPelicula(id: number): Observable<PeliculaInterface> {

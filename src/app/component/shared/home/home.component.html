@@ -17,7 +17,7 @@
   </div>
 
   <div class="peliculasContainer">
-    <h3>Ver Cartelera completa</h3>
+    <a routerLink="/user/cartelera/plist"><h3>Ver cartelera completa</h3></a>
     <div class="peliculas">
       <div class="portada" *ngFor="let pelicula of peliculas?.content">
         <img [src]="getURLimage(pelicula.imagen)" alt="">
