@@ -72,6 +72,7 @@ import { ListEntradaComponent } from './component/application/admin/entrada/list
 import { FormatDatePipe } from './pipe/FormatDate.pipe';
 import { CreateCompraComponent } from './component/application/admin/compra/create-compra/create-compra.component';
 import { PreviewEntradaComponent } from './component/application/admin/entrada/auxiliar/preview-entrada/preview-entrada.component';
+import { FooterComponent } from './component/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { PreviewEntradaComponent } from './component/application/admin/entrada/a
     ListEntradaComponent,
     FormatDatePipe,
     CreateCompraComponent,
-    PreviewEntradaComponent
+    PreviewEntradaComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

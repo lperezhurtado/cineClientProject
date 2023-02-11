@@ -42,6 +42,10 @@ export class TarifaService {
     return this.httpClient.get<TarifaPageInterface>(this.url, httpOptions);
   }
 
+  countTarifa(): Observable<number> {
+    return this.httpClient.get<number>(this.url+'/count',{withCredentials:true});
+  }
+
   createTarifa(tarifa: TarifaInterface): Observable<number> {
     return this.httpClient.post<number>(this.url+'/', tarifa, {withCredentials:true});
   }
