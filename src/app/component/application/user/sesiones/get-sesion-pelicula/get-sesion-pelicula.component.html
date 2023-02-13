@@ -1,0 +1,21 @@
+
+<!--<div>
+  <app-search-unrouted class="mt-4 me-3" [placeHolder]="'Fecha'" (onSearch)="setFilter($event)"></app-search-unrouted>
+</div>-->
+<div class="contenedor" *ngIf="sesiones?.content">
+
+  <!--<div *ngFor="let sesion of sesiones.content">
+    Sala {{sesion.sala.id}}
+    {{sesion.fechaHora | date: "dd - MMM - yy"}} -
+    {{sesion.fechaHora | date: "HH:mm"}}
+  </div>-->
+
+  <div class="fecha my-4" *ngFor="let fecha of fechas">
+    <div class="span">{{fecha[0].fechaHora | date: "dd - MMM"}}</div>
+    <div class="horaContainer" *ngFor="let hora of fecha">
+      <div class="hora">
+        <a [routerLink]="['/admin/entrada/list',hora.id]">{{hora.fechaHora | date: "HH:mm"}}</a>
+      </div>
+    </div>
+  </div>
+</div>

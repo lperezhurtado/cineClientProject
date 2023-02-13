@@ -2,13 +2,16 @@
 
 <div class="container" *ngIf="peliculas">
 
-  <div class="cabecera mb-3 pb-2">
+  <div class="cabecera row mb-3">
     <h1>Cartelera</h1>
-    <app-search-unrouted class="mt-4 me-3" [placeHolder]="'Busqueda por pelicula o director'" (onSearch)="setFilter($event)"></app-search-unrouted>
+    <div class="col-6">
+      <app-search-unrouted class="mt-4 me-3" [placeHolder]="'Busqueda por pelicula o director'" (onSearch)="setFilter($event)"></app-search-unrouted>
+    </div>
+
   </div>
 
   <div class="cuerpo">
-    <div class="paginacion">
+    <!--<div class="paginacion">
       <app-pagination-unrouted [nPage]="peliculas.number + 1" [nTotalPages]="peliculas.totalPages"
         (eePage)="setPage($event)">
       </app-pagination-unrouted>
@@ -16,13 +19,13 @@
       <app-dropdown-register-page class="mx-2" [PageSize]="peliculas.size"
           (eeRpp)="this.setRpp($event)">
       </app-dropdown-register-page>
-    </div>
+    </div>-->
 
     <div class="peliculasContainer">
       <div class="peliculas">
         <div class="portada" *ngFor="let pelicula of peliculas?.content">
           <div class="img">
-            <img [src]="getURLimage(pelicula.imagen)" alt="">
+            <a [routerLink]="['/user/pelicula/view',pelicula.id]"><img [src]="getURLimage(pelicula.imagen)" alt=""></a>
           </div>
           <div class="titulo">
             {{pelicula.titulo}}

@@ -1,28 +1,53 @@
 
 
 <app-menu></app-menu>
+<div class="mt-4 ms-5">
+  <button class="btn btn-outline-danger" (click)="back()">Volver</button>
+</div>
 
 <div class="container mt-5" *ngIf="resp">
-  <table class="table">
-    <tr *ngFor="let fila of filas" class="mt-5">
-      <td *ngFor="let butaca of fila">
-        <div (click)="seleccionar(butaca)" [ngClass]="{'bg-danger':!butaca.libre, 'bg-success':butaca.libre}">
-          {{butaca.ejeY+1}} -
-          {{butaca.id}}
-        </div>
-      </td>
-    </tr>
-  </table>
+
+
+
+  <div class="table-responsive table-hover">
+    <h5>Pantalla</h5>
+    <div class="pantalla mb-5"></div>
+    <table class="table">
+
+      <tr *ngFor="let fila of filas" class="">
+        <td *ngFor="let butaca of fila">
+          <div class="butaca" (click)="seleccionar(butaca)" [ngClass]="{'bg-success':butaca.libre, 'bg-color':!butaca.libre}">
+            <!--{{butaca.ejeY+1}}-->
+
+            <!--BUTACA MARCADA-->
+            <div *ngIf="butaca.libre && arrayEntradas.includes(butaca)">
+              <svg width="41px" height="41px" viewBox="0 0 24 24" stroke-width="3" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M4 18v3M5 10V5a2 2 0 012-2h10a2 2 0 012 2v5" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19.5 10a2.5 2.5 0 00-2.5 2.5V14H7v-1.5a2.5 2.5 0 10-3 2.45V18h16v-3.05a2.5 2.5 0 00-.5-4.95zM20 18v3" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+
+            <!--BUTACA ROJA-->
+            <div *ngIf="!butaca.libre">
+              <svg width="41px" height="41px" viewBox="0 0 24 24" stroke-width="3" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ff0000"><path d="M4 18v3M5 10V5a2 2 0 012-2h10a2 2 0 012 2v5" stroke="#ff0000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19.5 10a2.5 2.5 0 00-2.5 2.5V14H7v-1.5a2.5 2.5 0 10-3 2.45V18h16v-3.05a2.5 2.5 0 00-.5-4.95zM20 18v3" stroke="#ff0000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+
+            <!--BUTACA NEGRA-->
+            <div *ngIf="butaca.libre && !arrayEntradas.includes(butaca)">
+              <svg width="41px" height="41px" viewBox="0 0 24 24" stroke-width="1.3" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M4 18v3M5 10V5a2 2 0 012-2h10a2 2 0 012 2v5" stroke="#000000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19.5 10a2.5 2.5 0 00-2.5 2.5V14H7v-1.5a2.5 2.5 0 10-3 2.45V18h16v-3.05a2.5 2.5 0 00-.5-4.95zM20 18v3" stroke="#000000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
 </div>
 
 <div class="container mt-4" *ngIf="resp">
-  <button class="btn btn-outline-danger" (click)="back()">Volver</button>
+
   <!--<a routerLink="/admin/entrada/create" role="button" class="btn btn-outline-info">Comprar</a>-->
-  <button routerLink="/admin/entrada/create" (click)="localStorage()" role="button" class="btn btn-outline-success" [disabled]="arrayEntradas.length==0" >Comprar LocalStorage</button>
+  <button routerLink="/admin/entrada/create" (click)="localStorage()" class="btn btn-outline-success float-end" [disabled]="arrayEntradas.length==0" >Comprar</button>
+  <button class="btn btn-outline-dark float-end" *ngIf="arrayEntradas.length!=0" (click)="cleanEntradas()">Quitar elecciones</button>
 </div>
-
-
-<!--<a [routerLink]="['/admin/entrada/create',entradas]" role="button" class="btn btn-outline-info">Comprar routerLInk</a>-->
 
 <div *ngIf="resp">
   <!--<app-admin-compra [arrayEntradas]="arrayENtradas" [entradaPrueba]="resp[0]" [entradasprueba]="entradas"></app-admin-compra>-->

@@ -75,6 +75,7 @@ import { PreviewEntradaComponent } from './component/application/admin/entrada/a
 import { FooterComponent } from './component/shared/footer/footer.component';
 import { CarteleraComponent } from './component/application/user/cartelera/cartelera.component';
 import { ViewPeliculaComponent } from './component/application/user/pelicula/view-pelicula/view-pelicula.component';
+import { GetSesionPeliculaComponent } from './component/application/user/sesiones/get-sesion-pelicula/get-sesion-pelicula.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { ViewPeliculaComponent } from './component/application/user/pelicula/vie
     PreviewEntradaComponent,
     FooterComponent,
     CarteleraComponent,
-    ViewPeliculaComponent
+    ViewPeliculaComponent,
+    GetSesionPeliculaComponent
   ],
   imports: [
     BrowserModule,

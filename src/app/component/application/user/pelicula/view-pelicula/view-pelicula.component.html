@@ -1,1 +1,67 @@
-<p>view-pelicula works!</p>
+<app-menu></app-menu>
+
+<div class="container mt-4" *ngIf="pelicula">
+  <div class="titulo">
+    <h2>{{pelicula.titulo}}</h2>
+  </div>
+
+  <!--CONTAINER 1-->
+  <div class="imgContainer">
+
+    <div class="imagen">
+      <img class="portada" [src]="this.src" [alt]="pelicula.titulo">
+    </div>
+    <div class="info">
+      <div class="genero row">
+        <div class="col">
+          <label for="genero" class="form-label">Género</label>
+        </div>
+        <div class="col">
+          {{pelicula.genero.nombre}}
+        </div>
+      </div>
+
+      <div class="duracion row">
+        <div class="col">
+          <label for="duracion" class="form-label">Duración</label>
+        </div>
+        <div class="col">
+          {{pelicula.duracion}} min.
+        </div>
+      </div>
+
+      <div class="year row">
+        <div class="col">
+          <label for="year" class="form-label">Año</label>
+        </div>
+        <div class="col">
+          {{pelicula.year}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--CONTAINER 2-->
+  <div class="textoContainer">
+    <div class="sinopsis">
+      <h6>Sinopsis</h6>
+      {{pelicula.sinopsis}}
+    </div>
+    <div class="director">
+      <h6>Director</h6>
+      {{pelicula.director}}
+    </div>
+
+    <div class="especial" *ngIf="pelicula.versionEspecial">
+      <h6>Disponible en versiones especiales</h6>
+      3D, 4DX (consultar)
+    </div>
+  </div>
+
+  <!--CONTAINER 3-->
+  <div class="sesiones">
+
+    <app-get-sesion-pelicula [idPelicula]="pelicula.id"></app-get-sesion-pelicula>
+  </div>
+</div>

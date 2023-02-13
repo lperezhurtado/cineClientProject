@@ -13,6 +13,8 @@ import Swal from 'sweetalert2'
 })
 export class ListEntradaComponent implements OnInit {
 
+  clicked: boolean = false;
+
   resp!: EntradaInterface[];
   sesion!: SesionInterface;
   id!: number; //id de la sesion
@@ -36,6 +38,9 @@ export class ListEntradaComponent implements OnInit {
 
   back() {
     this.location.back();
+  }
+  cleanEntradas() {
+    this.arrayEntradas = [];
   }
 
   getList() {
@@ -80,6 +85,7 @@ export class ListEntradaComponent implements OnInit {
     //console.log("datos: ",localStorage.getItem("datos"));
   }
 
+  idAuxiliar!: number;
   seleccionar(entrada: EntradaInterface) {
 
    /* if (this.arrayEntradas.includes(entrada)) {
@@ -105,6 +111,7 @@ export class ListEntradaComponent implements OnInit {
       } else {
         this.arrayEntradas.push(entrada);
         console.log(this.arrayEntradas);
+
       }
       /*if (this.entradas.includes(entrada.id)) {
         console.log("entra al if");
@@ -117,6 +124,13 @@ export class ListEntradaComponent implements OnInit {
         console.log(this.entradas);
       }*/
     }
+
+    /*this.idAuxiliar = entrada.id;
+    if (entrada.libre) {
+      entrada.libre =false;
+    } else {
+      entrada.libre =true;
+    }*/
   }
 
   popup() {

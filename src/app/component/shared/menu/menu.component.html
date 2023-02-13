@@ -12,6 +12,10 @@
           <a class="nav-link" aria-current="page" routerLinkActive="active" routerLink='/home'>Home</a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLinkActive="active" routerLink='/user/cartelera/plist'>Cartelera</a>
+        </li>
+
         <li class="nav-item" *ngIf="usuario && usuario.tipousuario?.id==1">
           <a class="nav-link" aria-current="page" routerLinkActive="active" routerLink="/admin/usuario/plist">Usuarios</a>
         </li>

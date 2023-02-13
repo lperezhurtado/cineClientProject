@@ -1,0 +1,45 @@
+
+* {
+  box-sizing: border-box;
+}
+.fecha {
+  display: flex;
+  align-items: center;
+  background-color: rgb(124, 124, 255);
+  border-radius: 10px;
+}
+
+.span {
+  margin-right: auto;
+  font-size: clamp(14px,2vw,25px);
+  box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
+  padding: 1vw;
+  font-weight: bolder;
+}
+
+.hora {
+  font-size: clamp(14px,2vw,25px);
+}
+
+.horaContainer{
+  margin: 0 auto;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  transition: .4s ease;
+  height: 100%;
+  width: 100%;
+  padding: 1vw;
+  box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
+  border-radius: 10px;
+}
+
+a:hover {
+  border: 2px solid rgb(124, 124, 255);
+  border-radius: 10px;
+  color: white;
+  background-color: #17181c;
+}

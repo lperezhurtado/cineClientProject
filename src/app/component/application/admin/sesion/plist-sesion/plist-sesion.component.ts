@@ -25,6 +25,7 @@ export class PlistSesionComponent {
   sortField: string = "";
   sortDir: string = "";
   fecha!: Date;
+
   constructor(
     private sesionService: SesionService,
     private activatedRoute: ActivatedRoute,
@@ -44,12 +45,12 @@ export class PlistSesionComponent {
           this.page = respFromServer.totalPages - 1;
         }
         console.log(respFromServer);
-        console.log(respFromServer.content[0].fechaHora);
-        this.fecha = respFromServer.content[0].fechaHora
-        console.log(this.fecha.toString);
+        //console.log(respFromServer.content[0]?.fechaHora);
+        //this.fecha = respFromServer.content[0]?.fechaHora
 
-        const format = formatDate(this.fecha,'dd/MM/yyyy - hh:mm', 'en-US');
-        console.log("format",format);
+
+        //const format = formatDate(this.fecha,'dd/MM/yyyy - hh:mm', 'es-ES');
+        //console.log("format",format);
         registerLocaleData(localeES, "es");
 
       },

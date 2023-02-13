@@ -1,28 +1,37 @@
+<app-menu></app-menu>
 
-<div class="container mt-5">
+<div class="container mt-3">
 
-  <div>
-    <button class="btn btn-danger" routerLink="">Cancelar entradas</button>
+  <div class="mb-2">
+    <button class="btn btn-outline-danger" routerLink="">Cancelar entradas</button>
   </div>
 
-  Datos de tu Compra
-  <div>
-    Entradas a nombre de {{loggedUsuario.nombre}} {{loggedUsuario.apellido1}}
+  <div class="titulo">
+    <h2>Datos de tu Compra</h2>
   </div>
-  <div>
-    Correo: {{loggedUsuario.email}}
+  <div class="datos">
+    <div>
+      Entradas a nombre de {{loggedUsuario.nombre}} {{loggedUsuario.apellido1}}
+    </div>
+    <div>
+      Correo: {{loggedUsuario.email}}
+    </div>
   </div>
 
-  <div>
-    <p>
+
+  <div class="pelicula">
+    <div>
       {{sesion.pelicula.titulo}}
-    </p>
-    <p>
-      {{sesion.fechaHora | date: 'hh:mm'}}
-    </p>
+    </div>
+    <div>
+      {{sesion.fechaHora | date: 'dd/MMM - hh:mm'}}
+    </div>
   </div>
   <div class="row">
     <div class="col">
+      <div class="my-2">
+        <h6>Total de entradas {{arrayEntradas.length}}</h6>
+      </div>
       <ul>
         <li *ngFor="let item of arrayEntradas">
           Entrada nº {{item.id}} (fila {{item.ejeX+1}} - butaca {{item.ejeY+1}})
