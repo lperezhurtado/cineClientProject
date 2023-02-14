@@ -16,8 +16,6 @@ export class PreviewEntradaComponent {
   private entityUrl="/pelicula";
   url = `${environment.baseURL}${this.entityUrl}`;
 
-
-
   getURLimage(images: string): string{
     let result =this.url +'/images/'+images;
     return result;

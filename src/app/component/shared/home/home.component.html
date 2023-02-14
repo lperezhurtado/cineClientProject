@@ -1,84 +1,117 @@
 <app-menu></app-menu>
 <div class="cuerpo">
 
+  <div class="contenedor">
+    <div class="imgContainer">
+      <div class="imagen">
+        <img src="./assets/images/images2.jpg" alt="">
+      </div>
+      <div class="imagen">
+        <img src="./assets/images/images1.jpg" alt="">
+      </div>
+      <div class="imagen">
+        <img src="./assets/images/images3.jpg" alt="">
+      </div>
 
-<div class="contenedor">
-  <div class="imgContainer">
-    <div class="imagen">
-      <img src="./assets/images/images2.jpg" alt="">
-    </div>
-    <div class="imagen">
-      <img src="./assets/images/images1.jpg" alt="">
-    </div>
-    <div class="imagen">
-      <img src="./assets/images/images3.jpg" alt="">
     </div>
 
-  </div>
-
-  <div class="peliculasContainer">
-    <a routerLink="/user/cartelera/plist"><h3>Ver cartelera completa</h3></a>
-    <div class="peliculas">
-      <div class="portada" *ngFor="let pelicula of peliculas?.content">
-        <img [src]="getURLimage(pelicula.imagen)" alt="">
+    <div class="peliculasContainer">
+      <a routerLink="/user/cartelera/plist"><h3>Ver cartelera completa</h3></a>
+      <div class="peliculas">
+        <div class="portada" *ngFor="let pelicula of peliculas?.content">
+          <a [routerLink]="['/user/pelicula/view',pelicula.id]"><img [src]="getURLimage(pelicula.imagen)" alt=""></a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="infoContainer">
+    <div class="infoContainer">
 
-    <div class="description">
-      <p>CineMatrix abrió sus puertas en 2001,
-      y desde entonces se ha situado como uno de los
-      cines de referencia en la ciudad. Cuenta con 24
-      salas y más de 8.000 butacas, sus salas están equipadas
-      con las últimas innovaciones tecnológicas en imagen y sonido.</p>
-    </div>
-    <div class="tarifas">
-      <h3 class="ps-2 pt-2">Tarifas</h3>
-      <div class="tableTarifas">
-        <div class="row my-2" *ngFor="let tarifa of tarifas?.content">
-          <div class="col">
-            {{tarifa.nombre}}
+      <div class="description pt-4">
+        <p>CineMatrix abrió sus puertas en 2001,
+        y desde entonces se ha situado como uno de los
+        cines de referencia en la ciudad. Cuenta con 20
+        salas y más de 6.000 butacas, sus salas están equipadas
+        con las últimas innovaciones tecnológicas en imagen y sonido.</p>
+      </div>
+      <div class="tarifas">
+        <h3 class="ps-2 pt-2">Tarifas</h3>
+        <div class="tableTarifas">
+          <div class="row my-2" *ngFor="let tarifa of tarifas?.content">
+            <div class="col">
+              {{tarifa.nombre}}
+            </div>
+            <div class="col">
+              {{tarifa.precio}} €
+            </div>
           </div>
-          <div class="col">
-            {{tarifa.precio}} €
+        </div>
+      </div>
+      <div class="normativa">
+       <h4>Normativa</h4>
+       <a href="#" data-bs-toggle="modal" data-bs-target="#normas" class="text-dark">Normas y condiciones de uso</a>
+      </div>
+
+      <div class="infoLocal">
+        <div class="horario">
+          <h3>Horarios</h3>
+          <div>
+            <b>De lunes a jueves:</b> 16:30 a 22:00 h
+          </div>
+          <div>
+            <b>Viernes y vísperas de festivos:</b> 16:30 a 22:30 h
+          </div>
+          <div>
+            <b>Sábados:</b> 15:30 a 22:30 h
+          </div>
+          <div>
+            <b>Domingos y festivos:</b> 15:30 a 22:00 h
+          </div>
+        </div>
+        <hr>
+        <div class="direccion">
+          <h3>Dirección</h3>
+          <div>
+            <p>Carrer d'Ángel Villena <br>
+            46013 València, Valencia, España</p>
+          </div>
+          <div id="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1566.7329015948308!2d-0.3691852090820841!3d39.44723697697065!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6048d6e8c824a7%3A0x24b62f56a4f87943!2sCIP%20FP%20Ausi%C3%A0s%20March%20en%20Valencia!5e0!3m2!1ses!2sus!4v1676122976284!5m2!1ses!2sus" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
-    </div>
-    <div class="normativa">Normas</div>
 
-    <div class="infoLocal">
-      <div class="horario">
-        <h3>Horarios</h3>
-        <div>
-          <b>De lunes a jueves:</b> 16:30 a 22:00 h
-        </div>
-        <div>
-          <b>Viernes y vísperas de festivos:</b> 16:30 a 22:30 h
-        </div>
-        <div>
-          <b>Sábados:</b> 15:30 a 22:30 h
-        </div>
-        <div>
-          <b>Domingos y festivos:</b> 15:30 a 22:00 h
-        </div>
-      </div>
-      <hr>
-      <div class="direccion">
-        <h3>Dirección</h3>
-        <div>
-          <p>Carrer d'Ángel Villena <br>
-          46013 València, Valencia, España</p>
-        </div>
-        <div id="mapa">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1566.7329015948308!2d-0.3691852090820841!3d39.44723697697065!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6048d6e8c824a7%3A0x24b62f56a4f87943!2sCIP%20FP%20Ausi%C3%A0s%20March%20en%20Valencia!5e0!3m2!1ses!2sus!4v1676122976284!5m2!1ses!2sus" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
     </div>
 
+
+    <div class="modal fade" id="normas">
+      <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">NORMAS DE USO</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <h3>Ejemplo de normas</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+
+          </div>
+      </div>
+    </div>
   </div>
 </div>
-</div>
+
 <app-footer></app-footer>
+
+

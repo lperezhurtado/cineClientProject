@@ -32,8 +32,8 @@ export class CarteleraComponent {
    }
 
    ngOnInit(): void {
-    this.countPelicula();
-    this.getPage();
+     this.getPage();
+     this.countPelicula();
   }
 
    getURLimage(images: string): string{
@@ -41,16 +41,18 @@ export class CarteleraComponent {
     return result;
   }
   countPelicula() {
+
     this.peliculaService.countPelicula().subscribe({
       next: (resp: number) => {
         this.count = resp;
-        console.log(resp);
+        console.log("count ",resp);
       }
     })
   }
 
   getPage() {
-    this.peliculaService.getPlistPelicula(this.page, this.count, this.filter, this.id_genero, this.sortField, this.sortDir)
+    console.log("getpage count", this.count);
+    this.peliculaService.getPlistPelicula(this.page, 20, this.filter, this.id_genero, this.sortField, this.sortDir)
     .subscribe({
       next: (respFromServer: PeliculaPageInterface) => {
         this.peliculas = respFromServer;

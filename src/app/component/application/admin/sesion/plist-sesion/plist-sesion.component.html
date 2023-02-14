@@ -43,7 +43,7 @@
           <tr *ngFor="let sesion of resp?.content">
             <td>{{sesion.id}}</td>
             <td (click)="setIDSala(sesion.sala.id)">
-              Sala {{sesion.sala.id}}
+              Sala {{sesion.sala.id}} ({{sesion.sala.tiposala.nombre}})
             </td>
             <td (click)="setIDPelicula(sesion.pelicula.id)">
               {{sesion.pelicula.id}}-{{sesion.pelicula.titulo}}

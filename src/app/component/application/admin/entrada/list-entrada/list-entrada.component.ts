@@ -101,7 +101,7 @@ export class ListEntradaComponent implements OnInit {
     }*/
 
     if (!entrada.libre) {
-      alert("butaca ocupada");
+      this.popup2("Butaca ocupada", "warning");
     } else {
       console.log(entrada.id);
       if(this.arrayEntradas.includes(entrada)) {
@@ -149,11 +149,30 @@ export class ListEntradaComponent implements OnInit {
           'Your file has been deleted.',
           'success'
         )*/
-
           this.localStorage();
-
       }
-
     })
   }
+
+  popup2(message: string, status: string) {
+    Swal.fire({
+        customClass : {
+          title: 'swal2-title',
+          cancelButton: 'swal2-cancel',
+          confirmButton: 'swal2-confirm',
+          input: 'swal2-input'
+        },
+        icon:<any>status,
+        title: message,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1300,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+}
 }

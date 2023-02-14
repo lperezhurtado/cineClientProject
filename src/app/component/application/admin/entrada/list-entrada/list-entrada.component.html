@@ -16,7 +16,7 @@
 
       <tr *ngFor="let fila of filas" class="">
         <td *ngFor="let butaca of fila">
-          <div class="butaca" (click)="seleccionar(butaca)" [ngClass]="{'bg-success':butaca.libre, 'bg-color':!butaca.libre}">
+          <div class="butaca" (click)="seleccionar(butaca)" [ngClass]="{'bg-green':butaca.libre, 'bg-color':!butaca.libre}">
             <!--{{butaca.ejeY+1}}-->
 
             <!--BUTACA MARCADA-->
@@ -50,10 +50,12 @@
 </div>
 
 <div *ngIf="resp">
+
   <!--<app-admin-compra [arrayEntradas]="arrayENtradas" [entradaPrueba]="resp[0]" [entradasprueba]="entradas"></app-admin-compra>-->
 </div>
-<div *ngIf="resp" class="mt-3">
+<div *ngIf="resp" class="mt-3 bg-light">
   <app-preview-entrada [entradas]="arrayEntradas" [sesion]="this.sesion"></app-preview-entrada>
+
 </div>
 
 

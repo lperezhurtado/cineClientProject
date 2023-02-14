@@ -3,6 +3,7 @@
 }
 
 .peliculasContainer{
+  background-color: rgb(216, 153, 111, .6);
   box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
   border-radius: 5px;
   height: auto;
@@ -18,13 +19,20 @@
 }
 .portada{
   box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
-  border-radius: 5px;
+  border-radius: 7px;
   max-width: 220px;
   max-height: 330px;
   min-width: 160px;
   min-height: 250px;
   margin: 1vw;
+  transition: all .5s;
 }
+
+.portada:hover{
+  background-color: rgb(179, 102, 52);
+  color: #fff;
+}
+
 .img {
   height: 80%;
 }

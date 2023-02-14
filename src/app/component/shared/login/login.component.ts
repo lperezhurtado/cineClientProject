@@ -77,6 +77,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  loginUser() {
+    this.formLogin.setValue({
+      login: "usuario",
+      password: "user"
+    });
+  }
+
 
 
 

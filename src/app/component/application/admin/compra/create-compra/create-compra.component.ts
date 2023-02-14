@@ -1,4 +1,4 @@
-import { SesionInterface } from './../../../../../model/Sesion-interface';
+import { SesionInterface, SesionFormInterface } from './../../../../../model/Sesion-interface';
 import { FacturaNewInterface } from './../../../../../model/Factura-interface';
 import { FacturaService } from './../../../../../service/factura.service';
 import { UsuarioInterface } from 'src/app/model/Usuario-interface';
@@ -7,10 +7,13 @@ import { EntradaInterface } from './../../../../../model/Entrada-interface';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CompraNewInterface, CompraFormInterface, CompraInterface } from './../../../../../model/Compra-interface';
 import { Component, Input, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CompraService } from 'src/app/service/compra.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
+import { environment } from 'src/environments/environment';
+declare let jsPDF: any;
 
 @Component({
   selector: 'app-admin-compra',
@@ -36,6 +39,13 @@ export class CreateCompraComponent implements OnInit {
   totalComprasID: number[] = [];
   idEntrada!: number;
   tarifa!: number;
+  totalPrecio!: number;
+  fecha!:string;
+  dia!: string;
+  hora!: string;
+
+  private entityUrl="/pelicula"
+  url = "";
 
   descuentoUsuario!: number;
 
@@ -47,7 +57,9 @@ export class CreateCompraComponent implements OnInit {
     private formBuilder: FormBuilder,
     private entradaService: EntradaService,
     private location: Location
-  ) { }
+  ) {
+    this.url = `${environment.baseURL}${this.entityUrl}`;
+  }
 
   ngOnInit(): void{
     this.getUsuario();
@@ -55,6 +67,76 @@ export class CreateCompraComponent implements OnInit {
     this.getSesion();
     this.getEntradas();
     localStorage.removeItem("arrayEntradas");
+    console.log(this.totalPrecio);
+
+    this.fecha = this.sesion.fechaHora.toString();
+    this.dia = this.fecha.slice(0,10);
+    console.log(this.reverse(this.dia));
+    //this.reverse(this.dia);
+
+    console.log("dia ", this.dia);
+    this.hora = this.fecha.slice(11,16);
+    console.log("hora", this.hora);
+    console.log("fecha ", this.fecha);
+  }
+
+  reverse(dia:string) {
+    return dia.split("-").reverse().join("-");
+  }
+
+  getURLimage(images: string): string{
+    let result =this.url +'/images/'+images;
+    return result;
+  }
+
+  public downloadPDF(): void {
+
+    let doc = new jsPDF('p', 'mm','a4');
+
+    var altoPagina = 247;
+    var anchoPagina = 170;
+    var y = 82;
+
+    var img = new Image();
+    img.src = this.getURLimage(this.sesion.pelicula.imagen);
+    doc.addImage(img, 'jpg', 10, 12, 35, 50);
+
+    doc.setFontSize(23);
+    doc.setFont("courier", "bold");
+    //doc.text('Hello world!', 10, 10);
+    doc.text(this.sesion.pelicula.titulo, 50, 20);
+    doc.setFontSize(13);
+    doc.text("CineMatriX", 50, 50);
+    doc.text(this.reverse(this.hora), 50, 60);
+    doc.text(this.reverse(this.dia), 75, 60);
+
+    doc.roundedRect(10, 65, 190, 1, 1, 1, "F");
+
+    doc.setFont("courier", "normal");
+    doc.text("Sala "+this.sesion.sala.id, 12, 72);
+
+
+    //doc.text(this.totalPrecio.toString(), 20, y);
+
+    doc.setFont("courier", "bold");
+    doc.text("Fila", 13, y);
+    doc.text("Butaca", 53, y);
+    doc.text("Tarifa", 103, y);
+    doc.text("Precio", 153, y);
+
+    doc.setFont("courier", "normal");
+    for (let i = 0; i < this.arrayEntradas.length; i++) {
+      y+=10
+      doc.text(this.arrayEntradas[i].ejeX.toString(),13, y); //FILA
+      doc.text(this.arrayEntradas[i].ejeY.toString(),53, y); //BUTACA
+      doc.text(this.sesion.tarifa.nombre,103, y); //TARIFA
+      doc.text(this.sesion.tarifa.precio+" €",153, y);
+    }
+
+    doc.setFont("courier", "bold");
+    doc.text("TOTAL:",123, y+20);
+    doc.text(this.sesion.tarifa.precio*this.arrayEntradas.length+" €",153, y+20);
+    doc.save('entradas.pdf');
   }
 
   getUsuario() {
@@ -75,7 +157,9 @@ export class CreateCompraComponent implements OnInit {
 
   getEntradas(){
     this.tarifa = this.sesion.tarifa.precio;
-    this.descuentoUsuario = this.loggedUsuario.descuento;
+    this.totalPrecio = this.tarifa * this.arrayEntradas.length;
+    this.descuentoUsuario = this.loggedUsuario? this.loggedUsuario.descuento : 0;
+    console.log("descuento usuario ", this.descuentoUsuario);
     let fecha = new Date().toJSON();
 
     for (let i = 0; i < this.arrayEntradas.length; i++) {
@@ -83,7 +167,7 @@ export class CreateCompraComponent implements OnInit {
         id: undefined,
         precio: this.tarifa,
         fecha: new Date(fecha),
-        descuentoUsuario:this.descuentoUsuario,
+        descuentoUsuario: this.descuentoUsuario,
         entrada: {id: this.arrayEntradas[i].id},
         factura: null
       }
@@ -93,6 +177,8 @@ export class CreateCompraComponent implements OnInit {
 
   ngOnChange(){
     //this.getEntradaprueba(this.entradaPrueba, this.entradasprueba);
+    this.downloadPDF();
+    this.updateCompras();
   }
 
   //1
@@ -168,10 +254,11 @@ export class CreateCompraComponent implements OnInit {
       this.compraService.updateCompraFactura(this.updatedCompra).subscribe({
         next: (resp3: number) => {
           console.log("updated compra ", resp3);
-          this.popup("Factura generada", "Ver", "up");
+          this.popup("Entradas impresas", "Ver", "up");
         }
       });
     }
+
   }
 
   mostrar() {
@@ -203,6 +290,7 @@ export class CreateCompraComponent implements OnInit {
           }
           else if(opt === "up"){
             this.mostrar();
+            this.router.navigate(['/home']);
           }
       }
 

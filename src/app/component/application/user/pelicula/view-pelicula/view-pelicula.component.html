@@ -57,11 +57,17 @@
       <h6>Disponible en versiones especiales</h6>
       3D, 4DX (consultar)
     </div>
+    <hr>
   </div>
 
   <!--CONTAINER 3-->
-  <div class="sesiones">
-
+  <div class="sesiones" *ngIf="pelicula.sesionesCount != 0">
+    <h2>Sesiones disponibles</h2>
     <app-get-sesion-pelicula [idPelicula]="pelicula.id"></app-get-sesion-pelicula>
+  </div>
+
+  <div class="sesiones" *ngIf="pelicula.sesionesCount == 0">
+    <h3>En este momento no hay sesiones disponibles para esta pelicula</h3>
+    <h4>Sentimos las molestias</h4>
   </div>
 </div>

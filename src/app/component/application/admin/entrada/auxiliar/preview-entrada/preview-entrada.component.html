@@ -11,6 +11,10 @@
       Sala {{sesion.sala.id}} ({{sesion.sala.tiposala.nombre}})
       <hr>
       Hora: {{sesion.fechaHora | date: 'HH:mm'}} ({{sesion.fechaHora | date: "dd - MMM"}})
+      <hr>
+      <div>
+      <b>Entradas: {{sesion.tarifa.precio}} €</b>
+      </div>
     </div>
     <div class="col">
       <ul style="list-style: decimal;">
@@ -19,7 +23,9 @@
         </li>
       </ul>
     </div>
-
+    <div class="col" *ngIf="entradas.length != 0">
+      <b>Total:</b> {{entradas.length * sesion.tarifa.precio}} €
+    </div>
   </div>
 
 </div>

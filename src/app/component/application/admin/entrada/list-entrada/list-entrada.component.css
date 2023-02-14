@@ -18,11 +18,13 @@ h5 {
   background-color: #fa7373;
 }
 
-/*.butaca {
-  display: flex;
-  justify-content: center;
-  width: 45px;
-}*/
+.butaca {
+  border-radius: 50px;
+}
+
+.bg-green {
+  background-color: rgb(37, 182, 49, .6);
+}
 
 .butaca > div {
   display: flex;

@@ -20,7 +20,7 @@
 .imgContainer {
   grid-area: imgContainer;
 
-  background-color: rgb(124, 124, 255);
+  background-color: rgb(216, 153, 111, .9);
   padding: 1vw;
   border-radius: 10px;
 }

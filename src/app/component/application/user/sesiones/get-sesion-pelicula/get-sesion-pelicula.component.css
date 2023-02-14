@@ -5,7 +5,7 @@
 .fecha {
   display: flex;
   align-items: center;
-  background-color: rgb(124, 124, 255);
+  background-color: rgb(216, 153, 111, .5);
   border-radius: 10px;
 }
 
@@ -15,6 +15,7 @@
   box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
   padding: 1vw;
   font-weight: bolder;
+  border-radius: 10px;
 }
 
 .hora {
@@ -24,6 +25,7 @@
 .horaContainer{
   margin: 0 auto;
   align-items: center;
+
 }
 
 a {
@@ -35,6 +37,7 @@ a {
   padding: 1vw;
   box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
   border-radius: 10px;
+  background-color: rgb(216, 153, 111, .9);
 }
 
 a:hover {
