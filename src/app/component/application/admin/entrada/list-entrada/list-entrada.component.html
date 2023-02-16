@@ -1,13 +1,10 @@
 
-
 <app-menu></app-menu>
 <div class="mt-4 ms-5">
   <button class="btn btn-outline-danger" (click)="back()">Volver</button>
 </div>
 
 <div class="container mt-5" *ngIf="resp">
-
-
 
   <div class="table-responsive table-hover">
     <h5>Pantalla</h5>
@@ -42,7 +39,7 @@
   </div>
 </div>
 
-<div class="container mt-4" *ngIf="resp">
+<div class="container mt-4" *ngIf="resp"> <!--&& loggedUser.tipousuario.id ==2-->
 
   <!--<a routerLink="/admin/entrada/create" role="button" class="btn btn-outline-info">Comprar</a>-->
   <button routerLink="/admin/entrada/create" (click)="localStorage()" class="btn btn-outline-success float-end" [disabled]="arrayEntradas.length==0" >Comprar</button>
@@ -51,7 +48,6 @@
 
 <div *ngIf="resp">
 
-  <!--<app-admin-compra [arrayEntradas]="arrayENtradas" [entradaPrueba]="resp[0]" [entradasprueba]="entradas"></app-admin-compra>-->
 </div>
 <div *ngIf="resp" class="mt-3 bg-light">
   <app-preview-entrada [entradas]="arrayEntradas" [sesion]="this.sesion"></app-preview-entrada>

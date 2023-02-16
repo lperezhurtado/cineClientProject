@@ -115,7 +115,6 @@ export class CreateCompraComponent implements OnInit {
     doc.setFont("courier", "normal");
     doc.text("Sala "+this.sesion.sala.id, 12, 72);
 
-
     //doc.text(this.totalPrecio.toString(), 20, y);
 
     doc.setFont("courier", "bold");
@@ -265,7 +264,6 @@ export class CreateCompraComponent implements OnInit {
     console.log("mostrar factura");
   }
 
-
   popup(msg:string, btnMsg: string, opt: string) {
     Swal.fire({
       title: msg,
@@ -282,9 +280,6 @@ export class CreateCompraComponent implements OnInit {
           'Your file has been deleted.',
           'success'
         )*/
-        //this.createPelicula();
-          //this.createFactura();
-          //this.updateCompras();
           if (opt === "cr") {
             this.getCompras();
           }

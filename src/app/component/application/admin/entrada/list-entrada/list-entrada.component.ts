@@ -13,8 +13,7 @@ import Swal from 'sweetalert2'
 })
 export class ListEntradaComponent implements OnInit {
 
-  clicked: boolean = false;
-
+  loggedUser!: UsuarioInterface;
   resp!: EntradaInterface[];
   sesion!: SesionInterface;
   id!: number; //id de la sesion
@@ -32,8 +31,10 @@ export class ListEntradaComponent implements OnInit {
   ) {
     this.id = activatedRoute.snapshot.params['id'];
   }
+
   ngOnInit(): void {
     this.getList();
+    this.loggedUser = JSON.parse( localStorage.getItem("usuario")! );
   }
 
   back() {
@@ -71,8 +72,7 @@ export class ListEntradaComponent implements OnInit {
           }
 
         });
-        console.log(this.filas);
-
+        //console.log(this.filas);
       }
     });
   }
@@ -80,9 +80,7 @@ export class ListEntradaComponent implements OnInit {
   localStorage(){
     localStorage.setItem("arrayEntradas", JSON.stringify(this.arrayEntradas));
     //localStorage.setItem("entradas", JSON.stringify(this.entradas));
-    //console.log("entradas: ",localStorage.getItem("entradas"));
     //localStorage.setItem("datos", JSON.stringify(this.resp[0].sesion));
-    //console.log("datos: ",localStorage.getItem("datos"));
   }
 
   idAuxiliar!: number;
@@ -100,6 +98,9 @@ export class ListEntradaComponent implements OnInit {
       console.log("entra al else de arrayEntradas");
     }*/
 
+    //if (this.loggedUser.tipousuario.id !=1) { //SOLUCION TEMPORAL NO MUESTRA BOTON DE COMPRAR SI ES ADMIN
+
+
     if (!entrada.libre) {
       this.popup2("Butaca ocupada", "warning");
     } else {
@@ -114,17 +115,13 @@ export class ListEntradaComponent implements OnInit {
 
       }
       /*if (this.entradas.includes(entrada.id)) {
-        console.log("entra al if");
         var index = this.entradas.indexOf(entrada.id);
         this.entradas.splice(index,1);
-        console.log(this.entradas);
       } else {
-        console.log("entra al else");
         this.entradas.push(entrada.id);
-        console.log(this.entradas);
       }*/
     }
-
+  //}
     /*this.idAuxiliar = entrada.id;
     if (entrada.libre) {
       entrada.libre =false;
