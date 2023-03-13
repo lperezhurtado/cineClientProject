@@ -1,0 +1,9 @@
+
+*{
+  font-size: clamp(17px,1vw,20px);
+}
+
+button {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}

@@ -1,4 +1,7 @@
 
+* {
+  box-sizing: border-box;
+}
 /*PARA QUITAR FLECHAS DE INPUT TYPE NUMBER*/
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -6,3 +9,100 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 input[type=number] { appearance:textfield; }
+/*=========================================*/
+label {
+  margin: 0 0 0 .5vw;
+}
+
+input {
+  border: 2px solid /*rgba(0, 0, 0, 0.24)*/#33548A;
+  border-radius: 13px;
+  border-top: none;
+  border-right: none;
+  padding: .22rem .6rem;
+  margin: .3vw 0;
+  font-size: clamp(18px,1.5vw,22px);
+}
+
+input:focus {
+  border-color: #33548A /*rgba(0, 0, 0, 0.24)*/;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-container {
+  padding: 1vw;
+
+}
+
+.input-div {
+  /*margin: .5vw 0;*/
+  font-size: clamp(18px,1.5vw,22px);
+}
+
+/*Boton para buscar tipo de usuario*/
+.row > button {
+  border-radius: 13px;
+  padding: .22rem .5rem;
+  margin: .5vw 0;
+  border-color: #E67F4F;
+  color: #E67F4F;
+}
+
+.row > button:hover {
+  background-color: #E67F4F;
+  color: #fff;
+}
+/*==================================*/
+
+.buttons-container {
+  margin-top: 1.5vw;
+  display: flex;
+  justify-content: center;
+}
+
+@media(max-width:768px) {
+  .row > button {
+    margin: 1vw auto;
+    width: 90vw;
+  }
+
+  .buttons-container {
+    justify-content: space-evenly;
+  }
+}
+
+/*=======CUSTOM BUTTON========*/
+.button {
+  margin: 10px;
+  padding: 15px 20px;
+  text-align: center;
+  transition: all .5s;
+  background-size: 200% auto;
+  color: #fff;
+  border-radius: 10px;
+  /*display: block;*/
+  border: 1px solid #dd0707;
+  font-weight: 500;
+  box-shadow: 0px 0px 14px -7px #110b0a;
+  background-image: linear-gradient(45deg, #dd0707 0%, #b97516  51%, #dd0707  95%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  text-decoration: none;
+}
+
+.button:active {
+  transform: scale(0.90);
+}
+
+.btn-save {
+  border: 1px solid #0752dd;
+  background-image: linear-gradient(45deg, #0752dd 0%, #71c1d3  51%, #0752dd  95%);
+}
+/*=====================================================*/

@@ -1,14 +1,26 @@
 <form>
   <div class="input-group input-group-sm">
 
-    <input
-    type="text"
-    class="form-control"
-    placeholder="{{placeHolder}}"
-    [(ngModel)]="termino" name="buscar" aria-label="Small"
-    aria-describedby="inputGroup-sizing-sm"
-    (keyup) =" buscar()"
-    />
+      <!--<input
+      type="text"
+      class="form-control"
+      placeholder="{{placeHolder}}"
+      [(ngModel)]="termino" name="buscar" aria-label="Small"
+      aria-describedby="inputGroup-sizing-sm"
+      (keyup) =" buscar()"
+      >-->
 
+      <span class="md:mt-0 p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          class="p-inputtext p-component p-element w-full sm:w-auto"
+          pinputtext=""
+          type="text"
+          placeholder="{{placeHolder}}"
+          [(ngModel)]="termino" name="buscar" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm"
+          (keyup)="buscar()"
+        >
+      </span>
   </div>
 </form>

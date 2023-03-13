@@ -12,24 +12,24 @@ import { TipoUsuarioInterface } from 'src/app/model/TipoUsuario-interface';
 declare let bootstrap: any;
 
 @Component({
+  selector: 'app-create-usuario',
   templateUrl: './create-usuario.component.html',
   styleUrls: ['./create-usuario.component.css']
 })
 export class CreateUsuarioComponent implements OnInit {
 
+  id: number = 0; //guarda el id del usuario creado para mostrarlo en el modal
   usuario!: UsuarioInterface;
-  usuario2Form!: IUsuarior2Form;
   usuario2Send!: IUsuario2Send;
   form!: FormGroup<IUsuarior2Form>;
   error = "";
+  tipousuarioDescription: string = "";
 
   //modals
   mimodal: string = "miModal";
   myModal: any;
   modalTitle: string = "";
   modalContent: string = "";
-
-  tipousuarioDescription: string = "Tipo de usuario";
 
   constructor(
     private router: Router,
@@ -44,7 +44,7 @@ export class CreateUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.form = <FormGroup>this.formBuilder.group({
       id: [""],
-      dni: ["", [Validators.required, Validators.minLength(5)]],
+      dni: ["", [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i)] ],
       nombre: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       apellido1: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       apellido2: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
@@ -61,15 +61,10 @@ export class CreateUsuarioComponent implements OnInit {
   }
 
   sonIguales() {
-    if (this.form.value.password == this.form.value.passwordC) {
-      return true;
-    }
-    else{
-      return false;
-    }
+    let iguales = this.form.value.password == this.form.value.passwordC? true : false;
+    return iguales;
   }
 
-  id: number = 0; //guarda el id del usuario creado para mostrarlo en el modal
   onSubmit() {
     console.log("onSubmit");
     this.usuario2Send = {
@@ -94,15 +89,13 @@ export class CreateUsuarioComponent implements OnInit {
         },
         error: (error: any) => {         //recoge errores que llegan del servidor en las validaciones
           this.error = error.error.message;
-          this.popup(error.error.message,"error");
+          this.popup(this.error,"error");
           console.log(error);
         }
       });
-    }
-    else{
+    } else {
       this.popup("Por favor, rellena todos los campos","warning");
     }
-
   }
 
   showModal = () => {
@@ -130,7 +123,7 @@ export class CreateUsuarioComponent implements OnInit {
     this.myModal = new bootstrap.Modal(document.getElementById("findUsertype"), { //pasar el myModal como parametro
       keyboard: false
     });
-    this.myModal.show()
+    this.myModal.show();
   }
 
   closeTeamModal(id_usertype: number) {
@@ -154,12 +147,12 @@ export class CreateUsuarioComponent implements OnInit {
 
   popup(message: string, status: string) {
     Swal.fire({
-        customClass : {
+        /*customClass : {
           title: 'swal2-title',
           cancelButton: 'swal2-cancel',
           confirmButton: 'swal2-confirm',
           input: 'swal2-input'
-        },
+        },*/
         icon:<any>status,
         title: message,
         toast: true,
@@ -172,6 +165,5 @@ export class CreateUsuarioComponent implements OnInit {
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-}
-
+  }
 }

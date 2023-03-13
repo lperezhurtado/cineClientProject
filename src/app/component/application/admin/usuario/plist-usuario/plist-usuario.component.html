@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 
-<div class="container mt-5" *ngIf="respFromServer">
+<!--<div class="container mt-5" *ngIf="respFromServer">
   <div class="row">
     <div class="col">
       <h1 class="text-center mb-5">Lista de usuarios</h1>
@@ -30,53 +30,168 @@
         <h5 class="text-muted">Total registros {{respFromServer.totalElements}}</h5>
       </div>
 
-      <table class="table table-responsive table-bordered table-striped">
-        <thead>
-          <tr>
-            <th (click)="setOrder('id')">ID</th>
-            <th (click)="setOrder('nombre')">Nombre</th>
-            <th (click)="setOrder('apellido1')">1º Apellido</th>
-            <th (click)="setOrder('apellido2')">2º Apellido</th>
-            <th (click)="setOrder('email')">Email</th>
-            <th (click)="setOrder('login')">Login</th>
-            <th (click)="setOrder('')">Total Facturas</th>
-            <th>TipoUsuario</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let usuario of respFromServer?.content">
-            <td>{{usuario.id}}</td>
-            <td>{{usuario.nombre}}</td>
-            <td>{{usuario.apellido1}}</td>
-            <td>{{usuario.apellido2}}</td>
-            <td>{{usuario.email}}</td>
-            <td>{{usuario.login}}</td>
-            <td>{{usuario.facturasCount}}</td>
-            <td (click)="setFilterByUsertype(usuario.tipousuario.id)">
-              {{usuario.tipousuario.id}}-{{usuario.tipousuario.nombre}}</td>
-            <td>
+      <div class="table table-responsive">
+        <table class="table table-responsive table-bordered table-striped">
+          <thead>
+            <tr>
+              <th (click)="setOrder('id')">ID</th>
+              <th (click)="setOrder('nombre')">Nombre</th>
+              <th (click)="setOrder('apellido1')">1º Apellido</th>
+              <th (click)="setOrder('apellido2')">2º Apellido</th>
+              <th (click)="setOrder('email')">Email</th>
+              <th (click)="setOrder('login')">Login</th>
+              <th (click)="setOrder('')">Total Facturas</th>
+              <th>TipoUsuario</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of respFromServer?.content">
+              <td>{{usuario.id}}</td>
+              <td>{{usuario.nombre}}</td>
+              <td>{{usuario.apellido1}}</td>
+              <td>{{usuario.apellido2}}</td>
+              <td>{{usuario.email}}</td>
+              <td>{{usuario.login}}</td>
+              <td>{{usuario.facturasCount}}</td>
+              <td (click)="setFilterByUsertype(usuario.tipousuario.id)">
+                {{usuario.tipousuario.id}}-{{usuario.tipousuario.nombre}}</td>
+              <td>
 
-              <div class="btn-group" role="group" aria-label="Herramientas">
-                <button class="btn btn-sm btn-primary" [routerLink]="['/admin/usuario/view',usuario.id]">
-                  Ver
-                </button>
-                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/usuario/update',usuario.id]">
-                  Editar
-                </button>
-                <button class="btn btn-sm btn-danger" [routerLink]="['/admin','usuario','delete',usuario.id]">
-                  Eliminar
-                </button>
-              </div>
+                <div class="btn-group" role="group" aria-label="Herramientas">
+                  <button class="btn btn-sm btn-primary" [routerLink]="['/admin/usuario/view',usuario.id]">
+                    Ver
+                  </button>
+                  <button class="btn btn-sm btn-warning" [routerLink]="['/admin/usuario/update',usuario.id]">
+                    Editar
+                  </button>
+                  <button class="btn btn-sm btn-danger" [routerLink]="['/admin','usuario','delete',usuario.id]">
+                    Eliminar
+                  </button>
+                </div>
 
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
-</div>
+</div>-->
+<!--=========================================-->
+<div class="contenedor">
+  <h1 class="text-center mt-4 mb-3">Lista de usuarios</h1>
 
+  <div class="btn-new-delete-user py-2">
+    <a [routerLink]="['/admin/usuario/create']" class="btn btn-outline-primary mx-2">
+      <i class="pi pi-user-plus me-1"></i>
+      Nuevo usuario
+    </a>
+    <a [routerLink]="['/admin/usuario/create']" class="btn btn-outline-danger mx-2">
+      <i class="pi pi-user-minus me-1"></i>
+      Borrar sel.
+    </a>
+  </div>
+
+  <div class="pagination-div">
+    <app-pagination-unrouted [nPage]="respFromServer.number + 1" [nTotalPages]="respFromServer.totalPages" (eePage)="setPage($event)"></app-pagination-unrouted>
+
+    <app-dropdown-register-page class="ms-2" [PageSize]="respFromServer.size" (eeRpp)="this.setRpp($event)"></app-dropdown-register-page>
+
+    <app-search-unrouted [placeHolder]="'Buscar usuario'" class="search" (onSearch)="setFilter( $event )"></app-search-unrouted>
+  </div>
+
+  <div class="table-container">
+    <table class="table">
+      <thead class="">
+        <tr>
+          <th style="cursor: default;">
+            <div class="checkbox-wrapper-39">
+              <label>
+                <input type="checkbox" id="masterCheckbox">
+                <span class="checkbox"></span>
+              </label>
+            </div>
+        </th>
+          <th (click)="setOrder('id')">
+            <i id="id" class="pi pi-sort-alt"></i>
+            <!--<i *ngIf="this.sortField == 'id' && this.sortDirection == 'asc'" class="pi pi-sort-numeric-down"></i>
+            <i *ngIf="this.sortField == 'id' && this.sortDirection == 'desc'" class="pi pi-sort-numeric-up"></i>-->
+            ID
+          </th>
+          <th (click)="setOrder('nombre')">
+            <i id="nombre" class="pi pi-sort-alt"></i>
+            Nombre
+          </th>
+          <th (click)="setOrder('apellido1')">
+            <i id="apellido1" class="pi pi-sort-alt"></i>
+            1º Apellido
+          </th>
+          <th (click)="setOrder('apellido2')">
+            <i id="apellido2" class="pi pi-sort-alt"></i>
+            2º Apellido
+          </th>
+          <th (click)="setOrder('email')">
+            <i id="email" class="pi pi-sort-alt"></i>
+            Email
+          </th>
+          <th (click)="setOrder('login')">
+            <i id="login" class="pi pi-sort-alt"></i>
+            Login
+          </th>
+          <th (click)="setOrder('')">
+            <i id="factura" class="pi pi-sort-alt"></i>
+            Facturas
+          </th>
+          <th>
+            <svg class="me-1" width="33px" height="33px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff"><path d="M8 14.571l-1.823-1.736a1.558 1.558 0 00-2.247.103v0a1.558 1.558 0 00.035 2.092l5.942 6.338c.379.403.906.632 1.459.632H16c2.4 0 4-2 4-4 0 0 0 0 0 0V9.429" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17 10v-.571c0-2.286 3-2.286 3 0M14 10V8.286C14 6 17 6 17 8.286V10M11 10V7.5c0-2.286 3-2.286 3 0 0 0 0 0 0 0V10M8 14.571V3.5A1.5 1.5 0 019.5 2v0c.828 0 1.5.67 1.5 1.499V10" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            TipoUsuario
+          </th>
+          <th style="cursor: default;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of respFromServer?.content">
+          <td style="cursor: default;">
+            <div class="checkbox-wrapper-39">
+              <label>
+                <input type="checkbox"/>
+                <span class="checkbox"></span>
+              </label>
+            </div>
+          </td>
+          <td>{{usuario.id}}</td>
+          <td>{{usuario.nombre}}</td>
+          <td>{{usuario.apellido1}}</td>
+          <td>{{usuario.apellido2}}</td>
+          <td>{{usuario.email}}</td>
+          <td>{{usuario.login}}</td>
+          <td>{{usuario.facturasCount}}</td>
+          <td (click)="setFilterByUsertype(usuario.tipousuario.id)" class="usertype">
+              {{usuario.tipousuario.nombre}}</td>
+          <td>
+
+            <div class="btn-group" role="group" aria-label="Herramientas">
+              <button class="btn btn-md mx-2 btn-outline-success view" [routerLink]="['/admin/usuario/view',usuario.id]">
+                <i id="id" class="pi pi-eye" style="font-size: 1.5rem"></i>
+              </button>
+              <button class="btn btn-md mx2 edit" [routerLink]="['/admin/usuario/update',usuario.id]">
+                <i id="id" class="pi pi-user-edit" style="font-size: 1.5rem"></i>
+              </button>
+              <button class="btn btn-md mx-2 btn-outline-danger delete" [routerLink]="['/admin','usuario','delete',usuario.id]">
+                <i id="id" class="pi pi-trash" style="font-size: 1.5rem"></i>
+              </button>
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+      <caption class="mt-1">Total {{respFromServer.totalElements}}</caption>
+    </table>
+  </div>
+</div>
+<!--=========================================-->
 <div class="modal fade" id="generateInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">

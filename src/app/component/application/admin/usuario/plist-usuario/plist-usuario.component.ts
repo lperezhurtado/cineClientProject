@@ -86,14 +86,28 @@ export class PlistUsuarioComponent implements OnInit {
   }
 
   setOrder(order: string): void {
+
+    if(this.sortField != order) {
+      let icon = document.getElementById(this.sortField);
+      icon?.classList.remove(icon?.classList.value.slice(3));
+      icon?.classList.add('pi-sort-alt');
+    }
     this.sortField = order;
-    if (this.sortDirection == "asc") {
+    this.sortDirection = this.sortDirection == "asc"? "desc" : "asc";
+
+    let icon = document.getElementById(order);
+    this.sortDirection == "asc"? icon?.classList.replace(icon?.classList.value.slice(3),'pi-sort-numeric-down') : icon?.classList.replace(icon?.classList.value.slice(3),'pi-sort-numeric-up');
+
+    /*if (this.sortDirection == "asc") {
       this.sortDirection = "desc";
+      icon?.classList.replace(icon?.classList.value.slice(3),'pi-sort-numeric-down');
     } else {
       this.sortDirection = "asc";
-    }
+      icon?.classList.replace(icon?.classList.value.slice(3),'pi-sort-numeric-up');
+    }*/
     this.getPage();
   }
+
 
 
   generar(cantidad: number) {

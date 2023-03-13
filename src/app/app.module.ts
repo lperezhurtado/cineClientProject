@@ -1,5 +1,7 @@
 import { SelectPlistTarifaComponent } from './component/application/admin/tarifa/Auxiliar/select-plist/select-plist-tarifa.component';
 import { CryptoService } from './service/crypto.service';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 import { UsuarioService } from './service/usuario.service';
 import { LoginService } from './service/login.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -149,7 +151,9 @@ import { GetSesionPeliculaComponent } from './component/application/user/sesione
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CalendarModule
+    CalendarModule,
+    SweetAlert2Module,
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     CryptoService,

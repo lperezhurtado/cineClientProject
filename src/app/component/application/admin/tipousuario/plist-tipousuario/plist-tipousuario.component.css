@@ -1,0 +1,4 @@
+
+.table, td > button {
+  font-size: clamp(18px,1.5vw,22px);
+}

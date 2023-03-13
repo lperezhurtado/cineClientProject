@@ -58,12 +58,12 @@ export class UpdateUsuarioComponent implements OnInit {
         console.log(data);
         this.form = <FormGroup>this.formBuilder.group({
           id: [data.id, [Validators.required]],
-          dni:[data.dni,[Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+          dni:[data.dni,[Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i) ]],
           nombre: [data.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           apellido1: [data.apellido1, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           apellido2: [data.apellido2, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
           email: [data.email, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-          login: [data.login, [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$')]],
+        login: [data.login, [Validators.required, Validators.minLength(4), Validators.maxLength(20), /*Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$')*/]],
           tipousuario: [data.tipousuario.id, [Validators.required, Validators.pattern(/^\d{1,2}$/)]],
         });
         this.actualTipoUsuario = data.tipousuario.id;

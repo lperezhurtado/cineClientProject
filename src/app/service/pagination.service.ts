@@ -9,7 +9,7 @@ export class PaginationService {
 
   pagination = (pages: number, page: number): string[] => {
     let botonera: string[] = [];
-    let vecindad: number = 2;
+    let vecindad: number = 1;
     for (let i = 1; i <= pages; i++) {
         if (i == 1) botonera.push(i.toString())
         else if (i >= (page - vecindad) && i <= (page + vecindad))
