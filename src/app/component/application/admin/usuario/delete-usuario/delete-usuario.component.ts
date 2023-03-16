@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 
 declare let bootstrap: any;
 @Component({
+  selector:'app-delete-usuario',
   templateUrl: './delete-usuario.component.html',
   styleUrls: ['./delete-usuario.component.css']
 })

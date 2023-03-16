@@ -16,6 +16,9 @@ table {
   border-radius: 18px;
   overflow: hidden;
 }
+caption {
+  font-size: clamp(18px,5vw,25px);
+}
 
 /*table tbody {     //EN CASO DE QUE DIERA PROBLEMAS EL OVERFLOW-X
   display: table;
@@ -119,8 +122,6 @@ td > .checkbox-wrapper-39 .checkbox {
   border: 3px solid #33548A;
 }
 /*========================================*/
-
-
 .pagination-div {
   display: flex;
   align-items: baseline;
@@ -131,6 +132,41 @@ td > .checkbox-wrapper-39 .checkbox {
 .search {
   margin-left: auto;
   margin-right: .4vw;
+}
+/*============= MODAL DE VIEW ==============*/
+.modal-div {
+  border-radius: 15px;
+  padding-bottom: .5vw;
+  box-shadow: -1px 1px 7px 0px rgba(0,0,0,0.75);
+  /*box-shadow: rgb(125, 149, 170) 5px 5px 6px 0px inset, rgba(255, 255, 255, 0.5) -5px -5px 6px 1px inset;*/
+
+}
+
+.modal-div > div > button {
+  border-radius: 10px;
+}
+
+.modal-div > div:last-child {
+  border: none;
+  margin-top: 0;
+}
+
+/*===========================================*/
+
+.animation {
+  animation: opacity .45s;
+}
+
+@keyframes opacity {
+  from { opacity: 0; transform: scale(1.2); }
+  to { opacity: 1; transform: scale(1); }
+}
+/*REVISAR ANIMACION*/
+@keyframes notification {
+  20% { transform: scale(.9); }
+  40% { transform: scale(1.1); }
+  60% { transform: scale(1); }
+  100% {}
 }
 
 @media(max-width:635px) {
@@ -143,6 +179,4 @@ td > .checkbox-wrapper-39 .checkbox {
     margin: 2vw 0;
     width: 100%;
   }
-
 }
-

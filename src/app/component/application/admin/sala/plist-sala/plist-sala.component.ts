@@ -83,13 +83,29 @@ export class PlistSalaComponent implements OnInit {
     this.getPage();
   }
 
-  setOrder(order: string): void {
+  /*setOrder(order: string): void {
     this.sortField = order;
     if (this.sortDirection == "asc") {
       this.sortDirection = "desc";
     } else {
       this.sortDirection = "asc";
     }
+    this.getPage();
+  }*/
+
+  setOrder(order: string): void {
+
+    if(this.sortField != order) {
+      let icon = document.getElementById(this.sortField);
+      icon?.classList.remove(icon?.classList.value.slice(3));
+      icon?.classList.add('pi-sort-alt');
+    }
+    this.sortField = order;
+    this.sortDirection = this.sortDirection == "asc"? "desc" : "asc";
+
+    let icon = document.getElementById(order);
+    this.sortDirection == "asc"? icon?.classList.replace(icon?.classList.value.slice(3),'pi-sort-numeric-down') : icon?.classList.replace(icon?.classList.value.slice(3),'pi-sort-numeric-up');
+
     this.getPage();
   }
 }

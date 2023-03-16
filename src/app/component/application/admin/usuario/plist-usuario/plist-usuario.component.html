@@ -80,8 +80,8 @@
   </div>
 </div>-->
 <!--=========================================-->
-<div class="contenedor">
-  <h1 class="text-center mt-4 mb-3">Lista de usuarios</h1>
+<div class="contenedor" *ngIf="respFromServer">
+  <h2 class="text-center mt-4 mb-3">Gestión de usuarios</h2>
 
   <div class="btn-new-delete-user py-2">
     <a [routerLink]="['/admin/usuario/create']" class="btn btn-outline-primary mx-2">
@@ -173,13 +173,13 @@
           <td>
 
             <div class="btn-group" role="group" aria-label="Herramientas">
-              <button class="btn btn-md mx-2 btn-outline-success view" [routerLink]="['/admin/usuario/view',usuario.id]">
+              <button class="btn btn-md mx-2 btn-outline-success view" (click)="openModalView(usuario.id)"><!--[routerLink]="['/admin/usuario/view',usuario.id]"-->
                 <i id="id" class="pi pi-eye" style="font-size: 1.5rem"></i>
               </button>
               <button class="btn btn-md mx2 edit" [routerLink]="['/admin/usuario/update',usuario.id]">
                 <i id="id" class="pi pi-user-edit" style="font-size: 1.5rem"></i>
               </button>
-              <button class="btn btn-md mx-2 btn-outline-danger delete" [routerLink]="['/admin','usuario','delete',usuario.id]">
+              <button class="btn btn-md mx-2 btn-outline-danger delete" [routerLink]="['/admin','usuario','delete',usuario.id]"><!--(click)="openModalDelete(usuario.id)"-->
                 <i id="id" class="pi pi-trash" style="font-size: 1.5rem"></i>
               </button>
             </div>
@@ -209,3 +209,34 @@
   </div>
 </div>
 
+<div class="modal animation" id="viewUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-div">
+          <!--<div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>-->
+          <div class="modal-body pb-0">
+              <app-data-table-usuario *ngIf="id" [id]="this.id"></app-data-table-usuario>
+          </div>
+          <div class="modal-footer py-0">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" (click)="getPage()">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!--<div class="modal animation" id="deleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-div">
+          <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body pb-0">
+              <app-delete-usuario [id]="this.id"></app-delete-usuario>
+          </div>
+          <div class="modal-footer py-0">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" (click)="getPage()">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>-->

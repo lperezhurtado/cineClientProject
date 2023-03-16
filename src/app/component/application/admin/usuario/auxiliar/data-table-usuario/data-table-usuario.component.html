@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped" *ngIf="usuario">
+<!--<table class="table table-bordered table-striped" *ngIf="usuario">
   <tbody>
       <tr>
           <th>Id</th>
@@ -29,5 +29,27 @@
           <td>{{usuario.tipousuario.id}}-{{usuario.tipousuario.nombre}}</td>
       </tr>
   </tbody>
-</table>
+</table>-->
+
+<div class="container-lg" *ngIf="usuario">
+  <div class="text-center">
+    <i class="pi pi-user" style="font-size: 3rem;"></i>
+    <div class="login">
+      {{usuario.login}} ({{usuario.tipousuario.nombre}})
+    </div>
+  </div>
+  <div class="datas">
+    <p><b>ID:</b> {{usuario.id}}</p>
+    <p>{{usuario.nombre}} {{usuario.apellido1}} {{usuario.apellido2}}</p>
+    <p>
+      <i class="pi pi-id-card me-1"></i>
+      {{usuario.dni}}
+    </p>
+    <p>
+      <i class="pi pi-envelope me-1"></i>
+      {{usuario.email}}</p>
+    <p *ngIf="usuario.facturasCount !== 0"><b>{{usuario.facturasCount}}</b> Facturas</p>
+    <p *ngIf="usuario.facturasCount === 0">Sin facturas</p>
+  </div>
+</div>
 

@@ -24,9 +24,17 @@ export class DataTableUsuarioComponent implements OnInit {
     this.usuarioService.getUsuario(this.id).subscribe({
       next: (data: UsuarioInterface) => {
         this.usuario = data;
-        console.log(this.usuario);
+        //console.log(this.usuario);
       }
     });
   }
+
+  ngOnChanges() {   //ha permitido meter el view en un modal
+    this.getUsuario();
+  }
+
+  /*changeID(ev:any) {
+    this.id = ev.target.value;
+  }*/
 
 }

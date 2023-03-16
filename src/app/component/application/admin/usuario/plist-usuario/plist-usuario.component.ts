@@ -26,6 +26,12 @@ export class PlistUsuarioComponent implements OnInit {
   sortField: string = "";
   sortDirection: string = "";
 
+   //modals
+   mimodal: string = "miModal";
+   myModal: any;
+   modalTitle: string = "";
+   modalContent: string = "";
+
   constructor(
     private usuarioService: UsuarioService,
     private activatedRoute: ActivatedRoute,
@@ -37,7 +43,6 @@ export class PlistUsuarioComponent implements OnInit {
   }
 
   getPage() {
-
     //console.log("localstorage: ",localStorage.getItem("usuario"));
 
     this.usuarioService.getUsuarioPlist(this.page, this.numberOfElements,
@@ -108,7 +113,27 @@ export class PlistUsuarioComponent implements OnInit {
     this.getPage();
   }
 
+  /*showModal = () => {
+    this.myModal = new bootstrap.Modal(document.getElementById(this.mimodal), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    var myModalEl = document.getElementById(this.mimodal);
+    if (myModalEl) {
+       myModalEl.addEventListener('hidden.bs.modal', (event): void => {
 
+      this.router.navigate(['/admin/usuario/view/', this.id])
+      });
+    }
+    this.myModal.show()
+  }*/
+  id!: number;
+  openModalView(id: number): void {
+    this.id = id;
+    this.myModal = new bootstrap.Modal(document.getElementById('viewUser'), { //pasar el myModal como parametro
+      keyboard: false
+    });
+    this.myModal.show();
+  }
 
   generar(cantidad: number) {
     this.usuarioService.generateUsuario(cantidad).subscribe({

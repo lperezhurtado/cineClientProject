@@ -34,6 +34,7 @@ export class PlistTipousuarioComponent implements OnInit {
       next: (resp : TipoUsuarioResponse) =>{
         this.pListContent = resp.content;
         this.pagesCount = resp.totalPages;
+        console.log(resp);
       },
       error: (err: HttpErrorResponse) =>{
         console.log(err);

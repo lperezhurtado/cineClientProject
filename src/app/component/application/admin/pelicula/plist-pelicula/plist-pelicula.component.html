@@ -1,6 +1,127 @@
 <app-menu></app-menu>
 
-<div class="contenedor mt-3 mx-3" style="height:10vw;" *ngIf="resp">
+<div class="contenedor" *ngIf="resp">
+  <h2 class="text-center mt-4 mb-3">Gestión de Películas</h2>
+
+  <div class="btn-new-delete-pelicula py-2">
+    <a [routerLink]="['/admin/pelicula/create']" class="btn btn-outline-primary mx-2">
+      <i class="pi pi-plus me-1"></i>
+      Nueva película
+    </a>
+    <a [routerLink]="['/admin/pelicula/create']" class="btn btn-outline-danger mx-2">
+      <i class="pi pi-times me-1"></i>
+      Borrar sel.
+    </a>
+  </div>
+
+  <div class="pagination-div">
+    <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages" (eePage)="setPage($event)"></app-pagination-unrouted>
+
+    <app-dropdown-register-page class="ms-2" [PageSize]="resp.size" (eeRpp)="this.setRpp($event)"></app-dropdown-register-page>
+
+    <app-search-unrouted [placeHolder]="'Buscar película'" class="search" (onSearch)="setFilter( $event )"></app-search-unrouted>
+  </div>
+
+  <div class="table-container">
+    <table class="table">
+      <thead class="">
+        <tr>
+          <th style="cursor: default;">
+            <div class="checkbox-wrapper-39">
+              <label>
+                <input type="checkbox" id="masterCheckbox">
+                <span class="checkbox"></span>
+              </label>
+            </div>
+        </th>
+          <th (click)="setOrder('id')">
+            <i id="id" class="pi pi-sort-alt"></i>
+            <!--<i *ngIf="this.sortField == 'id' && this.sortDirection == 'asc'" class="pi pi-sort-numeric-down"></i>
+            <i *ngIf="this.sortField == 'id' && this.sortDirection == 'desc'" class="pi pi-sort-numeric-up"></i>-->
+            ID
+          </th>
+          <th (click)="setOrder('')">
+            <i id="nombre" class="pi pi-sort-alt"></i>
+            Portada
+          </th>
+          <th (click)="setOrder('titulo')">
+            <i id="titulo" class="pi pi-sort-alt"></i>
+            Título
+          </th>
+          <th (click)="setOrder('genero')">
+            <i id="genero" class="pi pi-sort-alt"></i>
+            Género
+          </th>
+          <th (click)="setOrder('year')">
+            <i id="year" class="pi pi-sort-alt"></i>
+            Año
+          </th>
+          <th (click)="setOrder('duracion')">
+            <i id="duracion" class="pi pi-sort-alt"></i>
+            Duración
+          </th>
+          <th (click)="setOrder('director')">
+            <i id="director" class="pi pi-sort-alt"></i>
+            Director
+          </th>
+          <th (click)="setOrder('')">
+            <i id="especial" class="pi pi-sort-alt"></i>
+            V. Especial
+          </th>
+          <th style="cursor: default;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pelicula of resp?.content">
+          <td style="cursor: default;">
+            <div class="checkbox-wrapper-39">
+              <label>
+                <input type="checkbox"/>
+                <span class="checkbox"></span>
+              </label>
+            </div>
+          </td>
+          <td>{{pelicula.id}}</td>
+          <td><a [routerLink]="['/admin/pelicula/view',pelicula.id]"><img style="width: 100px; height: 140px;" [src]="getURLimage(pelicula.imagen)" alt="portada pelicula"></a></td>
+          <td>{{pelicula.titulo}}</td>
+          <td (click)="setIDGenero(pelicula.genero.id)">{{pelicula.genero.nombre}}</td>
+          <td>{{pelicula.year}}</td>
+          <td>{{pelicula.duracion}}</td>
+          <td>{{pelicula.director}}</td>
+          <td>
+            <i *ngIf="pelicula.versionEspecial" class="pi pi-check"></i>
+            <i *ngIf="!pelicula.versionEspecial" class="pi pi-times"></i>
+          </td>
+          <td>
+
+            <div class="btn-group" role="group" aria-label="Herramientas">
+              <button class="btn btn-md mx-2 btn-outline-success view" [routerLink]="['/admin/pelicula/view',pelicula.id]"><!--(click)="openModalView(usuario.id)"-->
+                <i id="id" class="pi pi-eye" style="font-size: 1.5rem"></i>
+              </button>
+              <button class="btn btn-md mx2 edit" [routerLink]="['/admin/pelicula/update',pelicula.id]">
+                <i id="id" class="pi pi-file-edit" style="font-size: 1.5rem"></i>
+              </button>
+              <button class="btn btn-md mx-2 btn-outline-danger delete" [routerLink]="['/admin','pelicula','delete',pelicula.id]">
+                <i id="id" class="pi pi-trash" style="font-size: 1.5rem"></i>
+              </button>
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+      <caption class="mt-1">Total {{resp.totalElements}}</caption>
+    </table>
+  </div>
+
+  <div class="pagination-div">
+    <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages" (eePage)="setPage($event)"></app-pagination-unrouted>
+
+    <app-dropdown-register-page class="ms-2" [PageSize]="resp.size" (eeRpp)="this.setRpp($event)"></app-dropdown-register-page>
+  </div>
+</div>
+
+<!--===============================================================-->
+<!--<div class="contenedor mt-3 mx-3" style="height:10vw;" *ngIf="resp">
 
   <div class="cabecera mb-3 pb-2">
     <h1>Gestión de Peliculas</h1>
@@ -31,7 +152,7 @@
         <thead>
           <tr>
             <th (click)="setOrder('id')">ID</th>
-            <th >Portada</th><!--OPCIONAL, MIRAR SI SE PUEDE-->
+            <th >Portada</th>
             <th (click)="setOrder('titulo')">Titulo</th>
             <th >Género</th>
             <th (click)="setOrder('year')">Año</th>
@@ -51,7 +172,7 @@
             <td (click)="setIDGenero(pelicula.genero.id)">
               {{pelicula.genero.id}}-{{pelicula.genero.nombre}}
             </td>
-            <td>{{pelicula.year}}</td><!--AÑO-->
+            <td>{{pelicula.year}}</td>
             <td>{{pelicula.duracion}} min.</td>
             <td>{{pelicula.director}}</td>
             <td>{{pelicula.versionNormal}}</td>
@@ -75,7 +196,7 @@
         </tbody>
         <caption>Total {{resp.totalElements}}</caption>
       </table>
-      <div class="paginaPie" *ngIf="resp.numberOfElements >= 5"><!--*ngIf="Rpp >= 10 && resp.numberOfElements >= 10"-->
+      <div class="paginaPie" *ngIf="resp.numberOfElements >= 5">  <!-*ngIf="Rpp >= 10 && resp.numberOfElements >= 10"
         <app-pagination-unrouted [nPage]="resp.number + 1" [nTotalPages]="resp.totalPages"
             (eePage)="setPage($event)">
         </app-pagination-unrouted>
@@ -89,4 +210,4 @@
 
 
   </div>
-</div>
+</div>-->
